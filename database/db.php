@@ -1,8 +1,8 @@
 <?php
-   $host        = "host = localhost";
+   $host        = "host =localhost";
 
 $port        = "port = 5432";
-   $dbname      = "dbname = gashub";
+   $dbname      = "dbname =gashub";
    $credentials = "user = postgres password=Alo@13121996";
 
    $db = pg_connect( "$host $port $dbname $credentials"  );
@@ -12,8 +12,4 @@ $port        = "port = 5432";
 else {
        //echo "connected database successfully\n";
 }
-?>
-//else {
-//       echo "connected database successfully\n";
-//    }
 ?>
