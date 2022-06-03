@@ -1,0 +1,11 @@
+<?php
+$loginfo=0;
+if(isset($_SESSION["admin"]))
+{
+		$loginfo=1;
+}
+else
+{
+	$loginfo=0;
+}
+?>
