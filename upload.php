@@ -7,7 +7,6 @@ $backlink='<a href="./">Go back</a>';
 $tagetDir='/uploads/banners/';
 $fileName=basename($_FILES['file']['name']);
 $targetfilePath=$tagetDir .$fileName;
-echo $targetfilePath;
 $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
 
 if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
@@ -15,7 +14,7 @@ if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
   $allowtype=array('jpg','png','jpeg','gif','pdf');
 if(!file_exists($targetfilePath)){
   if(in_array($filetype,$allowtype)){
-    $statusmsg='$targetfilePath';
+    echo move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath);
     if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath)){
 
       $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
