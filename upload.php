@@ -7,8 +7,8 @@ $backlink='<a href="./">Go back</a>';
 $tagetDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
 $fileName=basename($_FILES['file']['name']);
- $targetfilePath=$tagetDir .$fileName;
-echo  $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
+ echo $targetfilePath=$tagetDir .$fileName;
+ $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
 
 if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
 {
