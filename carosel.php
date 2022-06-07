@@ -31,8 +31,10 @@ if(isset($_POST['submit']))
   $fileName=$_FILES['file']['name'];
   $tmpName=$_FILES['file']['tmp_name'];
   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
+  $file='gashub.amicodevelopment.net/uploads/banners/';
+function path2url($file, $Protocol='http://') {
+    $UploadDir=return $Protocol.$_SERVER['HTTP_HOST'].str_replace($_SERVER['DOCUMENT_ROOT'], '', $file);
 
-$UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
   $filePath=$UploadDir.$fileName;
   $result = move_uploaded_file($tmpName, $filePath); 
   if($result){
