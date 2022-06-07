@@ -28,8 +28,8 @@ include_once 'database/db.php';
 
 if(isset($_POST['submit']))
 {
-  $err='1';
-//   $fileName=$_FILES['file']['name'];
+   $fileName=$_FILES['file']['name'];
+   $err=$fileName;
 //   $tmpName=$_FILES['file']['tmp_name'];
 //   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
