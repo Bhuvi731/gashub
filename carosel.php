@@ -30,7 +30,7 @@ if(isset($_POST['submit']))
 {
   $fileName=$_FILES['file']['name'];
   $tmpName=$_FILES['file']['tmp_name'];
-  $UploadDir='http://15.206.74.120/uploads/banners/';
+  $UploadDir='http://gashub.amicodevelopment.net/api/uploads/banners/';
 
 
   $filePath=$UploadDir.$fileName;
