@@ -4,7 +4,7 @@ include_once 'database/db.php';
 
 $statusmsg='';
 $backlink='<a href="./">Go back</a>';
-$tagetDir='/uploads/banners/';
+$tagetDir='/var/www/html/gasahub/uploads/banners/';
 $fileName=basename($_FILES['file']['name']);
 $targetfilePath=$tagetDir .$fileName;
 $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
@@ -15,7 +15,6 @@ if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
 if(!file_exists($targetfilePath)){
   if(in_array($filetype,$allowtype)){
     $string=move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath);
-    echo $string;
     if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath)){
 
       $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
