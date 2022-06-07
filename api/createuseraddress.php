@@ -20,10 +20,10 @@ $country=$_POST['country'];
 $pincode=$_POST['pincode'];
 $latitude=$_POST['latitude'];
 $longitude=$_POST['longitude'];
-$status=$_POST['status'];
+$status="1";
 $createdby="1";
-if(!empty($name) && !empty($addressline1) &&  !empty($addressline2) && 
-!empty($city) && !empty($landmark) && !empty($district) &&  !empty($state) &&  !empty($country) && !empty($pincode) && !empty($latitude) && !empty($longitude) &&
+if(!empty($name) && !empty($addressline1) && 
+!empty($city) && !empty($landmark) && !empty($district) &&  !empty($state) &&  !empty($country) && !empty($pincode)  &&
 !empty($status)){ 
 
         $userrow= pg_query($db,"select * from users order by id desc");
