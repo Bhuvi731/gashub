@@ -34,7 +34,7 @@ if(isset($_POST['submit']))
 
 $UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
 $err=$UploadDir;
-die();
+
   $filePath=$UploadDir.$fileName;
   $result = move_uploaded_file($tmpName, $filePath); 
   if($result){
