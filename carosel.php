@@ -30,9 +30,9 @@ if(isset($_POST['submit']))
 {
   $fileName=$_FILES['file']['name'];
   $tmpName=$_FILES['file']['tmp_name'];
-  $UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
+  //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
-
+$UploadDir = $_SERVER['DOCUMENT_ROOT'] . "http://gashub.amicodevelopment.net/uploads/banners/";
   $filePath=$UploadDir.$fileName;
   $result = move_uploaded_file($tmpName, $filePath); 
   if($result){
