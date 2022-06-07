@@ -4,7 +4,7 @@ include_once 'database/db.php';
 
 $statusmsg='';
 $backlink='<a href="./">Go back</a>';
-$tagetDir='http://gashub.amicodevelopment.net:3000/uploads/banners/';
+$tagetDir='http://gashub.amicodevelopment.net:5432/uploads/banners/';
 
 $fileName=basename($_FILES['file']['name']);
 $targetfilePath=$tagetDir .$fileName;
