@@ -28,27 +28,27 @@ include_once 'database/db.php';
 
 if(isset($_POST['submit']))
 {
-  $fileName=$_FILES['file']['name'];
-  $tmpName=$_FILES['file']['tmp_name'];
-  //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
+  $err='1';
+//   $fileName=$_FILES['file']['name'];
+//   $tmpName=$_FILES['file']['tmp_name'];
+//   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
-$UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
-$err=$UploadDir;
-
-  $filePath=$UploadDir.$fileName;
-  $result = move_uploaded_file($tmpName, $filePath); 
-  if($result){
-  $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
- $query=pg_query($db,$sql);
-if($query){
-    $err="Uploaded Successfully";
-   }else{
-    $err="error";
-  }
+// $UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
+// $err=$UploadDir;
+//   $filePath=$UploadDir.$fileName;
+//   $result = move_uploaded_file($tmpName, $filePath); 
+//   if($result){
+//   $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
+//  $query=pg_query($db,$sql);
+// if($query){
+//     $err="Uploaded Successfully";
+//    }else{
+//     $err="error";
+//   }
   
-  }else{
-    $err="Error";
-  }
+//   }else{
+//     $err="Error";
+//   }
  
   }
 
