@@ -5,9 +5,9 @@ include_once 'database/db.php';
 $statusmsg='';
 $backlink='<a href="./">Go back</a>';
 $tagetDir='/uploads/banners/';
-echo $tagetDir;
 $fileName=basename($_FILES['file']['name']);
 $targetfilePath=$tagetDir .$fileName;
+echo $targetfilePath;
 $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
 
 if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
