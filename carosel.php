@@ -28,33 +28,18 @@ include_once 'database/db.php';
 
 if(isset($_POST['submit']))
 {
+  $fileName=$_FILES['file']['name'];
+  $tmpName=$_FILES['file']['tmp_name'];
+  //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
-  $i=0;
-$count=0;             
-foreach ($_FILES['file']['name'] as $filename) 
-{
-    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads/banners/";
-
-    if(file_exists($upload_dir.$filename))
-    {
-        echo "That File Already Exist";
-        break;
-    }
-    else
-    {
-        $tmp = $_FILES['file']['tmp_name'][$count];
-        $count++;
-        $i++;
-
-        $target = $upload_dir.basename($filename);
-
-        if (is_dir($upload_dir) && is_writable($upload_dir)) {
-            move_uploaded_file($tmp,$target);
-
-            $sql ="INSERT INTO banner_images(images) VALUES('".$fileName."')";
-            $query=pg_query($db,$sql);
-            if ($query){
-            $err="Uploaded Successfully";
+$UploadDir = $_SERVER['HTTP_HOST'] ."http://gashub.amicodevelopment.net/uploads/banners/";
+  $filePath=$UploadDir.$fileName;
+  $result = move_uploaded_file($tmpName, $filePath); 
+  if($result){
+  $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
+ $query=pg_query($db,$sql);
+if($query){
+    $err="Uploaded Successfully";
    }else{
     $err="error";
   }
@@ -62,28 +47,9 @@ foreach ($_FILES['file']['name'] as $filename)
   }else{
     $err="Error";
   }
-}
-}
+ 
   }
-//   $fileName=$_FILES['file']['name'];
-//   $tmpName=$_FILES['file']['tmp_name'];
-//   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
-// $UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
-//   $filePath=$UploadDir.$fileName;
-//   $result = move_uploaded_file($tmpName, $filePath); 
-//   if($result){
-//   $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
-//  $query=pg_query($db,$sql);
-// if($query){
-//     $err="Uploaded Successfully";
-//    }else{
-//     $err="error";
-//   }
-  
-//   }else{
-//     $err="Error";
-//   }
 
 ?>
 <br>
