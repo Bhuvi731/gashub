@@ -4,11 +4,11 @@ include_once 'database/db.php';
 
 $statusmsg='';
 $backlink='<a href="./">Go back</a>';
-echo $tagetDir='http://gashub.amicodevelopment.net/uploads/banners/';
+$tagetDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
-echo $fileName=basename($_FILES['file']['name']);
+$fileName=basename($_FILES['file']['name']);
  $targetfilePath=$tagetDir .$fileName;
- $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
+echo  $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
 
 if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
 {
