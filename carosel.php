@@ -34,8 +34,8 @@ if(isset($_POST['submit']))
 
  $UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
    $filePath=$UploadDir.$fileName;
-   $err=$filePath;
-//   $result = move_uploaded_file($tmpName, $filePath); 
+     $result = move_uploaded_file($tmpName, $filePath); 
+     $err=$result;
 //   if($result){
 //   $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
 //  $query=pg_query($db,$sql);
