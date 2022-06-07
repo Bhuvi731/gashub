@@ -31,7 +31,7 @@ if(isset($_POST['submit']))
   $fileName=$_FILES['file']['name'];
   $tmpName=$_FILES['file']['tmp_name'];
   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
-define('PATH_IMAGES_FS', '/var/www/html/gashub/uploads/banners/');
+define('PATH_IMAGES_FS', 'gashub.amicodevelopment.net/uploads/banners/');
 //$UploadDir = $_SERVER['HTTP_HOST'] ."http://gashub.amicodevelopment.net/uploads/banners/";
   $filePath=PATH_IMAGES_FS.$fileName;
   $result = move_uploaded_file($tmpName, $filePath); 
