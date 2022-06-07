@@ -33,8 +33,8 @@ if(isset($_POST['submit']))
 //   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
  $UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
- $err=$UploadDir;
-//   $filePath=$UploadDir.$fileName;
+   $filePath=$UploadDir.$fileName;
+   $err=$filePath;
 //   $result = move_uploaded_file($tmpName, $filePath); 
 //   if($result){
 //   $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
