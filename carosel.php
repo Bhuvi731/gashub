@@ -30,10 +30,11 @@ if(isset($_POST['submit']))
 {
   $fileName=$_FILES['file']['name'];
   $tmpName=$_FILES['file']['tmp_name'];
- define('HTTP_SERVER','http://gashub.amicodevelopment.net/'); 
-  $UploadDir="'.HTTP_SERVER.'/uploads/banners/";
-//$path = $_SERVER['gashub.amicodevelopment.net'] . $_SERVER['PHP_SELF'];
-//$UploadDir = str_replace($_SERVER['HTTP_HOST'] . "/uploads/banners/");
+  //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
+
+$UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
+$err=$UploadDir;
+die();
   $filePath=$UploadDir.$fileName;
   $result = move_uploaded_file($tmpName, $filePath); 
   if($result){
