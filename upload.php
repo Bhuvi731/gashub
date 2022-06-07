@@ -1,0 +1,73 @@
+<?php
+include_once 'database/db.php';
+
+
+$statusmsg='';
+$backlink='<a href="./">Go back</a>';
+$tagetDir='/uploads/banners/';
+$fileName=basename($_FILES['file']['name']);
+$targetfilePath=$tagetDir .$fileName;
+$filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
+
+if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
+{
+  $allowtype=array('jpg','png','jpeg','gif','pdf');
+if(!file_exists($targetfilePath)){
+  if(in_array($filetype,$allowtype)){
+    if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath)){
+
+      $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
+ $insert=pg_query($db,$sql);
+if($insert){
+       
+  $statusmsg="The file <b>".$fileName."</b>has been Successfully Uploaded".$backlink;
+       
+}else{
+   $statusmsg=' file upload failed, please try again.'.$backlink;
+}
+
+    }else{
+      $statusmsg='sorry,there is an error uploading your file.'.$backlink;
+    }
+  }else{
+    $statusmsg='sorry,only JPG,JPEG,GIF and PDF files are allowed to upload.'.$backlink;
+  }
+}else{
+  $statusmsg="The file <b>".$fileName."</b>is already exist".$backlink;
+}
+}else{
+  $statusmsg='please select a file to upload.'.$backlink;
+}
+
+echo $statusmsg;
+
+
+
+
+
+
+
+
+
+
+if(isset($_POST['submit'])
+{
+  $fileName=$_FILES['file']['name'];
+  $tmpName=$_FILES['file']['tmp_name'];
+  $UploadDir = $_SERVER['HTTP_HOST'] . "/gash/uploads/banners/";
+  $filePath=$UploadDir.$fileName;
+  $result = move_uploaded_file($tmpName,$filePath); 
+  if($result){
+  $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
+ $query=pg_query($db,$sql);
+if($query){
+    echo"Uploaded Successfully";
+  }else{
+    echo"error";
+  }
+  
+  }else{
+    echo"Error";
+  }
+  }
+?>
