@@ -4,7 +4,7 @@ include_once 'database/db.php';
 
 $statusmsg='';
 $backlink='<a href="./">Go back</a>';
-$tagetDir='http://gashub.amicodevelopment.net:5432/uploads/banners/';
+$tagetDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
 $fileName=basename($_FILES['file']['name']);
 $targetfilePath=$tagetDir .$fileName;
@@ -16,7 +16,6 @@ if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
 if(!file_exists($targetfilePath)){
   if(in_array($filetype,$allowtype)){
     if($string=move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath)){
-echo $string;
       $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
  $insert=pg_query($db,$sql);
 if($insert){
