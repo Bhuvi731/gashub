@@ -28,7 +28,7 @@ include_once 'database/db.php';
 
 if(isset($_POST['submit']))
 {
-   $fileName=$_FILES['file']['name'];
+   //$fileName=$_FILES['file']['name'];
    //$tmpName=$_FILES['file']['tmp_name'];
 //   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
