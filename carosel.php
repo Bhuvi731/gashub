@@ -62,9 +62,9 @@ foreach ($_FILES['file']['name'] as $filename)
   }else{
     $err="Error";
   }
-
-
-
+}
+}
+  }
 //   $fileName=$_FILES['file']['name'];
 //   $tmpName=$_FILES['file']['tmp_name'];
 //   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
@@ -84,7 +84,7 @@ foreach ($_FILES['file']['name'] as $filename)
 //   }else{
 //     $err="Error";
 //   }
-  }
+
 ?>
 <br>
 <br> 
