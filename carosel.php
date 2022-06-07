@@ -69,7 +69,7 @@ foreach ($_FILES['file']['name'] as $filename)
 //   $tmpName=$_FILES['file']['tmp_name'];
 //   //$UploadDir='http://gashub.amicodevelopment.net/uploads/banners/';
 
-// $UploadDir = $_SERVER['document_root'] . "/uploads/banners/";
+// $UploadDir = $_SERVER['HTTP_HOST'] . "/uploads/banners/";
 //   $filePath=$UploadDir.$fileName;
 //   $result = move_uploaded_file($tmpName, $filePath); 
 //   if($result){
