@@ -14,7 +14,8 @@ if(isset($_POST['submit']) && !empty($_FILES['file']['name']))
   $allowtype=array('jpg','png','jpeg','gif','pdf');
 if(!file_exists($targetfilePath)){
   if(in_array($filetype,$allowtype)){
-    echo move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath);
+    $string=move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath);
+    echo $string;
     if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfilePath)){
 
       $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
