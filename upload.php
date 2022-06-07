@@ -5,7 +5,7 @@ include_once 'database/db.php';
 $statusmsg='';
 $backlink='<a href="./">Go back</a>';
 $tagetDir='/uploads/banners/';
-$statusmsg=$tagetDir;
+echo $tagetDir;
 $fileName=basename($_FILES['file']['name']);
 $targetfilePath=$tagetDir .$fileName;
 $filetype= pathinfo($targetfilePath,PATHINFO_EXTENSION);
