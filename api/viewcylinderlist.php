@@ -7,7 +7,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
 
-$sql=pg_query($db,"SELECT products.id,products.cylindertypeid,products.cylinderweightid,products.location,products.price,products.status,products.vendorid,products.createdby,products.createdat,products.updatedby,products.updatedat,cylindertype.type,cylinderweight.weight,vendors.businessname,petroleum.id,petroleum.petroleum_name FROM products LEFT JOIN  cylindertype on cylindertype.id = products.cylindertypeid left join cylinderweight on cylinderweight.id =products.cylinderweightid left join vendors on vendors.id = products.vendorid left join petroleum on petroleum.id = products.petroleumid where products.id and products.status=1");
+$sql=pg_query($db,"SELECT products.id,products.cylindertypeid,products.cylinderweightid,products.location,products.price,products.status,products.vendorid,products.createdby,products.createdat,products.updatedby,products.updatedat,cylindertype.type,cylinderweight.weight,vendors.businessname,petroleum.petroleum_name FROM products LEFT JOIN  cylindertype on cylindertype.id = products.cylindertypeid left join cylinderweight on cylinderweight.id =products.cylinderweightid left join vendors on vendors.id = products.vendorid left join petroleum on petroleum.id = products.petroleumid where products.status=1");
 $my=array();
  if($sql){
    //var_dump($sql); 
