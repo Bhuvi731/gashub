@@ -500,7 +500,7 @@ $(document).ready(function(){
      alert(deleteid);
     $.ajax({
       type:"POST",
-      url:"api/deletecylinder.php",
+      url:"http://gashub.amicodevelopment.net/api/deletecylinder.php",
       data:
       {
         "deleteid":deleteid,
