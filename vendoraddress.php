@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="assets/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -163,6 +162,12 @@
 </div>
 
 <div class="card-body ">
+<section>
+<div style="margin:auto;">
+   <label style="color: #0054A8;" for="">SEARCH :</label>
+<input id="myInput" type="text" placeholder="Search..">
+</div>
+</section>
 <table id="example2" class="table table-bordered ">
 <thead>
 <tr>
@@ -184,9 +189,9 @@
 <th>Action</th>
 </tr>
 </thead>
-<tbody>
+<tbody id="myTable">
 <?php
-$vendor=pg_query($db,"SELECT vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.id WHERE vendoraddresses.status=1");
+$vendor=pg_query($db,"SELECT vendors.id, vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.id WHERE vendoraddresses.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
@@ -431,9 +436,7 @@ if($row['createdby']==1)
 </div>
 
 </section>
-
 <script src="plugins/jquery/jquery.min.js"></script>
-
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -445,6 +448,16 @@ if($row['createdby']==1)
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script src="plugins/toastr/toastr.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 <script>
   $(function () {
     
@@ -538,7 +551,7 @@ if($row['createdby']==1)
       alert("longitude must be filled out");
       return false;
     }
-    else if(status == "Status")
+    else if(status == "")
     {
       alert("status must be filled out");
       return false;
@@ -546,7 +559,7 @@ if($row['createdby']==1)
     else if(name !== "" && businessname !== "" && addressline1 !== "" && addressline2 !== "" && city !== "" && landmark !== "" && district !== "" && state !== "" && country !== "" && pincode !== "" && latitude !== "" && longitude !== "" && status !== "" )
     {
       $.ajax({
-      url:"http://localhost:8080/gash/api/createvenderadress",
+      url:"api/createvendoraddress.php",
       method:"POST",
       dataType: "json",
       data: {
@@ -618,7 +631,7 @@ if($row['createdby']==1)
     });
     Toast.fire({
         icon: 'success',
-        title: 'Registration Successfully.'
+        title: 'Vendor Added Successfully.'
       })
           setTimeout(function () {
        
@@ -646,77 +659,77 @@ if($row['createdby']==1)
   }
 
 
-  function editsave(id)
-  {
-    var courseid=id;
-    var course = $("#course"+id).val();
-    var status = $("#status"+id).val();
-    var course_credit_hour = $("#course_credit_hour"+id).val();
-    var course_code = $("#course_code"+id).val();
-    if (course == "") {
-      alert("Name must be filled out");
-      return false;
-    }
-    else if(status == "Status")
-    {
-      alert("Status must be filled out");
-      return false;
-    }
-    if (course_credit_hour == "") {
-      alert("Hour must be filled out");
-      return false;
-    }
-    if (course_code == "") {
-      alert("Code must be filled out");
-      return false;
-    }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
-    {
-      $.ajax({
-      type:"GET",
-      url:"mastercourse.php",
-      data:
-      {
-        "id":courseid,
-        "course":course,
-        "status":status,
-        "course_credit_hour":course_credit_hour,
-        "course_code":course_code,
-      },
-      success:function(msg)
-      {
-        console.log(msg);
-        if(msg=="success")
-        {
+  // function editsave(id)
+  // {
+  //   var courseid=id;
+  //   var course = $("#course"+id).val();
+  //   var status = $("#status"+id).val();
+  //   var course_credit_hour = $("#course_credit_hour"+id).val();
+  //   var course_code = $("#course_code"+id).val();
+  //   if (course == "") {
+  //     alert("Name must be filled out");
+  //     return false;
+  //   }
+  //   else if(status == "Status")
+  //   {
+  //     alert("Status must be filled out");
+  //     return false;
+  //   }
+  //   if (course_credit_hour == "") {
+  //     alert("Hour must be filled out");
+  //     return false;
+  //   }
+  //   if (course_code == "") {
+  //     alert("Code must be filled out");
+  //     return false;
+  //   }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
+  //   {
+  //     $.ajax({
+  //     type:"GET",
+  //     url:"mastercourse.php",
+  //     data:
+  //     {
+  //       "id":courseid,
+  //       "course":course,
+  //       "status":status,
+  //       "course_credit_hour":course_credit_hour,
+  //       "course_code":course_code,
+  //     },
+  //     success:function(msg)
+  //     {
+  //       console.log(msg);
+  //       if(msg=="success")
+  //       {
           
-          editsuccess();
+  //         editsuccess();
           
           
-        }else{
+  //       }else{
 
-        }
-      }
-    })
-    }
-  }
+  //       }
+  //     }
+  //   })
+  //   }
+  // }
 
-  function editsuccess()
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'success',
-            title: 'Course Edit Successfully.'
-          })
-          setTimeout(function () {
+  // function editsuccess()
+  // {
+  //   var Toast = Swal.mixin({
+  //     toast: true,
+  //     position: 'top-end',
+  //     showConfirmButton: false,
+  //     timer: 5000
+  //   });
+  //   Toast.fire({
+  //           icon: 'success',
+  //           title: 'Course Edit Successfully.'
+  //         })
+  //         setTimeout(function () {
         
-        location.reload(true);
-      }, 1000);
+  //       location.reload(true);
+  //     }, 1000);
           
-  }
+  // }
 
   function deleterecord(id)
   {
@@ -724,7 +737,7 @@ if($row['createdby']==1)
     var deleteid=id;
     $.ajax({
       type:"POST",
-      url:"http://localhost:8080/gash/api/deletevenderadress",
+      url:"api/deletevenderadress.php",
       data:
       {
         
