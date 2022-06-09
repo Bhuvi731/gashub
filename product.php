@@ -382,7 +382,7 @@ var status=$("#status").val();
      }else if(location !== "" && price !== "" && status !== "" )
   {
      $.ajax({
-       url:"api/createproduct.php",
+       url:"http://gashub.amicodevelopment.net/api/createproduct.php",
        method:"POST",
        dataType:"json",
        data: {
@@ -476,7 +476,7 @@ var status=$("#status").val();
     {
       $.ajax({
       type:"POST",
-      url:"http://gashub.amicodevelopment.net/api/createproduct.php",
+      url:"api/createproduct.php",
       data:
       {
         "id":courseid,
