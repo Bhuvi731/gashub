@@ -701,7 +701,7 @@ $(document).ready(function(){
     var deleteid=id;
     $.ajax({
       type:"POST",
-      url:"api/deleteuseraddress.php",
+      url:"http://gashub.amicodevelopment.net/api/ deleteuseraddress.php",
       data:
       {
         
