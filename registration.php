@@ -1,6 +1,9 @@
 <!-- <?php
 // $db = pg_connect("host=localhost port=5432 dbname=gashub user=postgres password=postgres");
 ?> -->
+<?php
+require('database/db.php');
+?>
 <link rel="stylesheet" href="assets/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -87,16 +90,16 @@
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleInputEmail1">DateofBirth</label>
-<input type="y-m-d" class="form-control" id="dateofbirth" placeholder="Enter Date of Birth" name="dob">
+<input type="date" class="form-control" id="dateofbirth" placeholder="Enter Date of Birth" name="dob">
 </div>
 </div>
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Status</label>
-<select class="custom-select" id="status" name="status">
-<option>Status</option>
-<option value="1">Active</option>
-<option value="2">InActive</option>
+<select class="custom-select" id="status<?php echo $row['id'];?>" name="status">
+<option value="">Status</option>
+<option value="1" <?php if($row['status']=="1") echo "Selected"?>>Active</option>
+<option value="-1" <?php if($row['status']=="-1") echo "Selected"?>>InActive</option>
 </select>
 </div>
 </div>
@@ -105,7 +108,7 @@
 </div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<button type="button" class="btn btn-primary" id="submit" name="submit" onclick="save()">Save changes</button>
+<button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button>
 </div>
 </div>
 
@@ -127,6 +130,12 @@
 </div>
 
 <div class="card-body">
+<section>
+<div style="margin-left:auto;">
+   <label style="color: #0054A8;" for="">SEARCH :</label>
+<input id="myInput" type="text" placeholder="Search..">
+</div>
+</section>
 <table id="example2" class="table table-bordered table-hover">
 <thead>
 <tr>
@@ -143,7 +152,7 @@
 <th>Action</th>
 </tr>
 </thead>
-<tbody>
+<tbody id="myTable">
 <?php
 
 $user=pg_query($db,"SELECT id,firstname,lastname,phone,email,gender,dateofbirth,status,createdby,createdat,updatedat,updatedby,password FROM users WHERE status=1");
@@ -413,7 +422,6 @@ if($row['createdby']==1)
 
 </section>
 <script src="plugins/jquery/jquery.min.js"></script>
-
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -425,6 +433,16 @@ if($row['createdby']==1)
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script src="plugins/toastr/toastr.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 <script>
   $(function () {
     
@@ -442,15 +460,19 @@ if($row['createdby']==1)
 </script>
 <script>
   
+  
+  
   function save()
   {
     var firstname=$("#firstname").val();
     var lastname=$("#lastname").val();
     var phone=$("#phone").val();
     var email=$("#email").val();
+    var password=$("#password").val();
     var gender=$("#gender").val();
     var dateofbirth=$("#dateofbirth").val();
     var status=$("#status").val();
+
     if (firstname == "") {
       alert("Name must be filled out");
       return false;
@@ -463,6 +485,11 @@ if($row['createdby']==1)
       alert("Email must be filled out");
       return false;
     }
+    if(password =="")
+    {
+      alert("password must be filled out");
+      return false;
+    }
     if (gender == "Gender") {
       alert("Gender must be filled out");
       return false;
@@ -471,41 +498,43 @@ if($row['createdby']==1)
       alert("DOB be filled out");
       return false;
     }
-    else if(status == "Status")
+    else if(status == "")
     {
       alert("Status must be filled out");
       return false;
-    }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
+
+    }else if(firstname != "" && status !="" && phone !=="" && email !=="" && password !=="" && gender !=="" && dateofbirth !=="")
     {
-      $.ajax({
-      url:"http://localhost:8080/gash/api/create",
+      
+    $.ajax({
+      url:"api/createuser.php",
       method:"POST",
-      dataType: "text",
+      dataType:"json",
       data: {
-      firstname:firstname,
-      lastname:lastname,
-        phone:phone,
-        email:email,
-        gender:gender,
-        dateofbirth:dateofbirth,
-        status:status,
+        
+        "firstname":firstname,
+        "lastname":lastname,
+        "phone":phone,
+        "email":email,
+        "password":password,
+        "gender":gender,
+        "dateofbirth":dateofbirth,
+        "status":status,
       },
       success:function(msg)
-      {
+      {    
         console.log(msg);
         var message=msg['message'];
-        if(message=="Successfull")
-        {
-           success();  
-        }
-        else if(message=="email_existed")
-        {
-          email_existed();  
-        }
-        else{
-          error();
-        }
-      }
+        alert(message);
+      //   if(message=="Successfull")
+      //   {
+
+      //      success();  
+      //   }
+      //   else{
+      //     error();
+      //   }
+       }
     })
     }
     
@@ -551,24 +580,6 @@ if($row['createdby']==1)
         location.reload(true);
       }, 1000);
           
-  }
-  function email_existed()                                       
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'info',
-            title: 'Email already existed.'
-          })
-          setTimeout(function () {
-        //alert('Reloading Page');
-        location.reload(true);
-      }, 1000);
-          //window.location.reload();
   }
  
 
@@ -658,60 +669,53 @@ if($row['createdby']==1)
           
   // }
 
-  // function deleterecord(id)
-  // {
+  function deleterecord(id)
+  {
    
-  //   var deleteid=id;
-  //   $.ajax({
-  //     type:"POST",
-  //     url:"http://localhost:8080/gash/api/delete",
-  //     data:
-  //     {
+    var deleteid=id;
+    $.ajax({
+      type:"POST",
+      url:"api/deleteuser.php",
+      data:
+      {
         
-  //     deleteid:deleteid,
+        "deleteid":deleteid,
        
-  //     },
-  //     success:function(msg)
-  //     {
-  //       console.log(msg);
-  //       var message=msg['message'];
+      },
+      success:function(msg)
+      {
+        console.log(msg);
+        var message=msg['message'];
         
-  //       if(message=="Successfull")
-  //       {
+        if(message=="Successfull")
+        {
            
-  //         deletesuccess();
+          deletesuccess();
           
           
-  //       }else{
-  //         error();
-  //       }
-  //     }
-  //   })
-  // }
+        }else{
+          error();
+        }
+      }
+    })
+  }
 
-  // function deletesuccess()
-  // {
-  //   var Toast = Swal.mixin({
-  //     toast: true,
-  //     position: 'top-end',
-  //     showConfirmButton: false,
-  //     timer: 5000
-  //   });
-  //   Toast.fire({
-  //           icon: 'success',
-  //           title: 'Deleted Successfully.'
-  //         })
-  //         setTimeout(function () {
+  function deletesuccess()
+  {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+            icon: 'success',
+            title: 'Deleted Successfully.'
+          })
+          setTimeout(function () {
         
-  //       location.reload(true);
-  //     }, 1000);
+        location.reload(true);
+      }, 1000);
           
-  // }
+  }
 </script>
-
-
-
-
-
-
-  
