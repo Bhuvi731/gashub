@@ -476,7 +476,7 @@ var status=$("#status").val();
     {
       $.ajax({
       type:"POST",
-      url:"api/createproduct.php",
+      url:"http://gashub.amicodevelopment.net/api/createproduct.php",
       data:
       {
         "id":courseid,
