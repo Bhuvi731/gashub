@@ -146,6 +146,14 @@
 </div>
 
 </section>
+<br>
+<br>
+<section>
+<div style="margin-left:700px;">
+   <label style="color: #0054A8;" for="">SEARCH :</label>
+<input id="myInput" type="text" placeholder="Search..">
+</div>
+</section>
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
@@ -176,9 +184,9 @@
 <th>Action</th>
 </tr>
 </thead>
-<tbody>
+<tbody id="myTable">
 <?php
-$vendor=pg_query($db,"SELECT name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby,createdat,updatedat,updatedby FROM useraddresses WHERE status=1");
+$vendor=pg_query($db,"SELECT id,name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby,createdat,updatedat,updatedby FROM useraddresses WHERE status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
@@ -417,9 +425,6 @@ if($row['createdby']==1)
 </div>
 
 </section>
-
-<script src="plugins/jquery/jquery.min.js"></script>
-
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -431,6 +436,18 @@ if($row['createdby']==1)
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script src="plugins/toastr/toastr.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 <script>
   $(function () {
     
@@ -526,7 +543,7 @@ if($row['createdby']==1)
     else if(name != "" && addressline1 != "" && addressline2 != "" && city != "" && landmark != "" && district != "" && state != "" && country != "" && pincode != "" && latitude != "" && longitude != "" && status !="" )
     {
       $.ajax({
-      url:"http://localhost:8080/gash/api/createuser",
+      url:"api/createuseraddress.php",
       method:"POST",
       dataType: "json",
       data: {
@@ -597,7 +614,7 @@ if($row['createdby']==1)
     });
     Toast.fire({
         icon: 'success',
-        title: 'Registration Successfully.'
+        title: 'Useraddress Added Successfully.'
       })
           setTimeout(function () {
        
@@ -605,78 +622,59 @@ if($row['createdby']==1)
       }, 1000);
           
   }
-  function email_existed()                                       
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'info',
-            title: 'Email already existed.'
-          })
-          setTimeout(function () {
-        //alert('Reloading Page');
-        location.reload(true);
-      }, 1000);
-          //window.location.reload();
-  }
 
-
-  function editsave(id)
-  {
-    var courseid=id;
-    var course = $("#course"+id).val();
-    var status = $("#status"+id).val();
-    var course_credit_hour = $("#course_credit_hour"+id).val();
-    var course_code = $("#course_code"+id).val();
-    if (course == "") {
-      alert("Name must be filled out");
-      return false;
-    }
-    else if(status == "Status")
-    {
-      alert("Status must be filled out");
-      return false;
-    }
-    if (course_credit_hour == "") {
-      alert("Hour must be filled out");
-      return false;
-    }
-    if (course_code == "") {
-      alert("Code must be filled out");
-      return false;
-    }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
-    {
-      $.ajax({
-      type:"GET",
-      url:"mastercourse.php",
-      data:
-      {
-        "id":courseid,
-        "course":course,
-        "status":status,
-        "course_credit_hour":course_credit_hour,
-        "course_code":course_code,
-      },
-      success:function(msg)
-      {
-        console.log(msg);
-        if(msg=="success")
-        {
+  // function editsave(id)
+  // {
+  //   var courseid=id;
+  //   var course = $("#course"+id).val();
+  //   var status = $("#status"+id).val();
+  //   var course_credit_hour = $("#course_credit_hour"+id).val();
+  //   var course_code = $("#course_code"+id).val();
+  //   if (course == "") {
+  //     alert("Name must be filled out");
+  //     return false;
+  //   }
+  //   else if(status == "Status")
+  //   {
+  //     alert("Status must be filled out");
+  //     return false;
+  //   }
+  //   if (course_credit_hour == "") {
+  //     alert("Hour must be filled out");
+  //     return false;
+  //   }
+  //   if (course_code == "") {
+  //     alert("Code must be filled out");
+  //     return false;
+  //   }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
+  //   {
+  //     $.ajax({
+  //     type:"GET",
+  //     url:"mastercourse.php",
+  //     data:
+  //     {
+  //       "id":courseid,
+  //       "course":course,
+  //       "status":status,
+  //       "course_credit_hour":course_credit_hour,
+  //       "course_code":course_code,
+  //     },
+  //     success:function(msg)
+  //     {
+  //       console.log(msg);
+  //       if(msg=="success")
+  //       {
           
-          editsuccess();
+  //         editsuccess();
           
           
-        }else{
+  //       }else{
 
-        }
-      }
-    })
-    }
-  }
+  //       }
+  //     }
+  //   })
+  //   }
+  // }
 
   function editsuccess()
   {
@@ -703,7 +701,7 @@ if($row['createdby']==1)
     var deleteid=id;
     $.ajax({
       type:"POST",
-      url:"http://localhost:8080/gash/api/deletevenderadress",
+      url:"api/deleteuseraddress.php",
       data:
       {
         
