@@ -527,7 +527,7 @@ var status=$("#status").val();
      alert(deleteid);
     $.ajax({
       type:"POST",
-      url:"api/deleteproduct.php",
+      url:""http://gashub.amicodevelopment.net/api/deleteproduct.php",
       data:
       {
         "deleteid":deleteid,
