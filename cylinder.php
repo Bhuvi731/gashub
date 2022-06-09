@@ -497,7 +497,7 @@ $(document).ready(function(){
   {
     
     var deleteid=id;
-     alert(deleteid);
+//      alert(deleteid);
     $.ajax({
       type:"POST",
       url:"http://gashub.amicodevelopment.net/api/deletecylinder.php",
