@@ -20,10 +20,10 @@ $country=$_POST['country'];
 $pincode=$_POST['pincode'];
 $latitude=$_POST['latitude'];
 $longitude=$_POST['longitude'];
-$status="1";
+$status=$_POST['status'];
 $createdby="1";
-if(!empty($name) && !empty($addressline1) && 
-!empty($city) && !empty($landmark) && !empty($district) &&  !empty($state) &&  !empty($country) && !empty($pincode)  &&
+if(!empty($name) && !empty($addressline1) &&  !empty($addressline2) && 
+!empty($city) && !empty($landmark) && !empty($district) &&  !empty($state) &&  !empty($country) && !empty($pincode) && !empty($latitude) && !empty($longitude) &&
 !empty($status)){ 
 
         $userrow= pg_query($db,"select * from users order by id desc");
@@ -33,22 +33,20 @@ if(!empty($name) && !empty($addressline1) &&
         
         $sql=pg_query($db,"INSERT INTO useraddresses(userid,name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby)VALUES('$user_id','$name','$addressline1','$addressline2','$city','$landmark','$district','$state','$country','$pincode','$latitude','$longitude','$status','$createdby')");
         
-        if($sql)
-    {
-       
-        http_response_code(201);         
+        http_response_code(201);  
         echo json_encode(array("message" => "Successfull"));
-      
-    }else
-    {
+         }
+        
+    else{
         http_response_code(503);        
         echo json_encode(array("message" => "Error"));
-    }
-}
-else
-{
-    http_response_code(400);    
-    echo json_encode(array("message" => "Error Please Check."));
-}
-
+       }
+       
+     
+    // else
+    //    {
+    //      http_response_code(400);    
+    //      echo json_encode(array("message" => "Error Please Check."));
+    //    } 
+  
 ?>
