@@ -79,6 +79,7 @@
 </div>
 
 </section>
+
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
@@ -89,8 +90,8 @@
 </div>
 
 <div class="card-body">
-  <section>
-<div style="margin-left:auto;">
+<section>
+<div style="margin:auto;">
    <label style="color: #0054A8;" for="">SEARCH :</label>
 <input id="myInput" type="text" placeholder="Search..">
 </div>
@@ -108,8 +109,7 @@
 </thead>
 <tbody id="myTable">
 <?php
-
- $vendor=pg_query($db,"SELECT cylindertype.type,cylinderweight.weight,cylindertype.status,cylindertype.createdby FROM cylinderweight LEFT JOIN cylindertype ON cylindertype.id = cylinderweight.id WHERE cylindertype.status=1");
+$vendor=pg_query($db,"SELECT cylindertype.id,cylindertype.type,cylinderweight.weight,cylinderweight.id,cylindertype.status,cylindertype.createdby FROM cylinderweight LEFT JOIN cylindertype ON cylindertype.id = cylinderweight.id WHERE cylindertype.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
@@ -152,7 +152,7 @@ if($row['createdby']==1)
 </div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-<button type="button" class="btn btn-primary" onclick = "deleterecord(<?php echo $row['id'];?>)" >Yes</button>
+<button type="button" class="btn btn-primary" onclick="deleterecord(<?php echo $row['id'];?>)" >Yes</button>
 </div>
 </div>
 
@@ -294,10 +294,7 @@ if($row['createdby']==1)
 </div>
 
 </section>
-
-<!-- <script src="plugins/jquery/jquery.min.js"></script>
- -->
- <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script> -->
+<script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -309,8 +306,6 @@ if($row['createdby']==1)
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script src="plugins/toastr/toastr.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -322,33 +317,18 @@ $(document).ready(function(){
 });
 </script>
 <script>
- 
-   
-// $('#cname').change(function() {
-
-//      alert("#cname");
-//      if($( "#cname" ).val() == ''){
-//          $('#searchbydate').hide();
-//      }
-// });
-
-
-        //  source: "fetchData.php",
-        //  term:term,
-        // minLength: 0,
-        // select: function( event, ui ) {
-        //   console.log($query);
-        //     event.preventDefault();
-        //     $("#ids").val(ui.item.id);
-        //     $("#cname").val(ui.item.value);
-
-     // var cname = $("#id").val();
-//      //alert(customer);
-//     //  window.location.href = "dashboard.php?pageid=10&billno="+bill;
-
-// }         
-//     });
- // });
+  $(function () {
+    
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 </script>
 <script>
   
@@ -371,10 +351,10 @@ $(document).ready(function(){
     {
       alert("Status must be filled out");
       return false;
-    }else if(type == "" && weight !== "" && status !== "" )
+    }else if(weight !== "" && status !== "" )
     {
       $.ajax({
-      url:"http://localhost:8080/gash/api/createcylinder",
+      url:"api/createcylinder.php",
       method:"POST",
       dataType: "json",
       data: {
@@ -445,122 +425,92 @@ $(document).ready(function(){
       }, 1000);
           
   }
-  function email_existed()                                       
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'info',
-            title: 'Email already existed.'
-          })
-          setTimeout(function () {
-        //alert('Reloading Page');
-        location.reload(true);
-      }, 1000);
-          //window.location.reload();
-  }
-
-
-  function editsave(id)
-  {
-   var type=$("#type"+id).val();
-    var weight=$("#weight"+id).val();
-    var status=$("#status"+id).val();
-    if (type == "") {
-      alert("Type must be filled out");
-      return false;
-    }
-    if (weight == "") {
-      alert("Weight must be filled out");
-      return false;
-    }
-    if (status == "") {
-      alert("Status must be filled out");
-      return false;
-    }else if(type != "" && weight !="" && status !=="")
-    {
-      $.ajax({
-      type:"POST",
-      url:"http://localhost:8080/gash/api/updatecylinder",
-      data:
-      {
-        "id":id,
-        "type":type,
-        "weight":weight,
-        "status":status,
-      },
-      success:function(msg)
-      {
-        console.log(msg);
-        var message=msg['message'];
-        if(message=="success")
-        {
-           editsuccess();  
-        }
-       
-        else{
-          error();
-        }
-      }
-    })
-    }
-    
-    
-  }
-  function editsuccess()
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'success',
-            title: 'Course Edit Successfully.'
-          })
-          setTimeout(function () {
-        
-        location.reload(true);
-      }, 1000);
+  
+  // function editsave(id)
+  // {
+  //   var type=$("#type"+id).val();
+  //   var weight = $("#course"+id).val();
+  //   var status = $("#status"+id).val();
+  //   if (type == "") {
+  //     alert("type must be filled out");
+  //     return false;
+  //   }
+  //   else if(weight == "Status")
+  //   {
+  //     alert("weight must be filled out");
+  //     return false;
+  //   }
+  //   if (status == "") {
+  //     alert("status must be filled out");
+  //     return false;
+  //   }
+  //   }else if(type != "" && weight !="" && status !=="" )
+  //   {
+  //     $.ajax({
+  //     type:"GET",
+  //     url:"http://localhost:8080/gash/api/updatecylinder",
+  //     data:
+  //     {
+  //       "id":id,
+  //       "type":type,
+  //       "weight":weight,
+  //       "status":status,
+  //     },
+  //     success:function(msg)
+  //     {
+  //       console.log(msg);
+  //       var message=msg['message'];
+  //       if(msg=="success")
+  //       {
           
-  }
+  //         editsuccess();
+          
+          
+  //       }else{
+
+  //       }
+  //     }
+  //   })
+  //   }
+  // }
+
+  // function editsuccess()
+  // {
+  //   var Toast = Swal.mixin({
+  //     toast: true,
+  //     position: 'top-end',
+  //     showConfirmButton: false,
+  //     timer: 5000
+  //   });
+  //   Toast.fire({
+  //           icon: 'success',
+  //           title: 'Course Edit Successfully.'
+  //         })
+  //         setTimeout(function () {
+        
+  //       location.reload(true);
+  //     }, 1000);
+          
+  // }
 
   function deleterecord(id)
   {
-   
+    
     var deleteid=id;
+     alert(deleteid);
     $.ajax({
       type:"POST",
-      url:"http://localhost:8080/gash/api/deletecylinder",
+      url:"api/deletecylinder.php",
       data:
       {
-        
         "deleteid":deleteid,
        
       },
-      success:function(msg)
-      {
-        console.log(msg);
-        var message=msg['message'];
-        
-        if(message=="Successfull")
-        {
-           
-          deletesuccess();
-          
-          
-        }else{
-          error();
-        }
+      success:function(msg){
+      console.log(msg);
       }
     })
   }
-
   function deletesuccess()
   {
     var Toast = Swal.mixin({
