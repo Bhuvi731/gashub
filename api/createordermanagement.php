@@ -6,7 +6,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-$refiltype=$_POST['refiltype'];
+
 $quantity=$_POST['quantity'];
 $status=$_POST['status'];
 $createdby="1";
@@ -17,7 +17,7 @@ if(!empty($quantity) &&
     $vendorarray=pg_fetch_array($vendorrow);
     $userid=$vendorarray['id'];
 
-   $cylindertyrow= pg_query($db,"select * from useraddresses order by id desc");
+    $cylindertyrow= pg_query($db,"select * from useraddresses order by id desc");
     $cylindertyarray=pg_fetch_array($cylindertyrow);
     $deliveryaddressid=$cylindertyarray['id'];
 
@@ -29,7 +29,7 @@ if(!empty($quantity) &&
     $cylinderweightarray=pg_fetch_array($cylinderweightrow);
     $productid=$cylinderweightarray['id'];
  
-    $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby')");
+    $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby)VALUES( '$userid', '$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby')");
     if($sql)
     {
        
