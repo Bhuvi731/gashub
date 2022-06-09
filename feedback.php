@@ -1,3 +1,6 @@
+<?php
+require('database/db.php');
+?>
 <link rel="stylesheet" href="assets/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -64,7 +67,7 @@
 <div class="form-group">
 <label for="exampleSelectBorder">Status</label>
 <select class="custom-select" id="status" name="status">
-<option>Status</option>
+<option value="">Status</option>
 <option value="1">Active</option>
 <option value="2">InActive</option>
 </select>
@@ -85,7 +88,6 @@
 </div>
 
 </div>
-
 </section>
 <section class="content" id="content">
 <div class="container-fluid">
@@ -109,10 +111,9 @@
 <th>Action</th>
 </tr>
 </thead>
-<tbody>
+<tbody id="myTable">
 <?php
-// $vendor=pg_query($db,"SELECT weight,status,createdby FROM cylinderweight WHERE status=1");
-$vendor=pg_query($db,"SELECT vendorbranch,rating,review,status,createdby FROM feedbacks WHERE status=1");
+$vendor=pg_query($db,"SELECT id,vendorbranch,rating,review,status,createdby FROM feedbacks WHERE status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
@@ -135,13 +136,13 @@ if($row['status']==1)
 if($row['createdby']==1)
 {
   echo "Admin";
-}?></td>
+}?></td> 
 
 <td><a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#viewmodal-default<?php echo $row['id'];?>"><i class="nav-icon fas fa-eye"></i></a>
 <a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#editmodal-default<?php echo $row['id'];?>"><i class="nav-icon fas fa-edit"></i></a> 
 <a style="cursor:pointer" data-toggle="modal" data-target="#deletemodal-sm<?php echo $row['id'];?>"><i class="nav-icon fas fa-trash"></i></a>
 </td>
-<!-- Delete Start -->
+ <!-- Delete Start -->
 <div class="modal fade" id="deletemodal-sm<?php echo $row['id'];?>">
 <div class="modal-dialog modal-sm">
 <div class="modal-content">
@@ -156,7 +157,7 @@ if($row['createdby']==1)
 </div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-<button type="button" class="btn btn-primary" onclick = "deleterecord(<?php echo $row['id'];?>)" >Yes</button>
+<button type="button" class="btn btn-primary" onclick="deleterecord(<?php echo $row['id'];?>)">Yes</button>
 </div>
 </div>
 
@@ -195,15 +196,15 @@ if($row['createdby']==1)
 <div class="form-group">
 <label for="exampleSelectBorder">Status</label>
 <select class="custom-select" id="status<?php echo $row['id'];?>" name="status">
-<option>Status</option>
+<option value="">Status</option>
 <option value="1" <?php if($row['status']=="1") echo "Selected"?>>Active</option>
-<option value="2" <?php if($row['status']=="2") echo "Selected"?>>InActive</option>
+<option value="-1" <?php if($row['status']=="-1") echo "Selected"?>>InActive</option>
 </select>
 </div>
 
 </div>
 
-</form>
+</form> 
 </div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -213,8 +214,8 @@ if($row['createdby']==1)
 
 </div>
 
-</div>
-<!-- view start -->
+</div> 
+<!-- < view start --> 
 <div class="modal fade" id="viewmodal-default<?php echo $row['id'];?>">
 <div class="modal-dialog">
 <div class="modal-content">
@@ -280,7 +281,7 @@ if($row['createdby']==1)
 </div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<!-- 5 -->
+ <!-- 5 -->
 </div>
 </div>
 
@@ -308,10 +309,9 @@ if($row['createdby']==1)
 
 </div>
 
-</section>
+</section> 
 
 <script src="plugins/jquery/jquery.min.js"></script>
-
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -346,6 +346,7 @@ if($row['createdby']==1)
     var vendorbranch=$("#vendorbranch").val();
     var rating=$("#rating").val();
     var review=$("#review").val();
+    var status=$("#status").val();
     if ( vendorbranch == "") {
       alert("vendorbranch must be filled out");
       return false;
@@ -358,16 +359,17 @@ if($row['createdby']==1)
       alert("review must be filled out");
       return false;
     }
-    else if(status == "Status")
+    else if(status == "")
     {
       alert("Status must be filled out");
       return false;
     }else if(vendorbranch !== "" && rating !== "" && review !== "" && status !== "" )
     {
+  
       $.ajax({
-      url:"http://localhost:8080/gash/api/createfeedback",
+      url:"api/createfeedback.php",
       method:"POST",
-      dataType: "json",
+      dataType:"json",
       data: {
         
         "vendorbranch":vendorbranch,
@@ -376,21 +378,19 @@ if($row['createdby']==1)
         "status":status,
       },
       success:function(msg)
-      {
+      {    
         console.log(msg);
         var message=msg['message'];
+        alert(message);
         if(message=="Successfull")
         {
+
            success();  
-        }
-        else if(message=="email_existed")
-        {
-          email_existed();  
         }
         else{
           error();
         }
-      }
+       }
     })
     }
     
@@ -398,7 +398,7 @@ if($row['createdby']==1)
   }
   function RefreshTable() {
   
-       $( "#content" ).load( "index.php?pageid=1 #content" );
+       $( "#content" ).load( "index.php?pageid=9 #content" );
    }
 
    function error()
@@ -428,8 +428,8 @@ if($row['createdby']==1)
       timer: 5000
     });
     Toast.fire({
-        icon: 'success',
-        title: 'Registration Successfully.'
+        icon:'success',
+        title:'Registration Successfully.'
       })
           setTimeout(function () {
        
@@ -437,61 +437,42 @@ if($row['createdby']==1)
       }, 1000);
           
   }
-  function email_existed()                                       
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'info',
-            title: 'Email already existed.'
-          })
-          setTimeout(function () {
-        //alert('Reloading Page');
-        location.reload(true);
-      }, 1000);
-          //window.location.reload();
-  }
-
-
   function editsave(id)
   {
-    var courseid=id;
-    var course = $("#course"+id).val();
+    // var courseid=id;
+    var vendorbranch = $("#vendorbranch"+id).val();
+    var rating = $("#rating"+id).val();
+    var review = $("#review"+id).val();
     var status = $("#status"+id).val();
-    var course_credit_hour = $("#course_credit_hour"+id).val();
-    var course_code = $("#course_code"+id).val();
-    if (course == "") {
-      alert("Name must be filled out");
+    if (vendorbranch== "") {
+      alert("vendorbranch must be filled out");
       return false;
     }
-    else if(status == "Status")
+    else if(status == "")
     {
       alert("Status must be filled out");
       return false;
     }
-    if (course_credit_hour == "") {
-      alert("Hour must be filled out");
+    if (rating == "") {
+      alert("rating must be filled out");
       return false;
     }
-    if (course_code == "") {
-      alert("Code must be filled out");
+    if (review == "") {
+      alert("review must be filled out");
       return false;
-    }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
+    }else if(vendorbranch != "" && status !="" && rating !=="" && review !=="")
     {
       $.ajax({
-      type:"GET",
-      url:"mastercourse.php",
+      type:"POST",
+      url:"api/updatefeedback.php",
+      dataType:"json",
       data:
       {
-        "id":courseid,
-        "course":course,
+        // "id":courseid,
+        "vendorbranch":vendorbranch,
         "status":status,
-        "course_credit_hour":course_credit_hour,
-        "course_code":course_code,
+        "rating":rating,
+        "review":review,
       },
       success:function(msg)
       {
@@ -519,62 +500,51 @@ if($row['createdby']==1)
       timer: 5000
     });
     Toast.fire({
-            icon: 'success',
-            title: 'Course Edit Successfully.'
-          })
+        icon:'success',
+        title:'Feedback edit  Successfully.'
+      })
           setTimeout(function () {
-        
+       
         location.reload(true);
       }, 1000);
           
   }
-
+  
   function deleterecord(id)
   {
-   
+    
     var deleteid=id;
+     alert(deleteid);
     $.ajax({
-      type:"POST",
-      url:"http://localhost:8080/gash/api/delfeedback",
+      type:"GET",
+      url:"api/deletefeedback.php",
       data:
       {
-        
         "deleteid":deleteid,
        
       },
-      success:function(msg)
-      {
-        console.log(msg);
-        var message=msg['message'];
-        
-        if(message=="Successfull")
-        {
-           
-          deletesuccess();
-          
-          
-        }else{
-          error();
-        }
+      success:function(msg){
+      console.log(msg);
+      RefreshTable();
       }
     })
   }
 
-  function deletesuccess()
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
+   function deletesuccess()
+   {
+     var Toast = Swal.mixin({
+       toast: true,
+       position: 'top-end',
       showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-            icon: 'success',
-            title: 'Deleted Successfully.'
+       timer: 5000
+     });
+     Toast.fire({
+             icon: 'success',
+             title: 'Deleted Successfully.'
           })
-          setTimeout(function () {
+           setTimeout(function () {
         
-        location.reload(true);
+       location.reload(true);
       }, 1000);
           
   }
