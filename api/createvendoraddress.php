@@ -38,20 +38,23 @@ if(!empty($businessname) && !empty($name) && !empty($addressline1) &&  !empty($a
         
         $sql=pg_query($db,"INSERT INTO vendoraddresses(vendorid,name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby)VALUES('$vendor_id','$name','$addressline1','$addressline2','$city','$landmark','$district','$state','$country','$pincode','$latitude','$longitude','$status','$createdby')");
         
-        http_response_code(201);  
+        if($sql)
+    {
+       
+        http_response_code(201);         
         echo json_encode(array("message" => "Successfull"));
-               }
-        
-    else{
+      
+    }else
+    {
         http_response_code(503);        
         echo json_encode(array("message" => "Error"));
-       }
-       }
-     
-    else
-       {
-         http_response_code(400);    
-         echo json_encode(array("message" => "Error Please Check."));
-       } 
+    }
+}
+else
+{
+    http_response_code(400);    
+    echo json_encode(array("message" => "Error Please Check."));
+}
+}
   
 ?>
