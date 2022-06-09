@@ -1,9 +1,4 @@
-<style>
-	#dashboard
-	{
-		display:none;
-	}
-</style>
+
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
@@ -14,6 +9,12 @@
 </div>
 
 <div class="card-body">
+<section>
+<div style="margin:auto;">
+   <label style="color: #0054A8;" for="">SEARCH :</label>
+<input id="myInput" type="text" placeholder="Search..">
+</div>
+</section>
 <table id="example2" class="table table-bordered table-hover">
 <thead>
 <tr>
@@ -24,7 +25,7 @@
 <th>Invalid Login Attempt</th>
 </tr>
 </thead>
-<tbody>
+<tbody id="myTable">
 <?php
 
 $user=pg_query($db,"SELECT users.email,userlogins.successfullogin,userlogins.failedlogin,userlogins.invalidloginattempt FROM userlogins LEFT JOIN users ON users.id =userlogins.userid");
@@ -60,3 +61,30 @@ while($row=pg_fetch_assoc($user))
 </div>
 
 </section>
+
+<!-- <script src="plugins/jquery/jquery.min.js"></script>
+ -->
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script> -->
+ <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/jszip/jszip.min.js"></script>
+<script src="plugins/pdfmake/pdfmake.min.js"></script>
+<script src="plugins/pdfmake/vfs_fonts.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+
+<script src="plugins/toastr/toastr.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
