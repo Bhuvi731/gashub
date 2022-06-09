@@ -26,7 +26,6 @@ if(!empty($vendorbranch) && !empty($rating) && !empty($review) &&
     $weightrow= pg_query($db,"select * from vendors order by id desc");
     $weightarray=pg_fetch_array($weightrow);
     $vendorid=$weightarray['id'];
- 
     $sql=pg_query($db,"INSERT INTO feedbacks(orderid,userid,vendorid,vendorbranch,rating,review,status,createdby)VALUES( '$orderid', '$userid','$vendorid','$vendorbranch','$rating','$review','$status','$createdby')");
     if($sql)
     {
@@ -45,5 +44,4 @@ else
     http_response_code(400);    
     echo json_encode(array("message" => "Error Please Check."));
 }
-
 ?>
