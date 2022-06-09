@@ -1,26 +1,36 @@
-RewriteEngine On    # Turn on the rewriting engine
-RewriteRule ^read$ read.php [NC,L]
-RewriteRule ^read/([0-9_-]*)$ read.php?id=$1 [NC,L]
-RewriteRule ^create$ createuser.php [NC,L]
-RewriteRule ^createuseradd$ createuseraddress.php [NC,L]
-RewriteRule ^createvendor$ createvendor.php [NC,L]
-RewriteRule ^createtype$ createtype.php [NC,L]
-RewriteRule ^createinventory$ createinventory.php [NC,L]
-RewriteRule ^createordermanagement$ createordermanagement.php [NC,L]
-RewriteRule ^createfeedback$ createfeedback.php [NC,L]
-RewriteRule ^createproduct$ createproduct.php [NC,L]
-RewriteRule ^createcylinder$ createcylinder.php [NC,L]
-RewriteRule ^createtrail$ createtrail.php [NC,L]
-RewriteRule ^createvenderadress$ createvendoraddress.php [NC,L]
-RewriteRule ^createuserlogin$ createuserlogin.php [NC,L]
-RewriteRule ^update$ updateuser.php [NC,L]
-RewriteRule ^updatecylinder$ updatecylinder.php [NC,L]
-RewriteRule ^deleteproduct$ deleteproduct.php [NC,L]
-RewriteRule ^delete$ deleteuser.php [NC,L]
-RewriteRule ^deleteinventory$ deleteinventory.php [NC,L]
-RewriteRule ^delfeedback$ deletefeedback.php [NC,L]
-RewriteRule ^deletevendor$ deletevendor.php [NC,L]
-RewriteRule ^deletetype$ deletetype.php [NC,L]
-RewriteRule ^deletecylinder$ deletecylinder.php [NC,L]
-RewriteRule ^deleteinventory$ delete.php [NC,L]
-RewriteRule ^deletevenderadress$ deletevenderadress.php [NC,L]
+<?php
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: text/plain');
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+include_once '../database/db.php';
+
+$weight=$_POST['weight'];
+$type=$_POST['type'];
+$status=$_POST['status'];
+$createdby="1";
+if(!empty($weight) && !empty($type) &&
+!empty($status)){ 
+ 
+    $sql=pg_query($db,"INSERT INTO cylinderweight(weight,status,createdby)VALUES('$weight','$status','$createdby')");
+    if($sql)
+    {
+       $sql=pg_query($db,"INSERT INTO cylindertype(type,status,createdby)VALUES('$type','$status','$createdby')");
+        http_response_code(201);         
+        echo json_encode(array("message" => "Successfull"));
+      
+    }else
+    {
+        http_response_code(503);        
+        echo json_encode(array("message" => "Error"));
+    }
+}
+else
+{
+    http_response_code(400);    
+    echo json_encode(array("message" => "Error Please Check."));
+}
+
+?>
