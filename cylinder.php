@@ -354,7 +354,7 @@ $(document).ready(function(){
     }else if(weight !== "" && status !== "" )
     {
       $.ajax({
-      url:"api/createcylinder.php",
+      url:"http://gashub.amicodevelopment.net/api/createcylinder.php",
       method:"POST",
       dataType: "json",
       data: {
