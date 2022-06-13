@@ -18,8 +18,9 @@ if(isset($email) && isset($password))
         if($sql2=pg_fetch_array($sql))
         {
             $_SESSION['id']=$sql2[0];
-             http_response_code(201);         
-             echo json_encode(array("message" => "Successfull"));
+             http_response_code(201);
+
+             echo json_encode($sql2);
         } 
 
     }else{
