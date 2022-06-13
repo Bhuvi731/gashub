@@ -2,14 +2,14 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/plain');
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods:POST");
+header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if(isset($_POST['id']))
+if(isset($_POST['userid']))
 {
-  $userid=$_POST['id'];
-  
+  $userid=$_POST['userid'];
+  echo"SELECT * FROM useraddresses where useraddresses.status=1 and useraddresses.userid='$userid'";
 $sql=pg_query($db,"SELECT * FROM useraddresses where useraddresses.status=1 and useraddresses.userid='$userid'");
 $my=array();
  if($sql){

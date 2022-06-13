@@ -23,7 +23,7 @@ $pincode=$_POST['pincode'];
 $status="1";
 $createdby="1";
 
-if(!empty($name) && !empty($addressline1) && 
+if(!empty($user_id) && !empty($name) && !empty($addressline1) && 
 !empty($city) && !empty($district) &&  !empty($state) &&  !empty($country) && !empty($pincode) && 
 !empty($status)){
 
