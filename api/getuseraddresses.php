@@ -9,7 +9,7 @@ include_once '../database/db.php';
 if(isset($_POST['id']))
 {
   $userid=$_POST['id'];
-  echo"SELECT * FROM useraddresses where useraddresses.status=1 and useraddresses.userid='$userid'";
+  
 $sql=pg_query($db,"SELECT * FROM useraddresses where useraddresses.status=1 and useraddresses.userid='$userid'");
 $my=array();
  if($sql){
