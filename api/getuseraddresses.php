@@ -6,7 +6,11 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-$sql=pg_query($db,"SELECT * FROM useraddresses where useraddresses.status=1 feedback.userid=");
+if(isset($_POST['userid']))
+{
+  $userid=$_POST['userid'];
+  echo"SELECT * FROM useraddresses where useraddresses.status=1 and useraddresses.userid='$userid'";
+$sql=pg_query($db,"SELECT * FROM useraddresses where useraddresses.status=1 and useraddresses.userid='$userid'");
 $my=array();
  if($sql){
    //var_dump($sql); 
@@ -20,5 +24,9 @@ $my=array();
            }else{
           http_response_code(503);        
         echo json_encode(array("message" => "Error"));
+    }
+         }else{
+          http_response_code(400);        
+        echo json_encode(array("message" => "Error Please Check"));
              }
-?> 
+?>
