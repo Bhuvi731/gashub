@@ -32,9 +32,8 @@ if(isset($_POST['submit']))
   $tmpName=$_FILES['file']['tmp_name'];
   $UploadDir='uploads/banners/';
   $filePath=$UploadDir.$fileName;
-  echo $result = move_uploaded_file($tmpName, $filePath); 
+  $result = move_uploaded_file($tmpName, $filePath); 
   if($result){
-    echo"INSERT INTO banner_images(images) VALUES('".$fileName."')";
   $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
  $query=pg_query($db,$sql);
 if($sql){
