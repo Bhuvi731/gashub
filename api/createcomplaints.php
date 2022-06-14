@@ -21,7 +21,10 @@ $createdby="1";
 $createdat = date("d-m-Y");
 
 if(!empty($userid) && !empty($orderid) && !empty($vendorid) && !empty($vendorbranch) && !empty($title) && !empty($complaints) &&
-!empty($status) && !empty($createdat)){ 
+!empty($status) && !empty($createdat)){
+
+
+echo"INSERT INTO complaints(userid,petroleumid,orderid,vendorid,vendorbranch,title,complaints,status,createdat,com_img)VALUES('$userid','$petroleumid','$orderid','$vendorid','$vendorbranch','$title','$complaints','$status','$createdat','$com_img')"; 
 
     $sql=pg_query($db,"INSERT INTO complaints(userid,petroleumid,orderid,vendorid,vendorbranch,title,complaints,status,createdat,com_img)VALUES('$userid','$petroleumid','$orderid','$vendorid','$vendorbranch','$title','$complaints','$status','$createdat','$com_img')");
     if($sql)
