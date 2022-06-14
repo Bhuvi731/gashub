@@ -19,7 +19,7 @@ $my=array();
                  
              }      
                 echo json_encode($my);
-           }else{
+          }}else{
           http_response_code(503);        
         echo json_encode(array("message" => "Error"));
              }
