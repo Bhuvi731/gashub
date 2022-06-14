@@ -15,7 +15,7 @@ if(isset($_POST['userid']))
   $refiltype=$_POST['refiltype'];
   $quantity=$_POST['quantity'];
   $createdby="1";
-  $createdat = date("d-m-Y");
+  $createdat = date("y-m-d");
   $status="1";
 
 if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($vendorid) &&!empty($productid) &&!empty($refiltype) && !empty($quantity) &&
