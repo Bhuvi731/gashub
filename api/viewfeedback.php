@@ -9,7 +9,8 @@ include_once '../database/db.php';
 if(isset($_POST['id']))
 {
     $id = $_POST['id'];
-$sql=pg_query($db,"SELECT feedbacks.id,feedbacks.orderid,feedbacks.userid,feedbacks.vendorid,feedbacks.vendorbranch,feedbacks.review,feedbacks.rating,feedbacks.createdat,feedbacks.petroleum_id,petroleum.petroleum_name,vendors.businessname from feedbacks LEFT JOIN petroleum ON feedbacks.petroleum_id=petroleum.id LEFT JOIN vendors ON vendors.id=feedbacks.vendorid where feedbacks.status=1 and feedbacks.userid= $id");
+$sql=pg_query($db,"SELECT feedbacks.id,feedbacks.orderid,feedbacks.userid,feedbacks.vendorid,feedbacks.vendorbranch,feedbacks.review,feedbacks.rating,
+    feedbacks.title,feedbacks.createdat,feedbacks.petroleum_id,petroleum.petroleum_name,vendors.businessname from feedbacks LEFT JOIN petroleum ON feedbacks.petroleum_id=petroleum.id LEFT JOIN vendors ON vendors.id=feedbacks.vendorid where feedbacks.status=1 and feedbacks.userid= $id");
 $my=array();
  if($sql){ 
     while($sql2=pg_fetch_assoc($sql)){

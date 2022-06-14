@@ -14,13 +14,14 @@ $vendorid=$_POST['vendorid'];
 $petroleum_id=$_POST['petroleum_id'];
 $vendorbranch=$_POST['vendorbranch'];
 $rating=$_POST['rating'];
+$title=$_POST['title'];
 $review=$_POST['review'];
 $status="1";
 $createdby="1";
 if(!empty($userid) && !empty($orderid) && !empty($vendorid) && !empty($petroleum_id)&& !empty($vendorbranch) && !empty($rating) && !empty($review) &&
 !empty($status)){ 
  
-    $sql=pg_query($db,"INSERT INTO feedbacks(userid,orderid,vendorid,petroleum_id,vendorbranch,rating,review,status,createdby)VALUES( '$userid','$orderid', '$vendorid','$petroleum_id','$vendorbranch','$rating','$review','$status','$createdby')");
+    $sql=pg_query($db,"INSERT INTO feedbacks(userid,orderid,vendorid,petroleum_id,vendorbranch,rating,title,review,status,createdby)VALUES( '$userid','$orderid', '$vendorid','$petroleum_id','$vendorbranch','$rating','$title','$review','$status','$createdby')");
     if($sql)
     {
        
