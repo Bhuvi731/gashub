@@ -9,9 +9,44 @@
     display:none;
   }
 </style>
+
+<script>
+function onSubmitForm() {
+    var formDOMObj = document.imgfrm;
+    if (formDOMObj.file.value == "")
+        alert("Please press the browse button and pick a file.")
+    else
+        return true;
+    return false;
+}
+</script>
 </head>
 
 <body>
+<?php
+include_once 'database/db.php';
+
+if(isset($_POST['submit']))
+{
+  $fileName=$_FILES['file']['name'];
+  $tmpName=$_FILES['file']['tmp_name'];
+  $UploadDir='uploads/banners/';
+  $filePath=$UploadDir.$fileName;
+  $result = move_uploaded_file($tmpName, $filePath); 
+  if($result){
+  $sql="INSERT INTO banner_images(images) VALUES('".$fileName."')";
+ $query=pg_query($db,$sql);
+if($sql){
+    $err="Uploaded Successfully";
+  }else{
+    $err="error";
+  }
+  
+  }else{
+    $err="Error";
+  }
+  }
+?>
 <br>
 <br> 
 <section class="content" id="content">
@@ -31,10 +66,10 @@
 <tbody>
  <center><div id="content">
  
-        <form method="POST" action="upload.php" enctype="multipart/form-data">
-            <input type="file" name="file"/>
+        <form method="POST" action="" name="imgfrm" enctype="multipart/form-data">
+            <input type="file" name="file" value="" />
     <div> 
-                <button type="submit" name="submit" value="upload">UPLOAD</button>
+                <button type="submit" name="submit" onClick="return onSubmitForm()">UPLOAD</button>
             </div>
         </form>
     </div></center>
