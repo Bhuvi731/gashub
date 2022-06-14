@@ -15,12 +15,11 @@ if(isset($_POST['userid']))
   $refiltype=$_POST['refiltype'];
   $quantity=$_POST['quantity'];
   $createdby="1";
-  $createdat = date("y-m-d");
+  $createdat = date("d-m-Y");
   $status="1";
 
 if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($vendorid) &&!empty($productid) &&!empty($refiltype) && !empty($quantity) &&
 !empty($status)){
-  echo"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby,createdat,refiltype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby','$createdat','$refiltype')";
  
     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby,createdat,refiltype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby','$createdat','$refiltype')");
     if($sql){
