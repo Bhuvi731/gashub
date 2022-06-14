@@ -12,16 +12,18 @@ if(isset($_POST['userid']))
   $deliveryaddressid=$_POST['deliveryaddressid'];
   $vendorid=$_POST['vendorid'];
   $productid=$_POST['productid'];
+  $deliverydate=$_POST['deldate'];
   $refiltype=$_POST['refiltype'];
   $quantity=$_POST['quantity'];
+  $cylinderimg=$_POST['cylinderimg'];
   $createdby="1";
-  $createdat = date("d-m-Y");
+  $createdat = date("y-m-d");
   $status="1";
 
 if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($vendorid) &&!empty($productid) &&!empty($refiltype) && !empty($quantity) &&
 !empty($status)){
  
-    $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby,createdat,refiltype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby','$createdat','$refiltype')");
+    $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype')");
     if($sql){
        
         http_response_code(201);         
@@ -31,7 +33,8 @@ if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($vendorid) &&!empty($pr
         http_response_code(503);        
         echo json_encode(array("message" => "Error"));
     }
-  }}else{
+  }
+}else{
     http_response_code(400);    
     echo json_encode(array("message" => "Error Please Check."));
 }
