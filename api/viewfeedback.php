@@ -6,13 +6,12 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if(isset($_GET['id']))
+if(isset($_POST['id']))
 {
-    $id = $_GET['id'];
+    $id = $_POST['id'];
 }
-$sql=pg_query($db,"SELECT * from feedbacks LEFT JOIN petroleum ON feedbacks.petroleum_id=petroleum.petroleum_name where feedbacks.status=1");
-
-//  $sql=pg_query($db,"SELECT * from feedbacks where feedbacks.status=1");
+$sql=pg_query($db,"SELECT feedbacks.id,feedbacks.orderid,feedbacks.userid,feedbacks.vendorid,feedbacks.vendorbranch,feedbacks.review,feedbacks.rating,feedbacks.createdat,feedbacks.petroleum_id,petroleum.petroleum_name,vendors.businessname from feedbacks LEFT JOIN petroleum ON feedbacks.petroleum_id=petroleum.id LEFT JOIN vendors ON vendors.id=feedbacks.vendorid where feedbacks.status=1 and feedbacks.userid= $id");
+// SELECT review.feedbacks,rating.feedbacks,createdat.feedbacks from feedbacks LEFT JOIN petroleum ON feedbacks.petroleum_id=petroleum.id where feedbacks.status=1
 $my=array();
  if($sql){ 
     while($sql2=pg_fetch_assoc($sql)){
