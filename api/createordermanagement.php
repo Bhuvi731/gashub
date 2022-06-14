@@ -20,6 +20,7 @@ if(isset($_POST['userid']))
 
 if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($vendorid) &&!empty($productid) &&!empty($refiltype) && !empty($quantity) &&
 !empty($status)){
+  echo"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby,createdat,refiltype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby','$createdat','$refiltype')";
  
     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby,createdat,refiltype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby','$createdat','$refiltype')");
     if($sql){
