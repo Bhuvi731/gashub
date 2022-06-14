@@ -23,9 +23,7 @@ $pincode=$_POST['pincode'];
 $status="1";
 $createdby="1";
 
-if(!empty($user_id) && !empty($name) && !empty($addressline1) && 
-!empty($city) && !empty($district) &&  !empty($state) &&  !empty($country) && !empty($pincode) && 
-!empty($status)){
+if(!empty($user_id) && !empty($status)){
 
         $sql=pg_query($db,"INSERT INTO useraddresses(userid,name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby)VALUES('$user_id','$name','$addressline1','$addressline2','$city','$landmark','$district','$state','$country','$pincode','$latitude','$longitude','$status','$createdby')");
         
