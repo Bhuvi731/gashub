@@ -24,8 +24,7 @@ if(!empty($email) &&
     if(pg_num_rows($res) > 0){
         http_response_code(201);         
         echo json_encode(array("message" => "email_existed"));
-      } 
-    else{
+      }else{
         
     $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$password')RETURNING id";
     
@@ -35,16 +34,21 @@ if(!empty($email) &&
        $insert_row = pg_fetch_row($query);
         $insert_id = $insert_row[0];
         $sql=pg_query($db,"INSERT INTO userlogins(userid)VALUES('$insert_id')");
-        http_response_code(201);         
-        echo json_encode(array("message" => "Successfull"));
-    }else
-    {
-        http_response_code(503);        
-        echo json_encode(array("message" => "Error"));
-    }
-}
-}
-else
+        if($sql){
+        $sql2=pg_query($db,"SELECT id from users where id='$insert_id'");
+          if($sql3=pg_fetch_array($sql2)){
+
+                                 http_response_code(201);         
+                                echo json_encode($sql3);
+                                          }
+        
+
+               }}}else{
+
+                 http_response_code(503);        
+                 echo json_encode(array("message" => "Error"));
+                    }
+}else
 {
     http_response_code(400);    
     echo json_encode(array("message" => "Error Please Check."));
