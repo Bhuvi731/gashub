@@ -525,8 +525,7 @@ $(document).ready(function(){
       success:function(msg)
       {    
         console.log(msg);
-        var message=msg['message'];
-        alert(message);
+        var message=msg['message']
         if(message=="Successfull")
         {
 
@@ -620,7 +619,7 @@ $(document).ready(function(){
       return false;
     }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
     {
-      alert(id);
+
       $.ajax({
       type:"GET",
       url:"api/updateuser.php",
