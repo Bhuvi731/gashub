@@ -43,12 +43,12 @@ if(!empty($email) &&
                                           }
         
 
-               }}}else{
+               }else{
 
                  http_response_code(503);        
                  echo json_encode(array("message" => "Error"));
                     }
-}else
+}}}else
 {
     http_response_code(400);    
     echo json_encode(array("message" => "Error Please Check."));
