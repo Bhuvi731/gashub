@@ -63,7 +63,7 @@ require('database/db.php');
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleInput">Phone</label>
-<input type="number" class="form-control" id="phone" placeholder="Enter Phone Number" name="phone">
+<input type="number" class="form-control" id="phone" placeholder="Enter Phone Number" name="phone" pattern="[1-9]{1}[0-9]{9}" maxlength="10">
 </div>
 </div>
 <div class="col-sm-6">
@@ -121,8 +121,6 @@ require('database/db.php');
 </div>
 
 </section>
-
-
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
@@ -475,6 +473,7 @@ $(document).ready(function(){
     var gender=$("#gender").val();
     var dateofbirth=$("#dateofbirth").val();
     var status=$("#status").val();
+
     if (firstname == "") {
       alert("Name must be filled out");
       return false;
@@ -593,6 +592,7 @@ $(document).ready(function(){
     var email=$("#email"+id).val();
     var gender=$("#gender"+id).val();
     var dateofbirth=$("#dateofbirth"+id).val();
+    var password=$("#password"+id).val();
     var status=$("#status"+id).val();
     if (firstname == "") {
       alert("Name must be filled out");
@@ -620,10 +620,10 @@ $(document).ready(function(){
       return false;
     }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
     {
+      alert(id);
       $.ajax({
-      url:"api/updateuser.php",
       type:"GET",
-      dataType:"json",
+      url:"api/updateuser.php",
       data:
       {
         "id":id,
@@ -634,11 +634,13 @@ $(document).ready(function(){
         "gender":gender,
         "dateofbirth":dateofbirth,
         "status":status,
+        "password":password
       },
       success:function(msg)
       {
         console.log(msg);
         var message=msg['message'];
+        alert(message);
         if(message=="success")
         {
            editsuccess();  
@@ -721,18 +723,5 @@ $(document).ready(function(){
       }, 1000);
           
   }
-  // <script>
-  // function validate()
-  // {
-  //   var mobiletxt=document.getElementById("phone").value;
-  //   var mobileexp=/^\d{10}$/;
-  //   if(mobiletxt.match(mobileexp))
-  //   {
-  //     return true;
-  //   }
-  //   else{
-  //     alert("Invalid Mobile Number");
-  //     return false;
-  //   }
-  // }
+  
 </script>
