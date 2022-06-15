@@ -71,6 +71,7 @@ require('database/db.php');
 <label for="exampleInput">Email</label>
 <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email">
 </div>
+</div>
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleInput">password</label>
@@ -108,7 +109,7 @@ require('database/db.php');
 </div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button>
+<button type="button" class="btn btn-primary" name="submit" onclick="save();validate()">Save changes</button>
 </div>
 </div>
 
@@ -120,6 +121,8 @@ require('database/db.php');
 </div>
 
 </section>
+
+
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
@@ -472,7 +475,6 @@ $(document).ready(function(){
     var gender=$("#gender").val();
     var dateofbirth=$("#dateofbirth").val();
     var status=$("#status").val();
-
     if (firstname == "") {
       alert("Name must be filled out");
       return false;
@@ -718,4 +720,19 @@ $(document).ready(function(){
       }, 1000);
           
   }
+  <script>
+  function validate()
+  {
+    var mobiletxt=document.getElementById("phone").value;
+    var mobileexp=/^\d{10}$/;
+    if(mobiletxt.match(mobileexp))
+    {
+      return true;
+    }
+    else{
+      alert("Invalid Mobile Number");
+      return false;
+    }
+  }
+  </script>
 </script>
