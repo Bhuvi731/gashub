@@ -585,91 +585,92 @@ $(document).ready(function(){
   }
  
 
-  // function editsave(id)
-  // {
-  //   var firstname=$("#firstname"+id).val();
-  //   var lastname=$("#lastname"+id).val();
-  //   var phone=$("#phone"+id).val();
-  //   var email=$("#email"+id).val();
-  //   var gender=$("#gender"+id).val();
-  //   var dateofbirth=$("#dateofbirth"+id).val();
-  //   var status=$("#status"+id).val();
-  //   if (firstname == "") {
-  //     alert("Name must be filled out");
-  //     return false;
-  //   }
-  //   if (phone == "") {
-  //     alert("Phone Number must be filled out");
-  //     return false;
-  //   }
-  //   if (email == "") {
-  //     alert("Email must be filled out");
-  //     return false;
-  //   }
-  //   if (gender == "Gender") {
-  //     alert("Gender must be filled out");
-  //     return false;
-  //   }
-  //   if (dateofbirth == "") {
-  //     alert("DOB be filled out");
-  //     return false;
-  //   }
-  //   else if(status == "Status")
-  //   {
-  //     alert("Status must be filled out");
-  //     return false;
-  //   }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
-  //   {
-  //     $.ajax({
-  //     type:"GET",
-  //     url:"http://localhost:8080/gash/api/update",
-  //     data:
-  //     {
-  //       "id":id,
-  //       "firstname":firstname,
-  //       "lastname":lastname,
-  //       "phone":phone,
-  //       "email":email,
-  //       "gender":gender,
-  //       "dateofbirth":dateofbirth,
-  //       "status":status,
-  //     },
-  //     success:function(msg)
-  //     {
-  //       console.log(msg);
-  //       var message=msg['message'];
-  //       if(message=="success")
-  //       {
-  //          editsuccess();  
-  //       }
+  function editsave(id)
+  {
+    var firstname=$("#firstname"+id).val();
+    var lastname=$("#lastname"+id).val();
+    var phone=$("#phone"+id).val();
+    var email=$("#email"+id).val();
+    var gender=$("#gender"+id).val();
+    var dateofbirth=$("#dateofbirth"+id).val();
+    var status=$("#status"+id).val();
+    if (firstname == "") {
+      alert("Name must be filled out");
+      return false;
+    }
+    if (phone == "") {
+      alert("Phone Number must be filled out");
+      return false;
+    }
+    if (email == "") {
+      alert("Email must be filled out");
+      return false;
+    }
+    if (gender == "Gender") {
+      alert("Gender must be filled out");
+      return false;
+    }
+    if (dateofbirth == "") {
+      alert("DOB be filled out");
+      return false;
+    }
+    else if(status == "Status")
+    {
+      alert("Status must be filled out");
+      return false;
+    }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
+    {
+      $.ajax({
+      url:"api/createuser.php",
+      type:"GET",
+      dataType:"json",
+      data:
+      {
+        "id":id,
+        "firstname":firstname,
+        "lastname":lastname,
+        "phone":phone,
+        "email":email,
+        "gender":gender,
+        "dateofbirth":dateofbirth,
+        "status":status,
+      },
+      success:function(msg)
+      {
+        console.log(msg);
+        var message=msg['message'];
+        if(message=="success")
+        {
+           editsuccess();  
+        }
        
-  //       else{
-  //         error();
-  //       }
-  //     }
-  //   })
-  //   }
+        else{
+          error();
+        }
+      }
+    })
+    }
     
     
-  // }
-  // function editsuccess()
-  // {
-  //   var Toast = Swal.mixin({
-  //     toast: true,
-  //     position: 'top-end',
-  //     showConfirmButton: false,
-  //     timer: 5000
-  //   });
-  //   Toast.fire({
-  //           icon: 'success',
-  //           title: 'User Edit Successfully.'
-  //         })
-  //         setTimeout(function () {
+  }
+  function editsuccess()
+  {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+            icon: 'success',
+            title: 'User Edit Successfully.'
+          })
+          setTimeout(function () {
         
-  //       location.reload(true);
-  //     }, 1000);
+        location.reload(true);
+      }, 1000);
           
-  // }
+  }
 
   function deleterecord(id)
   {
