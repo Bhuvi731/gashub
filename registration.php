@@ -528,24 +528,24 @@ $(document).ready(function(){
         console.log(msg);
         var message=msg['message'];
         alert(message);
-      //   if(message=="Successfull")
-      //   {
+        if(message=="Successfull")
+        {
 
-      //      success();  
-      //   }
-      //   else{
-      //     error();
-      //   }
+           success();  
+        }
+        else{
+          error();
+        }
        }
     })
     }
     
     
   }
-  function RefreshTable() {
+  // function RefreshTable() {
   
-       $( "#content" ).load( "index.php?pageid=1 #content" );
-   }
+  //      $( "#content" ).load( "index.php?pageid=1 #content" );
+  //  }
 
    function error()
    {
