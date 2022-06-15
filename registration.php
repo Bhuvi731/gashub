@@ -621,7 +621,7 @@ $(document).ready(function(){
     }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
     {
       $.ajax({
-      url:"api/createuser.php",
+      url:"api/updateuser.php",
       type:"GET",
       dataType:"json",
       data:
