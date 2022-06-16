@@ -23,7 +23,7 @@ if(isset($_POST['id']))
   $createdat = date("y-m-d");
   $status="1";
 
-if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) && !empty($refiltype) && !empty($quantity) && !empty($status) &&  
+if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) &&!empty($vendorid) && !empty($refiltype) && !empty($quantity) && !empty($status) && 
   !empty($addresstype)){
 
   if($addresstype==1 && !empty($businessimg) &&!empty($expdate)){
