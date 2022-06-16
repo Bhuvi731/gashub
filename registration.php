@@ -526,7 +526,7 @@ $(document).ready(function(){
       {    
         console.log(msg);
         var message=msg['message']
-        if(message=="Successfull")
+        if(message=="Success")
         {
 
            success();  
