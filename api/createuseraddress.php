@@ -17,10 +17,11 @@ $latitude=$_POST['latitude'];
 $longitude=$_POST['longitude'];
 $status="1";
 $createdby="1";
+$createdat=date("d-m-y")
 
 if(!empty($user_id) &&!empty($status) &&!empty($addressline1) &&!empty($pincode)){
 
-        $sql=pg_query($db,"INSERT INTO useraddresses(userid,addressline1,pincode,latitude,longitude,status,createdby)VALUES('$user_id','$addressline1','$pincode','$latitude','$longitude','$status','$createdby')");
+        $sql=pg_query($db,"INSERT INTO useraddresses(userid,addressline1,pincode,latitude,longitude,status,createdby,createdat)VALUES('$user_id','$addressline1','$pincode','$latitude','$longitude','$status','$createdby','$createdat')");
         
          http_response_code(201);  
          echo json_encode(array("message" => "Successfull"));
