@@ -26,7 +26,7 @@ if(isset($_POST['id']))
 if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) &&!empty($vendorid) && !empty($refiltype) && !empty($quantity) && !empty($status) && 
   !empty($addresstype)){
 
-  if($addresstype==1 && !empty($businessimg) &&!empty($expdate)){
+  if($addresstype==1){
      $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype,businessimg,expdate)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype','$businessimg','$expdate')");
      if($sql){
        
