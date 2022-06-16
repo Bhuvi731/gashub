@@ -11,21 +11,16 @@ include_once '../database/db.php';
 if(isset($_POST['id']))
 {
 $user_id=$_POST['id'];
-$name=$_POST['name'];
 $addressline1=$_POST['addressline1'];
-$addressline2=$_POST['addressline2'];
-$city=$_POST['city'];
-$landmark=$_POST['landmark'];
-$district=$_POST['district'];
-$state=$_POST['state'];
-$country=$_POST['country'];
 $pincode=$_POST['pincode'];
+$latitude=$_POST['latitude'];
+$longitude=$_POST['longitude'];
 $status="1";
 $createdby="1";
 
-if(!empty($user_id) && !empty($status)){
+if(!empty($user_id) &&!empty($status) &&!empty($addressline1) &&!empty($pincode)){
 
-        $sql=pg_query($db,"INSERT INTO useraddresses(userid,name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby)VALUES('$user_id','$name','$addressline1','$addressline2','$city','$landmark','$district','$state','$country','$pincode','$latitude','$longitude','$status','$createdby')");
+        $sql=pg_query($db,"INSERT INTO useraddresses(userid,addressline1,pincode,latitude,longitude,status,createdby)VALUES('$user_id','$addressline1','$pincode','$latitude','$longitude','$status','$createdby')");
         
          http_response_code(201);  
          echo json_encode(array("message" => "Successfull"));
