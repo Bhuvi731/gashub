@@ -17,7 +17,7 @@ $latitude=$_POST['latitude'];
 $longitude=$_POST['longitude'];
 $status="1";
 $createdby="1";
-$createdat=date("d-m-y")
+$createdat=date("d-m-y");
 
 if(!empty($user_id) &&!empty($status) &&!empty($addressline1) &&!empty($pincode)){
 
