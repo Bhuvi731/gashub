@@ -15,18 +15,18 @@ $password=$_POST['password'];
 $gender=$_POST['gender'];
 $dateofbirth=$_POST['dateofbirth'];
 $status="1";
-$createdby="1";                                                                                                                                                                                           
-if(!empty($email) &&
-!empty($password)&&
-!empty($status)){ 
-    $sql = "SELECT * FROM users WHERE email='$email'";
+$createdby="1";
+$createdat=date("d-m-y");                                                                                                                          
+if(!empty($email) && !empty($status)){ 
+    $sql = "SELECT id FROM users WHERE email='$email'";
     $res = pg_query($db, $sql);
     if(pg_num_rows($res) > 0){
+      $res2=pg_fetch_array($res);
         http_response_code(201);         
-        echo json_encode(array("message" => "email_existed"));
+        echo json_encode($res2);
       }else{
         
-    $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$password')RETURNING id";
+    $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,createdat,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$createdat','$password')RETURNING id";
     
     $query=pg_query($db,$sql);
     if($query)
