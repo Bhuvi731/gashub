@@ -6,44 +6,53 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-$refiltype=$_POST['refiltype'];
-$quantity=$_POST['quantity'];
-$status=$_POST['status'];
-$createdby="1";
-if(!empty($quantity) && 
-!empty($status)){ 
+if(isset($_POST['id']))
+{
+  $userid=$_POST['id'];
+  $deliveryaddressid=$_POST['deliveryaddressid'];
+  $vendorid=$_POST['vendorid'];
+  $productid=$_POST['productid'];
+  $deliverydate=$_POST['deldate'];
+  $refiltype=$_POST['refiltype'];
+  $addresstype=$_POST['addresstype'];
+  $businessimg=$_POST['businessimg'];
+  $expdate=$_POST['expdate'];
+  $quantity=$_POST['quantity'];
+  $cylinderimg=$_POST['cylinderimg'];
+  $createdby="1";
+  $createdat = date("y-m-d");
+  $status="1";
 
-    $vendorrow= pg_query($db,"select * from users order by id desc");
-    $vendorarray=pg_fetch_array($vendorrow);
-    $userid=$vendorarray['id'];
+if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) && !empty($refiltype) && !empty($quantity) && !empty($status) &&  
+  !empty($addresstype)){
 
-   $cylindertyrow= pg_query($db,"select * from useraddresses order by id desc");
-    $cylindertyarray=pg_fetch_array($cylindertyrow);
-    $deliveryaddressid=$cylindertyarray['id'];
+  if($addresstype==1 && !empty($businessimg) &&!empty($expdate)){
+// if(!empty($businessimg) &&!empty($expdate)){
+     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype,businessimg,expdate)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype','$businessimg','$expdate')");
+     if($sql){
+       
+        http_response_code(201);         
+        echo json_encode(array("message" => "Successfull"));
+   }else{
+        http_response_code(503);        
+        echo json_encode(array("message" => "Error"));
+    }
 
-    $cylinderweirow= pg_query($db,"select * from vendors order by id desc");
-    $cylinderarray=pg_fetch_array($cylinderweirow);
-    $vendorid=$cylinderarray['id'];
+  }else{
 
-    $cylinderweightrow= pg_query($db,"select * from products order by id desc");
-    $cylinderweightarray=pg_fetch_array($cylinderweightrow);
-    $productid=$cylinderweightarray['id'];
- 
-    $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,quantity,status,createdby)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$quantity','$status','$createdby')");
-    if($sql)
-    {
+     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype')");
+
+    if($sql){
        
         http_response_code(201);         
         echo json_encode(array("message" => "Successfull"));
       
-    }else
-    {
+    }else{
         http_response_code(503);        
         echo json_encode(array("message" => "Error"));
     }
-}
-else
-{
+
+}}}else{
     http_response_code(400);    
     echo json_encode(array("message" => "Error Please Check."));
 }
