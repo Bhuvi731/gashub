@@ -13,8 +13,8 @@ if(isset($_POST['id']))
 $user_id=$_POST['id'];
 $addressline1=$_POST['addressline1'];
 $pincode=$_POST['pincode'];
-$latitude=$_POST['latitude'];
-$longitude=$_POST['longitude'];
+// $latitude=$_POST['latitude'];
+// $longitude=$_POST['longitude'];
 $status="1";
 $createdby="1";
 $createdat=date("d-m-y");
