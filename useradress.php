@@ -48,68 +48,15 @@
 <div class="row">
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Name</label>
-<input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+<label for="exampleSelectBorder">Address</label>
+<input type="text" class="form-control" id="addressline1" placeholder="Enter Address" name="addressline1">
 </div>
 </div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Address Line1</label>
-<input type="text" class="form-control" id="addressline1" placeholder="Enter Address Line 1" name="addressline1">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Address Line2</label>
-<input type="text" class="form-control" id="addressline2" placeholder="Enter Address Line 2" name="addressline2">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">City</label>
-<input type="text" class="form-control" id="city" placeholder="Enter City" name="city">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Landmark</label>
-<input type="text" class="form-control" id="landmark" placeholder="Enter Landmark" name="landmark">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">District</label>
-<input type="text" class="form-control" id="district" placeholder="Enter District" name="district">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">State</label>
-<input type="text" class="form-control" id="state" placeholder="Enter State" name="state">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Country</label>
-<input type="text" class="form-control" id="country" placeholder="Enter Country" name="country">
-</div>
-</div>
+
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Pincode</label>
 <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode" name="pincode">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Latitude</label>
-<input type="text" class="form-control" id="latitude" placeholder="Enter Latitude" name="latitude">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Longitude</label>
-<input type="text" class="form-control" id="longitude" placeholder="Enter Longitude" name="longitude">
 </div>
 </div>
 <div class="col-sm-6">
@@ -168,17 +115,8 @@
 <thead>
 <tr>
 <th>SI.No</th>
-<th>Name</th>
-<th>Address Line 1</th>
-<th>Address Line 2</th>
-<th>City</th>
-<th>Landmark</th>
-<th>District</th>
-<th>State</th>
-<th>Country</th>
+<th>Address</th>
 <th>Pincode</th>
-<th>Latitude</th>
-<th>Longitude</th>
 <th>status</th>
 <th>created by</th>
 <th>Action</th>
@@ -193,19 +131,8 @@ while($row=pg_fetch_assoc($vendor))
 	?>
 <tr>
 <td><?php echo $i?></td>
-<td><?php echo $row['name'] ?></td>
 <td><?php echo $row['addressline1'] ?></td>
-<td><?php echo $row['addressline2'] ?></td>
-<td><?php echo $row['city'] ?></td>
-<td><?php echo $row['landmark'] ?></td>
-<td><?php echo $row['district'] ?></td>
-<td><?php echo $row['state'] ?></td>
-<td><?php echo $row['country'] ?></td>
 <td><?php echo $row['pincode'] ?></td>
-<td><?php echo $row['latitude'] ?></td>
-<td><?php echo $row['longitude'] ?></td>
-                                                                                                                                                                                                 
-
 <td>
 <?php
 if($row['status']==1)
@@ -261,73 +188,21 @@ if($row['createdby']==1)
 <form>
 <div class="card-body">
 <div class="row">
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Name</label>
-<input type="text" class="form-control" id="name<?php echo $row['id'];?>" placeholder="Enter Name" name="name" value="<?php echo $row['name'];?>">
-</div>
-</div>
 
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Address Line1</label>
-<input type="text" class="form-control" id="addressline1<?php echo $row['id'];?>" placeholder="Enter Address Line 1" name="addressline1" value="<?php echo $row['addressline1'];?>">
+<label for="exampleSelectBorder">Address</label>
+<input type="text" class="form-control" id="addressline1<?php echo $row['id'];?>" placeholder="Enter Your Address" name="addressline1" value="<?php echo $row['addressline1'];?>">
 </div>
 </div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Address Line2</label>
-<input type="text" class="form-control" id="addressline2<?php echo $row['id'];?>" placeholder="Enter Address Line 2" name="addressline2" value="<?php echo $row['addressline2'];?>">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">City</label>
-<input type="text" class="form-control" id="city<?php echo $row['id'];?>" placeholder="Enter City" name="city" value="<?php echo $row['city'];?>">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Landmark</label>
-<input type="text" class="form-control" id="landmark<?php echo $row['id'];?>" placeholder="Enter Landmark" name="landmark" value="<?php echo $row['landmark'];?>">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">District</label>
-<input type="text" class="form-control" id="district<?php echo $row['id'];?>" placeholder="Enter District" name="district" value="<?php echo $row['district'];?>">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">State</label>
-<input type="text" class="form-control" id="state<?php echo $row['id'];?>" placeholder="Enter State" name="state" value="<?php echo $row['state'];?>">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Country</label>
-<input type="text" class="form-control" id="country<?php echo $row['id'];?>" placeholder="Enter Country" name="country" value="<?php echo $row['country'];?>">
-</div>
-</div>
+
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Pincode</label>
 <input type="text" class="form-control" id="pincode<?php echo $row['id'];?>" placeholder="Enter Pincode" name="pincode" value="<?php echo $row['pincode'];?>">
 </div>
 </div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Latitude</label>
-<input type="text" class="form-control" id="latitude<?php echo $row['id'];?>" placeholder="Enter Latitude" name="longitude" value="<?php echo $row['longitude'];?>">
-</div>
-</div>
-<div class="col-sm-6">
-<div class="form-group">
-<label for="exampleSelectBorder">Longitude</label>
-<input type="text" class="form-control" id="longitude<?php echo $row['id'];?>" placeholder="Enter Longitude" name="longitude" value="<?php echo $row['longitude'];?>">
-</div>
-</div>
+
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Status</label>
@@ -367,29 +242,7 @@ if($row['createdby']==1)
 <div class="card-body">
 <div class="row">
 
-<div class="col-sm-4">
-<div class="form-group">
-<label for="exampleInputEmail1">Available Stock</label>
-</div>
-</div>
-<div class="col-sm-8">
-<div class="form-group">
-<p class="text-sm"><?php echo $row['availablestock'];?>
-</p>
-</div>
-</div>
 
-<div class="col-sm-4">
-<div class="form-group">
-<label for="exampleInputEmail1">Status</label>
-</div>
-</div>
-<div class="col-sm-8">
-<div class="form-group">
-<p class="text-sm"><?php echo 'Active';?>
-</p>
-</div>
-</div>
 </div>
 </form>
 </div>
@@ -469,55 +322,12 @@ $(document).ready(function(){
   
   function save()
   {
-    var name=$("#name").val();
     var addressline1=$("#addressline1").val();
-    var addressline2=$("#addressline2").val();
-    var city =$("#city").val();
-    var landmark=$("#landmark").val();
-    var district=$("#district").val();
-    var state=$("#state").val();
-    var country=$("#country").val();
     var pincode=$("#pincode").val();
-    var latitude=$("#latitude").val();
-    var longitude=$("#longitude").val();
     var status=$("#status").val();
-    if ( name == "") {
-      alert("name must be filled out");
-      return false;
-    }
-    else if(addressline1 == "")
+    if(addressline1 == "")
     {
       alert("addressline1 must be filled out");
-      return false;
-    }
-    else if(addressline2 == "")
-    {
-      alert("addressline2 must be filled out");
-      return false;
-    }
-    else if(city == "")
-    {
-      alert("city must be filled out");
-      return false;
-    }
-    else if(landmark == "")
-    {
-      alert("landmark must be filled out");
-      return false;
-    }
-    else if(district == "")
-    {
-      alert("district must be filled out");
-      return false;
-    }
-    else if(state == "")
-    {
-      alert("state must be filled out");
-      return false;
-    }
-    else if(country == "")
-    {
-      alert("country must be filled out");
       return false;
     }
     else if(pincode == "")
@@ -525,39 +335,20 @@ $(document).ready(function(){
       alert("pincode must be filled out");
       return false;
     }
-    else if(latitude == "")
-    {
-      alert("latitude must be filled out");
-      return false;
-    }
-    else if(longitude == "")
-    {
-      alert("longitude must be filled out");
-      return false;
-    }
     else if(status == "")
     {
       alert("status must be filled out");
       return false;
     }
-    else if(name != "" && addressline1 != "" && addressline2 != "" && city != "" && landmark != "" && district != "" && state != "" && country != "" && pincode != "" && latitude != "" && longitude != "" && status !="" )
+    else if( addressline1 != "" && pincode != "" && status !="" )
     {
       $.ajax({
       url:"api/createuseraddress.php",
       method:"POST",
       dataType: "json",
       data: {
-        "name":name,
         "addressline1":addressline1,
-        "addressline2":addressline2,
-        "city":city,
-        "landmark":landmark,
-        "district":district,
-        "state":state,
-        "country":country,
         "pincode":pincode,
-        "latitude":latitude,
-        "longitude":longitude,
         "status":status,
       },
       success:function(msg)
@@ -581,10 +372,10 @@ $(document).ready(function(){
     
     
   }
-  function RefreshTable() {
+  // function RefreshTable() {
   
-       $( "#content" ).load( "index.php?pageid=1 #content" );
-   }
+  //      $( "#content" ).load( "index.php?pageid=1 #content" );
+  //  }
 
    function error()
    {
@@ -701,7 +492,7 @@ $(document).ready(function(){
     var deleteid=id;
     $.ajax({
       type:"POST",
-      url:"api/deleteuseraddress.php",
+      url:"api/ deleteuseraddress.php",
       data:
       {
         
