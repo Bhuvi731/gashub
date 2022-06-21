@@ -21,7 +21,7 @@ if(isset($_POST['id']))
   $cylinderimg=$_POST['cylinderimg'];
   $createdby="1";
   $createdat = date("y-m-d");
-  $status=$_POST['status'];
+  $status="1";
 
 if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) &&!empty($vendorid) && !empty($refiltype) && !empty($quantity) && !empty($status) &&  
   !empty($addresstype)){
