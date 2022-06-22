@@ -5,14 +5,14 @@
 
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
-	#dashboard
-	{
-		display:none;
-	}
+  #dashboard
+  {
+    display:none;
+  }
  
   table {
    
-      display: block;  
+    display: block;  
     width: 100%;
     overflow-x: scroll;
     white-space: nowrap;
@@ -43,20 +43,35 @@
 </div>
 <div class="modal-body">
 <form>
-<div class="container-fluid">
-<div class="card-body">
-<div class="row">
+
+<div class="col-sm-6">
+<div class="form-group">
+<label for="exampleSelectBorder">user name</label>
+<select class="custom-select" id="username" name="username">
+<option>Select Your Username</option>
+<?php
+$vendor1=pg_query($db,"SELECT * FROM users WHERE status=1");
+while($row1=pg_fetch_assoc($vendor1))
+{
+  ?>
+<option value="<?php echo $row1['id'];?>"><?php echo $row1[firstname]?></option>
+<?php
+}
+?>
+</select>
+
+</div>
+</div>
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Address</label>
 <input type="text" class="form-control" id="addressline1" placeholder="Enter Address" name="addressline1">
 </div>
 </div>
-
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Pincode</label>
-<input type="text" class="form-control" id="pincode" placeholder="Enter Pincode" name="pincode">
+<label for="exampleSelectBorder">pincode</label>
+<input type="text" class="form-control" id="pincode" placeholder="Enter Address" name="pincode">
 </div>
 </div>
 <div class="col-sm-6">
@@ -115,8 +130,9 @@
 <thead>
 <tr>
 <th>SI.No</th>
+<!-- <th>Username</th> -->
 <th>Address</th>
-<th>Pincode</th>
+<th>pincode</th>
 <th>status</th>
 <th>created by</th>
 <th>Action</th>
@@ -124,15 +140,19 @@
 </thead>
 <tbody id="myTable">
 <?php
-$vendor=pg_query($db,"SELECT id,name,addressline1,addressline2,city,landmark,district,state,country,pincode,latitude,longitude,status,createdby,createdat,updatedat,updatedby FROM useraddresses WHERE status=1");
+
+$vendor=pg_query($db,"SELECT useraddresses.id,useraddresses.addressline1,useraddresses.pincode,useraddresses.latitude,useraddresses.longitude,useraddresses.createdby,useraddresses.createdat,useraddresses.updatedat,useraddresses.updatedby,users.firstname,useraddresses.status FROM useraddresses left join users on users.id=useraddresses.userid WHERE useraddresses.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
-	?>
+  ?>
 <tr>
 <td><?php echo $i?></td>
 <td><?php echo $row['addressline1'] ?></td>
 <td><?php echo $row['pincode'] ?></td>
+
+                                                                                                                                                                                                 
+
 <td>
 <?php
 if($row['status']==1)
@@ -186,37 +206,48 @@ if($row['createdby']==1)
 </div>
 <div class="modal-body">
 <form>
-<div class="card-body">
-<div class="row">
+<!-- <div class="col-sm-6">
+<div class="form-group">
+<label for="exampleSelectBorder">user name</label>
+<select class="custom-select" id="username" name="username">
+<option>Select Your Username</option>
+<?php
+$vendor1=pg_query($db,"SELECT * FROM users WHERE status=1");
+while($row1=pg_fetch_assoc($vendor1))
+{
+  ?>
+<option value="<?php echo $row1['id'];?>"><?php echo $row1[firstname]?></option>
+<?php
+}
+?>
+</select>
 
+</div>
+</div> -->
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Address</label>
-<input type="text" class="form-control" id="addressline1<?php echo $row['id'];?>" placeholder="Enter Your Address" name="addressline1" value="<?php echo $row['addressline1'];?>">
+<input type="text" class="form-control" id="addressline1<?php echo $row['id'];?>" placeholder="Enter Address " name="addressline1" value="<?php echo $row['addressline1'];?>">
 </div>
 </div>
-
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Pincode</label>
-<input type="text" class="form-control" id="pincode<?php echo $row['id'];?>" placeholder="Enter Pincode" name="pincode" value="<?php echo $row['pincode'];?>">
+<label for="exampleSelectBorder">pincode</label>
+<input type="text" class="form-control" id="pincode<?php echo $row['id'];?>" placeholder="Enter Address" name="pincode" value="<?php echo $row['pincode'];?>">
 </div>
 </div>
-
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Status</label>
 <select class="custom-select" id="status<?php echo $row['id'];?>" name="status">
 <option>Status</option>
-<option value="1" <?php if($row['status']=="1") echo "Selected"?>>Active</option>
-<option value="2" <?php if($row['status']=="2") echo "Selected"?>>InActive</option>
+<option value="1" <?php if($row['status']=="1") echo "Selected";?>>Active</option>
+<option value="2" <?php if($row['status']=="2") echo "Selected";?>>InActive</option>
 </select>
 </div>
 </div>
 </div>
 
-</form>
-</div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 <button type="button" class="btn btn-primary" name="submit" onclick="editsave(<?php echo $row['id'];?>)">Save changes</button>
@@ -226,6 +257,7 @@ if($row['createdby']==1)
 </div>
 
 </div>
+</form>
 <!-- view start -->
 <div class="modal fade" id="viewmodal-default<?php echo $row['id'];?>">
 <div class="modal-dialog">
@@ -242,7 +274,29 @@ if($row['createdby']==1)
 <div class="card-body">
 <div class="row">
 
+<div class="col-sm-4">
+<div class="form-group">
+<label for="exampleInputEmail1">Available Stock</label>
+</div>
+</div>
+<div class="col-sm-8">
+<div class="form-group">
+<p class="text-sm"><?php echo $row['availablestock'];?>
+</p>
+</div>
+</div>
 
+<div class="col-sm-4">
+<div class="form-group">
+<label for="exampleInputEmail1">Status</label>
+</div>
+</div>
+<div class="col-sm-8">
+<div class="form-group">
+<p class="text-sm"><?php echo 'Active';?>
+</p>
+</div>
+</div>
 </div>
 </form>
 </div>
@@ -257,7 +311,7 @@ if($row['createdby']==1)
 
 </div>
 </tr>
-	<?php
+  <?php
   $i++;
 }
 ?>
@@ -322,10 +376,18 @@ $(document).ready(function(){
   
   function save()
   {
+    var select = document.getElementById('username');
+    var userid = select.options[select.selectedIndex].value;
     var addressline1=$("#addressline1").val();
     var pincode=$("#pincode").val();
     var status=$("#status").val();
-    if(addressline1 == "")
+
+    if(userid == "")
+    {
+      alert("Username must be filled out");
+      return false;
+    }
+    else if(addressline1 == "")
     {
       alert("addressline1 must be filled out");
       return false;
@@ -340,22 +402,31 @@ $(document).ready(function(){
       alert("status must be filled out");
       return false;
     }
-    else if( addressline1 != "" && pincode != "" && status !="" )
+   
+    else if(addressline1 != "" &&  pincode != ""  && status !=""&& userid !="" )
     {
+      alert(userid);
+      alert(addressline1);
+      alert(pincode);
+      alert(status);
       $.ajax({
       url:"api/createuseraddress.php",
       method:"POST",
-      dataType: "json",
+      dataType: "text",
       data: {
+        "id":userid,
         "addressline1":addressline1,
         "pincode":pincode,
         "status":status,
+
+
       },
       success:function(msg)
       {
         console.log(msg);
         var message=msg['message'];
-        if(message=="Successfull")
+        alert(message);
+        if(message=="Success")
         {
            success();  
         }
@@ -414,59 +485,63 @@ $(document).ready(function(){
           
   }
 
-  // function editsave(id)
-  // {
-  //   var courseid=id;
-  //   var course = $("#course"+id).val();
-  //   var status = $("#status"+id).val();
-  //   var course_credit_hour = $("#course_credit_hour"+id).val();
-  //   var course_code = $("#course_code"+id).val();
-  //   if (course == "") {
-  //     alert("Name must be filled out");
-  //     return false;
-  //   }
-  //   else if(status == "Status")
-  //   {
-  //     alert("Status must be filled out");
-  //     return false;
-  //   }
-  //   if (course_credit_hour == "") {
-  //     alert("Hour must be filled out");
-  //     return false;
-  //   }
-  //   if (course_code == "") {
-  //     alert("Code must be filled out");
-  //     return false;
-  //   }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
-  //   {
-  //     $.ajax({
-  //     type:"GET",
-  //     url:"mastercourse.php",
-  //     data:
-  //     {
-  //       "id":courseid,
-  //       "course":course,
-  //       "status":status,
-  //       "course_credit_hour":course_credit_hour,
-  //       "course_code":course_code,
-  //     },
-  //     success:function(msg)
-  //     {
-  //       console.log(msg);
-  //       if(msg=="success")
-  //       {
-          
-  //         editsuccess();
-          
-          
-  //       }else{
-
-  //       }
-  //     }
-  //   })
-  //   }
-  // }
-
+  function editsave(id)
+  {
+    alert(id);
+    var addressline1=$("#addressline1"+id).val();
+    alert(addressline1);
+    var pincode=$("#pincode"+id).val();
+    alert(pincode);
+    var status=$("#status"+id).val();
+    alert(status);
+     if(addressline1 == "")
+    {
+      alert("addressline1 must be filled out");
+      return false;
+    }
+    else if(pincode == "")
+    {
+      alert("pincode must be filled out");
+      return false;
+    }
+    else if(status == "")
+    {
+      alert("status must be filled out");
+      return false;
+    }
+    else if( addressline1 != ""  && pincode != "" && status !="" )
+    {
+      $.ajax({
+      type:"post",
+      url:"api/updateuseraddress.php",
+      dataType: "text",
+      data:
+      {
+        "id":id,
+        "addressline1":addressline1,
+        "pincode":pincode,
+        "status":status,
+      },
+      
+      success:function(msg)
+      {    
+        console.log(msg);
+        var message=msg['message'];
+        alert(message);
+        if(message=="success")
+        {
+           editsuccess();  
+        }
+       
+        else{
+          error();
+        }
+      }
+     })
+    }
+    
+    
+  }
   function editsuccess()
   {
     var Toast = Swal.mixin({
@@ -477,7 +552,7 @@ $(document).ready(function(){
     });
     Toast.fire({
             icon: 'success',
-            title: 'Course Edit Successfully.'
+            title: 'useraddress Edit Successfully.'
           })
           setTimeout(function () {
         
@@ -492,7 +567,7 @@ $(document).ready(function(){
     var deleteid=id;
     $.ajax({
       type:"POST",
-      url:"api/ deleteuseraddress.php",
+      url:"api/deleteuseraddress.php",
       data:
       {
         
@@ -503,8 +578,7 @@ $(document).ready(function(){
       {
         console.log(msg);
         var message=msg['message'];
-        
-        if(message=="Successfull")
+        if(message)
         {
            
           deletesuccess();
@@ -536,6 +610,3 @@ $(document).ready(function(){
           
   }
 </script>
-
-
-
