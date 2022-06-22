@@ -2,22 +2,23 @@
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/plain');
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods:GET");
+header("Access-Control-Allow-Methods:POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if(!empty($_GET['id']))
+if(!empty($_REQUEST['id']))
 {
-$id = $_GET['id'];
-$addressline1=$_GET['addressline1'];
-$pincode=$_GET['pincode'];
- $latitude=$_GET['latitude'];
- $longitude=$_GET['longitude'];
-$status=$_GET['status'];
-$createdby="1";                                                                                                                                                                   
+$id = $_REQUEST['id'];
+$addressline1=$_REQUEST['addressline1'];
+$pincode=$_REQUEST['pincode'];
+$latitude=$_REQUEST['latitude'];
+$longitude=$_REQUEST['longitude'];
+$status=$_REQUEST['status'];
+$updatedby="1";
+$updatedat=date('d-m-y');                                                                                                                                                                  
  if(isset($id) && isset($addressline1)
  && isset($pincode) && isset($status)){
- $sql1="UPDATE useraddresses SET addressline1='$addressline1',pincode='$pincode',latitude='$latitude',longitude='$longitude',status='$status' WHERE id='$id'";
+ $sql1="UPDATE useraddresses SET addressline1='$addressline1',pincode='$pincode',latitude='$latitude',longitude='$longitude',status='$status',updatedby='$updatedby',updatedat='$updatedat' WHERE id='$id'";
  $sql=pg_query($db,$sql1);
  if($sql)
         {
