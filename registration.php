@@ -636,7 +636,6 @@ $(document).ready(function(){
       return false;
     }else if(firstname != "" && status !="" && phone !=="" && email !=="" && gender !=="" && dateofbirth !=="")
     {
-      alert(id);
       $.ajax({
       type:"GET",
       url:"api/updateuser.php",
@@ -656,7 +655,6 @@ $(document).ready(function(){
       {
         console.log(msg);
         var message=msg['message'];
-        alert(message);
         if(message=="success")
         {
            editsuccess();  
