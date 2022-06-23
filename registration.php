@@ -526,7 +526,6 @@ $(document).ready(function(){
       {    
         console.log(msg);
         var message=msg;
-        alert(message);
         if(message=="Success")
         {
 
