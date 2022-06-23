@@ -15,32 +15,43 @@ $password=$_POST['password'];
 $gender=$_POST['gender'];
 $dateofbirth=$_POST['dateofbirth'];
 $status="1";
-$createdby="1";                                                                                                                                                                                         
-if(!empty($firstname) && !empty($phone) && !empty($email) &&
-!empty($gender) && !empty($dateofbirth) &&
-!empty($status) && !empty($password))
-{ 
-  $sql = "SELECT * FROM users WHERE email='$email'";
+$createdby="1";
+$createdat=date("d-m-y");                                                                                                                          
+if(!empty($email) && !empty($status)){ 
+    $sql = "SELECT id FROM users WHERE email='$email'";
     $res = pg_query($db, $sql);
     if(pg_num_rows($res) > 0){
-        http_response_code(201);         
-        echo"email_existed";
+      $res2=pg_fetch_array($res);
+        http_response_code(201);
+         echo"email_existed";         
+        echo json_encode($res2);
       }else{
-    $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$password')RETURNING id";
+        
+    $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,createdat,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$createdat','$password')RETURNING id";
+    
     $query=pg_query($db,$sql);
     if($query)
     {
-        http_response_code(201);         
-        echo "Success";
-    }else
-    {
-        http_response_code(503);        
-        echo"Error";
-    }
-  }
- }
- else{
+       $insert_row = pg_fetch_row($query);
+        $insert_id = $insert_row[0];
+        $sql=pg_query($db,"INSERT INTO userlogins(userid)VALUES('$insert_id')");
+        if($sql){
+        $sql2=pg_query($db,"SELECT id from users where id='$insert_id'");
+          if($sql3=pg_fetch_array($sql2)){
+
+                                 http_response_code(201);         
+                                echo json_encode($sql3);
+                                          }
+        
+
+               }else{
+
+                 http_response_code(503);        
+                 echo json_encode(array("message" => "Error"));
+                    }
+}}}else
+{
     http_response_code(400);    
-    echo "Error Please Check.";
-   }
-  ?>
+    echo json_encode(array("message" => "Error Please Check."));
+}
+?>
