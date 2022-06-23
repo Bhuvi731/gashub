@@ -526,11 +526,11 @@ $(document).ready(function(){
       {    
         console.log(msg);
         var message=msg['message'];
-        if(message=="Success")
+        if(message=="success")
         {
 
            success();  
-        }else if(message=="email_existed"){
+        }else if(message=="Email_existed"){
 
              email_existed();
         }
