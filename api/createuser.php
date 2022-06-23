@@ -23,7 +23,7 @@ if(!empty($email) && !empty($status)){
     if(pg_num_rows($res) > 0){
       $res2=pg_fetch_array($res);
         http_response_code(201);
-         echo"email_existed";         
+         echo json_encode(array("message" => "email_existed"));          
         echo json_encode($res2);
       }else{
         
@@ -39,7 +39,8 @@ if(!empty($email) && !empty($status)){
         $sql2=pg_query($db,"SELECT id from users where id='$insert_id'");
           if($sql3=pg_fetch_array($sql2)){
 
-                                 http_response_code(201);         
+                                 http_response_code(201);
+                                 echo json_encode(array("message" => "success"));         
                                 echo json_encode($sql3);
                                           }
         
