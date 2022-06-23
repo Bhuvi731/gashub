@@ -525,7 +525,7 @@ $(document).ready(function(){
       success:function(msg)
       {    
         console.log(msg);
-        var message=msg;
+        var message=msg['message'];
         if(message=="Success")
         {
 
