@@ -508,9 +508,9 @@ $(document).ready(function(){
     {
       
     $.ajax({
-      url:"api/createuser.php",
+      url:"api/createuseradmin.php",
       method:"POST",
-      dataType:"text",
+      dataType:"json",
       data: {
         
         "firstname":firstname,
