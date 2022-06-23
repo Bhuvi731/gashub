@@ -510,7 +510,7 @@ $(document).ready(function(){
     $.ajax({
       url:"api/createuser.php",
       method:"POST",
-      dataType:"json",
+      dataType:"text",
       data: {
         
         "firstname":firstname,
@@ -525,12 +525,15 @@ $(document).ready(function(){
       success:function(msg)
       {    
         console.log(msg);
-        var message=msg['message'];
+        var message=msg;
         alert(message);
         if(message=="Success")
         {
 
            success();  
+        }else if(message=="email_existed"){
+
+             email_existed();
         }
         else{
           error();
@@ -546,24 +549,7 @@ $(document).ready(function(){
   //      $( "#content" ).load( "index.php?pageid=1 #content" );
   //  }
 
-   function error()
-   {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-        icon: 'error',
-        title: 'Please Check.'
-      })
-          setTimeout(function () {
-        
-        location.reload(true);
-      }, 1000);
-          
-   }
+ 
   function success()
   {
     var Toast = Swal.mixin({
@@ -582,7 +568,38 @@ $(document).ready(function(){
       }, 1000);
           
   }
- 
+  function email_existed()                                       
+  {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+            icon: 'info',
+            title: 'Email already existed.'
+          })
+          setTimeout(function () {
+        //alert('Reloading Page');
+        location.reload(true);
+      }, 1000);
+          //window.location.reload();
+  }
+  function error()
+   {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+        icon: 'error',
+        title: 'Please Check.'
+      });
+          
+   }
 
   function editsave(id)
   {
@@ -690,9 +707,9 @@ $(document).ready(function(){
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
+        var message=msg;
         
-        if(message=="Successfull")
+        if(message=="Success")
         {
            
           deletesuccess();
