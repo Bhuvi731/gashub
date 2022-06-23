@@ -89,35 +89,6 @@ Add Banner
     <?php
 }
 ?>
-
-<?php
-if($_GET['pageid']==10)
-{
-    ?>
-<li class="nav-item">
-<a href="index.php?pageid=10" class="nav-link active">
-<i class="nav-icon fa fa-user-plus"></i>
-<p>
-User Login
-
-</p>
-</a>
-</li>
-    <?php
-}else{
-    ?>
-    <li class="nav-item">
-<a href="index.php?pageid=10" class="nav-link">
-<i class="fa fa-user-plus"></i>
-<p>
-User Login
-
-</p>
-</a>
-</li>
-    <?php
-}
-?>
 <?php
 if($_GET['pageid']==5)
 {

@@ -31,10 +31,6 @@ else if($pageid==9)
 {
 	include("feedback.php");
 }
-else if($pageid==10)
-{
-	include("userlogin.php");
-}
 else if($pageid==11)
 {
 	include("carosel.php");
