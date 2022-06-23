@@ -578,12 +578,7 @@ $(document).ready(function(){
     Toast.fire({
             icon: 'info',
             title: 'Email already existed.'
-          })
-          setTimeout(function () {
-        //alert('Reloading Page');
-        location.reload(true);
-      }, 1000);
-          //window.location.reload();
+          });
   }
   function error()
    {
