@@ -20,27 +20,27 @@ if(!empty($firstname) && !empty($phone) && !empty($email) &&
 !empty($gender) && !empty($dateofbirth) &&
 !empty($status) && !empty($password))
 { 
-    echo $sql = "SELECT * FROM users WHERE email='$email'";
+  $sql = "SELECT * FROM users WHERE email='$email'";
     $res = pg_query($db, $sql);
     if(pg_num_rows($res) > 0){
         http_response_code(201);         
-        echo json_encode(array("message" => "email_existed"));
+        echo"email_existed";
       }else{
     $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$password')RETURNING id";
     $query=pg_query($db,$sql);
     if($query)
     {
         http_response_code(201);         
-        echo json_encode(array("message" => "Successfull"));
+        echo "Success";
     }else
     {
         http_response_code(503);        
-        echo json_encode(array("message" => "Error"));
+        echo"Error";
     }
   }
  }
  else{
     http_response_code(400);    
-    echo json_encode(array("message" => "Error Please Check."));
+    echo "Error Please Check.";
    }
   ?>
