@@ -28,7 +28,7 @@
 </div>
 <div class="col-4">
 <div class="card-footer clearfix" style="background-color:rgb(244 246 249) !important">
-<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Add Vendors</button>
+<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Add UserAddress</button>
 </div>
 </div>
 
@@ -36,26 +36,25 @@
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
-<h4 class="modal-title">Add Vendors</h4>
+<h4 class="modal-title">Add UserAddress</h4>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
  <span aria-hidden="true">&times;</span>
 </button>
 </div>
 <div class="modal-body">
 <form>
-<div class="card-body">
-<div class="row">
+
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Vendor name</label>
-<select class="custom-select" id="businessname" name="businessname">
-<option>Select Your Vendor Name</option>
+<label for="exampleSelectBorder">user name</label>
+<select class="custom-select" id="username" name="username">
+<option>Select Your Username</option>
 <?php
-$vendor1=pg_query($db,"SELECT * FROM vendors WHERE status=1");
+$vendor1=pg_query($db,"SELECT * FROM users WHERE status=1");
 while($row1=pg_fetch_assoc($vendor1))
 {
   ?>
-<option value="<?php echo $row1['id'];?>"><?php echo $row1[businessname]?></option>
+<option value="<?php echo $row1['id'];?>"><?php echo $row1[firstname]?></option>
 <?php
 }
 ?>
@@ -65,14 +64,14 @@ while($row1=pg_fetch_assoc($vendor1))
 </div>
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Address Line1</label>
-<input type="text" class="form-control" id="addressline1" placeholder="Enter Address Line 1" name="addressline1">
+<label for="exampleSelectBorder">Address</label>
+<input type="text" class="form-control" id="addressline1" placeholder="Enter Address" name="addressline1">
 </div>
 </div>
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Pincode</label>
-<input type="text" class="form-control" id="pincode" placeholder="Enter Pincode" name="pincode">
+<label for="exampleSelectBorder">pincode</label>
+<input type="text" class="form-control" id="pincode" placeholder="Enter pincode" name="pincode">
 </div>
 </div>
 <div class="col-sm-6">
@@ -91,36 +90,26 @@ while($row1=pg_fetch_assoc($vendor1))
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 <button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button>
 </div>
-
-<!-- <div class="row">
-<div class="col-sm-2" style=text> </div>  
-<div class="col-sm-2" style=text> </div>  
-<div class="col-sm-2" style=text>
-<button type="button" class="btn btn-default" data-dismiss="modal">   Close   </button></div>
-<div class="col-sm-6" style=text>   
-<button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button></div>
-</div>
-</div> -->
-
-
 </div>
 </div>
 </div>
 </div>
 
 </section>
+<br>
+<br>
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
 <div class="col-12">
 <div class="card">
 <div class="card-header">
-<h3 class="card-title">Vendors  Details </h3>
+<h3 class="card-title">UserAddress  Details </h3>
 </div>
 
 <div class="card-body ">
 <section>
-<div style="margin:auto;">
+<div style="margin-left:auto;">
    <label style="color: #0054A8;" for="">SEARCH :</label>
 <input id="myInput" type="text" placeholder="Search..">
 </div>
@@ -129,9 +118,9 @@ while($row1=pg_fetch_assoc($vendor1))
 <thead>
 <tr>
 <th>SI.No</th>
-<th>Business Name</th>
-<th>Address Line 1</th>
-<th>Pincode</th>
+<th>username</th>
+<th>Address</th>
+<th>pincode</th>
 <th>status</th>
 <th>created by</th>
 <th>Action</th>
@@ -139,17 +128,20 @@ while($row1=pg_fetch_assoc($vendor1))
 </thead>
 <tbody id="myTable">
 <?php
-//echo"SELECT vendors.id, vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.vendorid WHERE vendoraddresses.status=1";//
-$vendor=pg_query($db,"SELECT vendors.id, vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.id WHERE vendoraddresses.status=1");
+
+$vendor=pg_query($db,"SELECT useraddresses.id,useraddresses.addressline1,useraddresses.pincode,useraddresses.latitude,useraddresses.longitude,useraddresses.createdby,useraddresses.createdat,useraddresses.updatedat,useraddresses.updatedby,users.firstname,useraddresses.status FROM useraddresses left join users on users.id=useraddresses.userid  WHERE useraddresses.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
   ?>
 <tr>
 <td><?php echo $i?></td>
-<td><?php echo $row['businessname'] ?></td>
+ <td><?php echo $row['name']?></td>
 <td><?php echo $row['addressline1'] ?></td>
-<td><?php echo $row['pincode'] ?></td>                                                                                                                                                           
+<td><?php echo $row['pincode'] ?></td>
+
+                                                                                                                                                                                                 
+
 <td>
 <?php
 if($row['status']==1)
@@ -174,7 +166,7 @@ if($row['createdby']==1)
 <div class="modal-dialog modal-sm">
 <div class="modal-content">
 <div class="modal-header">
-<h4 class="modal-title">Delete Vendors</h4>
+<h4 class="modal-title">Delete UserAdresses</h4>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button>
@@ -196,26 +188,24 @@ if($row['createdby']==1)
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
-<h4 class="modal-title">Edit vendor Address</h4>
+<h4 class="modal-title">Edit User Address</h4>
 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
  <span aria-hidden="true">&times;</span>
 </button>
 </div>
 <div class="modal-body">
 <form>
-<div class="card-body">
-<div class="row">
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">business name</label>
-<select class="custom-select" id="businessname<?php echo $row['id'];?>" name="businessname">
-<option>Select Your BusinessName</option>
+<label for="exampleSelectBorder">user name</label>
+<select class="custom-select" id="username" name="username">
+<option>Select Your Username</option>
 <?php
-$vendor1=pg_query($db,"SELECT * FROM vendors WHERE status=1");
+$vendor1=pg_query($db,"SELECT * FROM users WHERE status=1");
 while($row1=pg_fetch_assoc($vendor1))
 {
   ?>
-<option value="<?php echo $row1['id'];?>"><?php echo $row1[businessname]?></option>
+<option value="<?php echo $row1['id'];?>"><?php echo $row1[firstname]?></option>
 <?php
 }
 ?>
@@ -225,14 +215,14 @@ while($row1=pg_fetch_assoc($vendor1))
 </div>
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Address Line1</label>
-<input type="text" class="form-control" id="addressline1<?php echo $row['id'];?>" placeholder="Enter Address Line 1" name="addressline1" value="<?php echo $row['addressline1'];?>">
+<label for="exampleSelectBorder">Address</label>
+<input type="text" class="form-control" id="addressline1<?php echo $row['id'];?>" placeholder="Enter Address " name="addressline1" value="<?php echo $row['addressline1'];?>">
 </div>
 </div>
 <div class="col-sm-6">
 <div class="form-group">
-<label for="exampleSelectBorder">Pincode</label>
-<input type="text" class="form-control" id="pincode<?php echo $row['id'];?>" placeholder="Enter Pincode" name="pincode" value="<?php echo $row['pincode'];?>">
+<label for="exampleSelectBorder">pincode</label>
+<input type="text" class="form-control" id="pincode<?php echo $row['id'];?>" placeholder="Enter Address" name="pincode" value="<?php echo $row['pincode'];?>">
 </div>
 </div>
 <div class="col-sm-6">
@@ -240,15 +230,13 @@ while($row1=pg_fetch_assoc($vendor1))
 <label for="exampleSelectBorder">Status</label>
 <select class="custom-select" id="status<?php echo $row['id'];?>" name="status">
 <option>Status</option>
-<option value="1" <?php if($row['status']=="1") echo "Selected"?>>Active</option>
-<option value="2" <?php if($row['status']=="2") echo "Selected"?>>InActive</option>
+<option value="1" <?php if($row['status']=="1") echo "Selected";?>>Active</option>
+<option value="2" <?php if($row['status']=="2") echo "Selected";?>>InActive</option>
 </select>
 </div>
 </div>
 </div>
 
-</form>
-</div>
 <div class="modal-footer justify-content-between">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 <button type="button" class="btn btn-primary" name="submit" onclick="editsave(<?php echo $row['id'];?>)">Save changes</button>
@@ -258,6 +246,7 @@ while($row1=pg_fetch_assoc($vendor1))
 </div>
 
 </div>
+</form>
 <!-- view start -->
 <div class="modal fade" id="viewmodal-default<?php echo $row['id'];?>">
 <div class="modal-dialog">
@@ -276,12 +265,12 @@ while($row1=pg_fetch_assoc($vendor1))
 
 <div class="col-sm-4">
 <div class="form-group">
-<label for="exampleInputEmail1">Type</label>
+<label for="exampleInputEmail1">Available Stock</label>
 </div>
 </div>
 <div class="col-sm-8">
 <div class="form-group">
-<p class="text-sm"><?php echo $row['type'];?>
+<p class="text-sm"><?php echo $row['availablestock'];?>
 </p>
 </div>
 </div>
@@ -332,7 +321,6 @@ while($row1=pg_fetch_assoc($vendor1))
 </div>
 
 </section>
-<script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -340,8 +328,12 @@ while($row1=pg_fetch_assoc($vendor1))
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+
 <script src="plugins/toastr/toastr.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -362,7 +354,7 @@ $(document).ready(function(){
        "ordering": true,
        "info": true,
        "autoWidth": true,
-      //"responsive": true,
+      // "responsive": true,
       "scroolX":true,
     });
   });
@@ -373,13 +365,15 @@ $(document).ready(function(){
   
   function save()
   {
-    var vendorid=$("#businessname").val();
+    var select = document.getElementById('username');
+    var userid = select.options[select.selectedIndex].value;
     var addressline1=$("#addressline1").val();
     var pincode=$("#pincode").val();
     var status=$("#status").val();
-    if(vendorid == "")
+
+    if(userid == "")
     {
-      alert("businessname must be filled out");
+      alert("Username must be filled out");
       return false;
     }
     else if(addressline1 == "")
@@ -397,57 +391,46 @@ $(document).ready(function(){
       alert("status must be filled out");
       return false;
     }
-    else if(vendorid !== "" && addressline1 !== "" && pincode !== "" && status !== "" )
+   
+    else if(addressline1 != "" &&  pincode != ""  && status !=""&& userid !="" )
     {
       $.ajax({
-      url:"api/createvendoraddress.php",
+      url:"api/createuseraddress.php",
       method:"POST",
       dataType: "text",
       data: {
-        "vendorid":vendorid,
+        "id":userid,
         "addressline1":addressline1,
         "pincode":pincode,
         "status":status,
+
+
       },
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
-        alert(message);
-        // if(message=="Successfull")
-        // {
-        //    success();  
-        // }
-        // else{
-        //   error();
-        // }
+        var message=msg;
+        if(message=="Success")
+        {
+           success();  
+        }
+        else if(message=="email_existed")
+        {
+          email_existed();  
+        }
+        else{
+          error();
+        }
       }
     })
     }
+    
+    
   }
   // function RefreshTable() {
   
   //      $( "#content" ).load( "index.php?pageid=1 #content" );
   //  }
-
-   function error()
-   {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-        icon: 'error',
-        title: 'Please Check.'
-      })
-          setTimeout(function () {
-        
-        location.reload(true);
-      }, 1000);
-          
-   }
   function success()
   {
     var Toast = Swal.mixin({
@@ -458,7 +441,7 @@ $(document).ready(function(){
     });
     Toast.fire({
         icon: 'success',
-        title: 'Vendor Added Successfully.'
+        title: 'Useraddress Added Successfully.'
       })
           setTimeout(function () {
        
@@ -484,22 +467,28 @@ $(document).ready(function(){
       }, 1000);
           //window.location.reload();
   }
-
+  function error()
+   {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+        icon: 'error',
+        title: 'Please Check.'
+      });
+             
+   }
 
   function editsave(id)
   {
-    alert(id);
-    var id=id;
-    var vendorid=$("#businessname"+id).val();
     var addressline1=$("#addressline1"+id).val();
     var pincode=$("#pincode"+id).val();
     var status=$("#status"+id).val();
-    if(vendorid=="")
+     if(addressline1 == "")
     {
-      alert("vendorid must be filled out");
-      return false;
-    }
-    else if (addressline1 == "") {
       alert("addressline1 must be filled out");
       return false;
     }
@@ -513,39 +502,38 @@ $(document).ready(function(){
       alert("status must be filled out");
       return false;
     }
-    else if( vendorid !== "" && addressline1 !== "" && pincode !== ""  && status !== "" )
+    else if( addressline1 != ""  && pincode != "" && status !="" )
     {
-      alert();
       $.ajax({
-      type:"GET",
-      url:"api/updatevendoraddress.php",
-      datatype:"json",
+      type:"post",
+      url:"api/updateuseraddress.php",
+      dataType: "text",
       data:
       {
         "id":id,
-        "vendorid":businessname,
         "addressline1":addressline1,
         "pincode":pincode,
         "status":status,
       },
+      
       success:function(msg)
-      {
-
+      {    
         console.log(msg);
-        // if(msg=="success")
-        // {
-        //   alert(success);
-        //   editsuccess();
-          
-          
-        // }else{
-
-        // }
+        var message=msg['message'];
+        if(message=="success")
+        {
+           editsuccess();  
+        }
+       
+        else{
+          error();
+        }
       }
-    })
+     })
     }
+    
+    
   }
-
   function editsuccess()
   {
     var Toast = Swal.mixin({
@@ -556,7 +544,7 @@ $(document).ready(function(){
     });
     Toast.fire({
             icon: 'success',
-            title: 'vendor Edit Successfully.'
+            title: 'Useraddress Edit Successfully.'
           })
           setTimeout(function () {
         
@@ -571,7 +559,7 @@ $(document).ready(function(){
     var deleteid=id;
     $.ajax({
       type:"POST",
-      url:"api/deletevenderadress.php",
+      url:"api/deleteuseraddress.php",
       data:
       {
         
@@ -582,8 +570,7 @@ $(document).ready(function(){
       {
         console.log(msg);
         var message=msg['message'];
-        
-        if(message=="Successfull")
+        if(message)
         {
            
           deletesuccess();
