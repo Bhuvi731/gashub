@@ -5,10 +5,10 @@
 
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
-	#dashboard
-	{
-		display:none;
-	}
+  #dashboard
+  {
+    display:none;
+  }
 </style>
 
 <section class="content">
@@ -45,8 +45,103 @@
 </div>
 </div> 
 
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Building Name</label>
+<input type="text" class="form-control" id="name1" placeholder="Enter  Building Name" name="name1">
+</div>
+</div>
+</div> 
 
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Addressline1</label>
+<input type="text" class="form-control" id="addressline1" placeholder="Enter  Address Line1" name="addressline1">
+</div>
+</div>
+</div> 
 
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Addressline2</label>
+<input type="text" class="form-control" id="addressline2" placeholder="Enter  Address Line2" name="addressline2">
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">City</label>
+<input type="text" class="form-control" id="city" placeholder="Enter  City" name="city">
+</div>
+</div>
+</div> 
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Landmark</label>
+<input type="text" class="form-control" id="landmark" placeholder="Enter  Landmark" name="landmark">
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">District</label>
+<input type="text" class="form-control" id="district" placeholder="Enter District" name="district">
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">State</label>
+<input type="text" class="form-control" id="state" placeholder="Enter State" name="state">
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Country</label>
+<input type="text" class="form-control" id="country" placeholder="Enter Country" name="country">
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Pincode</label>
+<input type="text" class="form-control" id="pincode" placeholder="Enter Pincode" name="pincode">
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Latitude</label>
+<input type="text" class="form-control" id="latitude" placeholder="Enter Latitude" name="latitude">
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+<label for="exampleSelectBorder">Longitude</label>
+<input type="text" class="form-control" id="longitude" placeholder="Enter Longitude" name="longitude">
+</div>
+</div>
+</div>
 
 <div class="row">
 <div class="col-sm-12">
@@ -85,6 +180,7 @@
 </div>
 
 </section>
+
 <section class="content" id="content">
 <div class="container-fluid">
 <div class="row">
@@ -95,50 +191,46 @@
 </div>
 
 <div class="card-body">
-<section>
-<div style="margin:auto;">
-   <label style="color: #0054A8;" for="">SEARCH :</label>
-<input id="myInput" type="text" placeholder="Search..">
-</div>
-</section>
 <table id="example2" class="table table-bordered table-hover">
 <thead>
 <tr>
 <th>SI.No</th>
-<th>name</th>
-<th>deliveryaddress</th>
-<th>vendors Name</th> 
-<th>product Name</th>
-<th>quantity</th>
-<th>status</th>
-<th>createdby</th>
+<th>Name</th>
+<th>Delivery Address</th>
+<th>Vendor</th>
+<th>Products</th>
+<th>Quantity</th>
+<th>Status</th>
+<th>Createdby</th>
+<th>Order Status</th>
 <th>Action</th>
 </tr>
 </thead>
-<tbody id="myTable">
+<tbody>
 <?php
 // $vendor=pg_query($db,"SELECT weight,status,createdby FROM cylinderweight WHERE status=1");
-$vendor=pg_query($db,"SELECT * FROM ordermanagement LEFT JOIN users ON ordermanagement.userid=users.id LEFT JOIN useraddresses ON useraddresses.id = ordermanagement.deliveryaddressid LEFT JOIN vendors ON ordermanagement.vendorid=vendors.id LEFT JOIN products ON ordermanagement.productid=products.id LEFT JOIN cylindertype ON products.cylindertypeid=cylindertype.id");
+$vendor=pg_query($db,"SELECT * FROM ordermanagement LEFT JOIN users ON ordermanagement.userid=users.id LEFT JOIN useraddresses ON useraddresses.id=ordermanagement.deliveryaddressid LEFT JOIN vendors ON vendors.id=ordermanagement.vendorid LEFT JOIN products on products.id=ordermanagement.productid");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
-	?>
+  ?>
 <tr>
 <td><?php echo $i?></td>
 <td><?php echo $row['firstname'] ?></td>
-<td><?php echo $row['name'] ?><br><?php echo $row['addressline1']?><br><?php echo $row['addressline2'] ?><br><?php echo $row['city'] ?><br><?php echo $row['landmark'] ?><br><?php echo $row['district'] ?><br><?php echo $row['pincode'] ?></td>
+<td><?php echo $row['name'] ?><br><?php echo $row['addressline1']?><br>
+<?php echo $row['pincode'] ?></td>
 <td><?php echo $row['businessname'] ?></td>
-<td><?php echo $row['type']?></td>
+<td><?php echo $row['productname'] ?></td>
 <td><?php echo $row['quantity'] ?></td>
-
-
 <td>
 <?php
-if($row['status']==1)
+if($row['status']==0)
 {
-  echo "Active";
+  echo "Cancelled";
+}else if($row['status']==1){
+  echo "Pending";
 }else{
-  echo "InActive";
+  echo"confrimed";
 }
 ?></td>
 <td><?php 
@@ -146,7 +238,10 @@ if($row['createdby']==1)
 {
   echo "Admin";
 }?></td>
+<td><div><button type="button" class="btn btn-success" onclick = "confrimorder(<?php echo $row['id'];?>)" >CONFRIM</button></div><br>
 
+ <div><button type="button" class="btn btn-danger" onclick = "cancelorder(<?php echo $row['id'];?>)" >CANCEL</button></div>
+ </td>
 <td><a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#viewmodal-default<?php echo $row['id'];?>"><i class="nav-icon fas fa-eye"></i></a>
 <a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#editmodal-default<?php echo $row['id'];?>"><i class="nav-icon fas fa-edit"></i></a> 
 <a style="cursor:pointer" data-toggle="modal" data-target="#deletemodal-sm<?php echo $row['id'];?>"><i class="nav-icon fas fa-trash"></i></a>
@@ -286,7 +381,7 @@ if($row['createdby']==1)
 
 </div>
 </tr>
-	<?php
+  <?php
   $i++;
 }
 ?>
@@ -309,6 +404,7 @@ if($row['createdby']==1)
 </section>
 
 <script src="plugins/jquery/jquery.min.js"></script>
+
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/jszip/jszip.min.js"></script>
 <script src="plugins/pdfmake/pdfmake.min.js"></script>
@@ -320,16 +416,6 @@ if($row['createdby']==1)
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 
 <script src="plugins/toastr/toastr.min.js"></script>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
 <script>
   $(function () {
     
@@ -356,14 +442,14 @@ $(document).ready(function(){
       alert("quantity must be filled out");
       return false;
     }
-    else if(status == "")
+    else if(status == "Status")
     {
       alert("Status must be filled out");
       return false;
     }else if(quantity !== ""  && status !== "" )
     {
       $.ajax({
-      url:"api/createordermanagement.php",
+      url:"http://localhost:8080/gash/api/createordermanagement",
       method:"POST",
       dataType: "json",
       data: {
@@ -453,58 +539,58 @@ $(document).ready(function(){
   }
 
 
-  // function editsave(id)
-  // {
-  //   var courseid=id;
-  //   var course = $("#course"+id).val();
-  //   var status = $("#status"+id).val();
-  //   var course_credit_hour = $("#course_credit_hour"+id).val();
-  //   var course_code = $("#course_code"+id).val();
-  //   if (course == "") {
-  //     alert("Name must be filled out");
-  //     return false;
-  //   }
-  //   else if(status == "Status")
-  //   {
-  //     alert("Status must be filled out");
-  //     return false;
-  //   }
-  //   if (course_credit_hour == "") {
-  //     alert("Hour must be filled out");
-  //     return false;
-  //   }
-  //   if (course_code == "") {
-  //     alert("Code must be filled out");
-  //     return false;
-  //   }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
-  //   {
-  //     $.ajax({
-  //     type:"GET",
-  //     url:"mastercourse.php",
-  //     data:
-  //     {
-  //       "id":courseid,
-  //       "course":course,
-  //       "status":status,
-  //       "course_credit_hour":course_credit_hour,
-  //       "course_code":course_code,
-  //     },
-  //     success:function(msg)
-  //     {
-  //       console.log(msg);
-  //       if(msg=="success")
-  //       {
+  function editsave(id)
+  {
+    var courseid=id;
+    var course = $("#course"+id).val();
+    var status = $("#status"+id).val();
+    var course_credit_hour = $("#course_credit_hour"+id).val();
+    var course_code = $("#course_code"+id).val();
+    if (course == "") {
+      alert("Name must be filled out");
+      return false;
+    }
+    else if(status == "Status")
+    {
+      alert("Status must be filled out");
+      return false;
+    }
+    if (course_credit_hour == "") {
+      alert("Hour must be filled out");
+      return false;
+    }
+    if (course_code == "") {
+      alert("Code must be filled out");
+      return false;
+    }else if(course != "" && status !="" && course_credit_hour !=="" && course_code !=="")
+    {
+      $.ajax({
+      type:"GET",
+      url:"mastercourse.php",
+      data:
+      {
+        "id":courseid,
+        "course":course,
+        "status":status,
+        "course_credit_hour":course_credit_hour,
+        "course_code":course_code,
+      },
+      success:function(msg)
+      {
+        console.log(msg);
+        if(msg=="success")
+        {
           
-  //         editsuccess();
+          editsuccess();
           
           
-  //       }else{
+        }else{
 
-  //       }
-  //     }
-  //   })
-  //   }
-  // }
+        }
+      }
+    })
+    }
+  }
 
   function editsuccess()
   {
@@ -575,6 +661,3 @@ $(document).ready(function(){
           
   }
 </script>
-
-
-
