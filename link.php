@@ -32,36 +32,6 @@ Dashboard
 }
 ?>
 
-
-<?php
-if($_GET['pageid']==1)
-{
-    ?>
-<li class="nav-item">
-<a href="index.php?pageid=1" class="nav-link active">
-<i class="nav-icon fa fa-registered"></i>
-<p>
-Registration
-
-</p>
-</a>
-</li>
-    <?php
-}else{
-    ?>
-    <li class="nav-item">
-<a href="index.php?pageid=1" class="nav-link">
-<i class="nav-icon fa fa-registered"></i>
-<p>
-Registration
-
-</p>
-</a>
-</li>
-    <?php
-}
-?>
-
 <?php
 if($_GET['pageid']==11)
 {
@@ -89,6 +59,34 @@ Add Banner
     <?php
 }
 ?>
+
+<?php
+if($_GET['pageid']==1)
+{
+    ?>
+<li class="nav-item">
+<a href="index.php?pageid=1" class="nav-link active">
+<i class="nav-icon fa fa-registered"></i>
+<p>
+Users
+</p>
+</a>
+</li>
+    <?php
+}else{
+    ?>
+    <li class="nav-item">
+<a href="index.php?pageid=1" class="nav-link">
+<i class="nav-icon fa fa-registered"></i>
+<p>
+Users
+</p>
+</a>
+</li>
+    <?php
+}
+?>
+
 <?php
 if($_GET['pageid']==5)
 {
