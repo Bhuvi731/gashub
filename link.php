@@ -146,6 +146,34 @@ Vendors
 }
 ?>
 <?php
+if($_GET['pageid']==13)
+{
+    ?>
+<li class="nav-item">
+<a href="index.php?pageid=13" class="nav-link active">
+<i class="nav-icon fa fa-registered"></i>
+<p>
+Vendors Addresses
+
+</p>
+</a>
+</li>
+    <?php
+}else{
+    ?>
+    <li class="nav-item">
+<a href="index.php?pageid=13" class="nav-link">
+<i class="nav-icon fa fa-user"></i>
+<p>
+Vendors Addresses
+
+</p>
+</a>
+</li>
+    <?php
+}
+?>
+<?php
 if($_GET['pageid']==4)
 {
     ?>
