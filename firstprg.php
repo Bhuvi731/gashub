@@ -5,7 +5,7 @@ if($pageid==1)
 }
 else if($pageid==3)
 {
-	include("vendoraddress.php");
+	include("vendors.php");
 }
 else if($pageid==4)
 {
