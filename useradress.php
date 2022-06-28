@@ -71,7 +71,7 @@ while($row1=pg_fetch_assoc($vendor1))
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">pincode</label>
-<input type="text" class="form-control" id="pincode" placeholder="Enter Address" name="pincode">
+<input type="text" class="form-control" id="pincode" placeholder="Enter pincode" name="pincode">
 </div>
 </div>
 <div class="col-sm-6">
@@ -90,18 +90,6 @@ while($row1=pg_fetch_assoc($vendor1))
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 <button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button>
 </div>
-
-<!-- <div class="row">
-<div class="col-sm-2" style=text> </div>  
-<div class="col-sm-2" style=text> </div>  
-<div class="col-sm-2" style=text>
-<button type="button" class="btn btn-default" data-dismiss="modal">   Close   </button></div>
-<div class="col-sm-6" style=text>   
-<button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button></div>
-</div>
-</div> -->
-
-
 </div>
 </div>
 </div>
@@ -130,7 +118,7 @@ while($row1=pg_fetch_assoc($vendor1))
 <thead>
 <tr>
 <th>SI.No</th>
-<!-- <th>Username</th> -->
+<th>username</th>
 <th>Address</th>
 <th>pincode</th>
 <th>status</th>
@@ -141,13 +129,14 @@ while($row1=pg_fetch_assoc($vendor1))
 <tbody id="myTable">
 <?php
 
-$vendor=pg_query($db,"SELECT useraddresses.id,useraddresses.addressline1,useraddresses.pincode,useraddresses.latitude,useraddresses.longitude,useraddresses.createdby,useraddresses.createdat,useraddresses.updatedat,useraddresses.updatedby,users.firstname,useraddresses.status FROM useraddresses left join users on users.id=useraddresses.userid WHERE useraddresses.status=1");
+$vendor=pg_query($db,"SELECT useraddresses.id,useraddresses.addressline1,useraddresses.pincode,useraddresses.latitude,useraddresses.longitude,useraddresses.createdby,useraddresses.createdat,useraddresses.updatedat,useraddresses.updatedby,users.firstname,useraddresses.status FROM useraddresses left join users on users.id=useraddresses.userid  WHERE useraddresses.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
 	?>
 <tr>
 <td><?php echo $i?></td>
+ <td><?php echo $row['name']?></td>
 <td><?php echo $row['addressline1'] ?></td>
 <td><?php echo $row['pincode'] ?></td>
 
@@ -206,7 +195,7 @@ if($row['createdby']==1)
 </div>
 <div class="modal-body">
 <form>
-<!-- <div class="col-sm-6">
+<div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">user name</label>
 <select class="custom-select" id="username" name="username">
@@ -223,7 +212,7 @@ while($row1=pg_fetch_assoc($vendor1))
 </select>
 
 </div>
-</div> -->
+</div>
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">Address</label>
@@ -405,10 +394,6 @@ $(document).ready(function(){
    
     else if(addressline1 != "" &&  pincode != ""  && status !=""&& userid !="" )
     {
-      alert(userid);
-      alert(addressline1);
-      alert(pincode);
-      alert(status);
       $.ajax({
       url:"api/createuseraddress.php",
       method:"POST",
@@ -424,8 +409,7 @@ $(document).ready(function(){
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
-        alert(message);
+        var message=msg;
         if(message=="Success")
         {
            success();  
@@ -447,25 +431,6 @@ $(document).ready(function(){
   
   //      $( "#content" ).load( "index.php?pageid=1 #content" );
   //  }
-
-   function error()
-   {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-        icon: 'error',
-        title: 'Please Check.'
-      })
-          setTimeout(function () {
-        
-        location.reload(true);
-      }, 1000);
-          
-   }
   function success()
   {
     var Toast = Swal.mixin({
@@ -484,16 +449,44 @@ $(document).ready(function(){
       }, 1000);
           
   }
+  function email_existed()                                       
+  {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+            icon: 'info',
+            title: 'Email already existed.'
+          })
+          setTimeout(function () {
+        //alert('Reloading Page');
+        location.reload(true);
+      }, 1000);
+          //window.location.reload();
+  }
+  function error()
+   {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+        icon: 'error',
+        title: 'Please Check.'
+      });
+             
+   }
 
   function editsave(id)
   {
-    alert(id);
     var addressline1=$("#addressline1"+id).val();
-    alert(addressline1);
     var pincode=$("#pincode"+id).val();
-    alert(pincode);
     var status=$("#status"+id).val();
-    alert(status);
      if(addressline1 == "")
     {
       alert("addressline1 must be filled out");
@@ -527,7 +520,6 @@ $(document).ready(function(){
       {    
         console.log(msg);
         var message=msg['message'];
-        alert(message);
         if(message=="success")
         {
            editsuccess();  
@@ -552,7 +544,7 @@ $(document).ready(function(){
     });
     Toast.fire({
             icon: 'success',
-            title: 'useraddress Edit Successfully.'
+            title: 'Useraddress Edit Successfully.'
           })
           setTimeout(function () {
         
