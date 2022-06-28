@@ -136,7 +136,7 @@ while($row=pg_fetch_assoc($vendor))
   ?>
 <tr>
 <td><?php echo $i?></td>
- <td><?php echo $row['fristname']?></td>
+ <td><?php echo $row['firstname']?></td>
 <td><?php echo $row['addressline1'] ?></td>
 <td><?php echo $row['pincode'] ?></td>
 
