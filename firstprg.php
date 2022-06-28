@@ -35,6 +35,10 @@ else if($pageid==11)
 {
 	include("carosel.php");
 }
+else if($pageid==13)
+{
+	include("vendoraddress.php");
+}
 else if($pageid==50)
 {
 	$rootp=realpath('dbback/');
