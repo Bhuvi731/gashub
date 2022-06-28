@@ -326,7 +326,7 @@ $(document).ready(function(){
       $.ajax({
       url:"api/createvendors.php",
       method:"POST",
-      dataType:"json",
+      dataType:"text",
       data: {
         "businessname":businessname,
         "status":status,
@@ -335,7 +335,7 @@ $(document).ready(function(){
       { 
         console.log(msg);
         var message=msg;
-        if(message=="Success")
+        if(message=="success")
         {
 
            success();  
