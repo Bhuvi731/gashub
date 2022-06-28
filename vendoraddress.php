@@ -129,7 +129,7 @@ while($row1=pg_fetch_assoc($vendor1))
 <thead>
 <tr>
 <th>SI.No</th>
-<th>Business Name</th>
+<th>vendor Name</th>
 <th>Address Line 1</th>
 <th>Pincode</th>
 <th>status</th>
@@ -140,7 +140,7 @@ while($row1=pg_fetch_assoc($vendor1))
 <tbody id="myTable">
 <?php
 //echo"SELECT vendors.id, vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.vendorid WHERE vendoraddresses.status=1";//
-$vendor=pg_query($db,"SELECT vendors.id, vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.id WHERE vendoraddresses.status=1");
+$vendor=pg_query($db,"SELECT * from vendoraddresses LEFT JOIN vendors ON vendors.id=vendoraddresses.vendorid WHERE vendoraddresses.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
@@ -413,14 +413,13 @@ $(document).ready(function(){
       {
         console.log(msg);
         var message=msg['message'];
-        alert(message);
-        // if(message=="Successfull")
-        // {
-        //    success();  
-        // }
-        // else{
-        //   error();
-        // }
+        if(message=="Successfull")
+        {
+           success();  
+        }
+        else{
+          error();
+        }
       }
     })
     }
@@ -488,7 +487,6 @@ $(document).ready(function(){
 
   function editsave(id)
   {
-    alert(id);
     var id=id;
     var vendorid=$("#businessname"+id).val();
     var addressline1=$("#addressline1"+id).val();
@@ -523,7 +521,7 @@ $(document).ready(function(){
       data:
       {
         "id":id,
-        "vendorid":businessname,
+        "vendorid":vendorid,
         "addressline1":addressline1,
         "pincode":pincode,
         "status":status,
@@ -564,7 +562,6 @@ $(document).ready(function(){
       }, 1000);
           
   }
-
   function deleterecord(id)
   {
    
@@ -596,6 +593,7 @@ $(document).ready(function(){
     })
   }
 
+  
   function deletesuccess()
   {
     var Toast = Swal.mixin({
