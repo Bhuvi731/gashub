@@ -6,24 +6,21 @@
 // header("Access-Control-Max-Age: 3600");
 // header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if(isset($_REQUEST['deleteid']))
+if(isset($_POST['deleteid']))
  { 
-    $id=$_REQUEST['deleteid'];
-      echo $id;
-      echo"UPDATE vendoraddresses SET status='-1' WHERE id=$id";
+    $id=$_POST['deleteid'];
 	$sql=pg_query($db,"UPDATE vendoraddresses SET status='-1' WHERE id=$id");
     
 	if($sql)
 	{    
-        echo "Successfull";
+       
+        echo "Success";
 	}else
     {
-        
         echo "Error";
     }
  }
  else{
- 	    echo "error";
+    echo "Error please check";
      }
 ?>
-
