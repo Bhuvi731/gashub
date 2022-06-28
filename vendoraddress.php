@@ -139,8 +139,8 @@ while($row1=pg_fetch_assoc($vendor1))
 </thead>
 <tbody id="myTable">
 <?php
-//echo"SELECT vendors.id, vendoraddresses.name,vendoraddresses.addressline1,vendoraddresses.addressline2,vendoraddresses.city,vendoraddresses.landmark,vendoraddresses.district,vendoraddresses.state,vendoraddresses.country,vendoraddresses.pincode,vendoraddresses.latitude,vendoraddresses.longitude,vendoraddresses.status,vendoraddresses.createdby,vendoraddresses.createdat,vendoraddresses.updatedat,vendoraddresses.updatedby,vendors.businessname FROM vendoraddresses LEFT JOIN vendors ON vendors.id = vendoraddresses.vendorid WHERE vendoraddresses.status=1";//
-$vendor=pg_query($db,"SELECT * from vendoraddresses LEFT JOIN vendors ON vendors.id=vendoraddresses.vendorid WHERE vendoraddresses.status=1");
+$vendor=pg_query($db,"SELECT vendoraddresses.id,vendors.businessname,vendoraddresses.createdby,vendoraddresses.addressline1,vendoraddresses.pincode,vendoraddresses.status from vendoraddresses LEFT JOIN vendors ON vendors.id=vendoraddresses.vendorid WHERE vendoraddresses.status=1
+");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
@@ -412,8 +412,8 @@ $(document).ready(function(){
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
-        if(message=="Successfull")
+        var message=msg;
+        if(message=="success")
         {
            success();  
         }
@@ -513,7 +513,6 @@ $(document).ready(function(){
     }
     else if( vendorid !== "" && addressline1 !== "" && pincode !== ""  && status !== "" )
     {
-      alert();
       $.ajax({
       type:"GET",
       url:"api/updatevendoraddress.php",
@@ -528,17 +527,16 @@ $(document).ready(function(){
       },
       success:function(msg)
       {
-
         console.log(msg);
-        // if(msg=="success")
-        // {
-        //   alert(success);
-        //   editsuccess();
+        var message=msg;
+        if(msg=="success")
+        {
+          editsuccess();
           
           
-        // }else{
+        }else{
 
-        // }
+        }
       }
     })
     }
@@ -578,9 +576,8 @@ $(document).ready(function(){
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
-        
-        if(message=="Successfull")
+        var message=msg;
+        if(message=="Success")
         {
            
           deletesuccess();
