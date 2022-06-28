@@ -395,7 +395,7 @@ $(document).ready(function(){
     else if(addressline1 != "" &&  pincode != ""  && status !=""&& userid !="" )
     {
       $.ajax({
-      url:"api/createuseraddress.php",
+      url:"api/createuseraddressadmin.php",
       method:"POST",
       dataType: "text",
       data: {
