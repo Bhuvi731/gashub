@@ -410,11 +410,11 @@ $(document).ready(function(){
       {
         console.log(msg);
         var message=msg;
-        if(message=="Success")
+        if(message=="success")
         {
            success();  
         }
-        else if(message=="email_existed")
+        else if(message=="address_already_existed")
         {
           email_existed();  
         }
