@@ -494,7 +494,7 @@ $(document).ready(function(){
     var status=$("#status"+id).val();
     if(vendorid=="")
     {
-      alert("vendorid must be filled out");
+      alert("businessname must be filled out");
       return false;
     }
     else if (addressline1 == "") {

@@ -22,26 +22,21 @@ if(!empty($vendorid) && !empty($addressline1) && !empty($pincode)  &&
         if($sql)
     {
        
-        http_response_code(201);         
-        echo json_encode(array("message" => "Successfull"));
-      
+       echo"success";      
     }else
     {
-        http_response_code(400);        
-        echo json_encode(array("message" => "Error"));
+        echo"error";
     }
 }
    
 else
 {
-    http_response_code(503);    
-    echo json_encode(array("message" => "Error"));
+    echo"error";
 }
 }
 else
 {
-    http_response_code(400);    
-    echo json_encode(array("message" => "Error Please Check."));
+echo"Error Please Check.";
 }
   
 ?>
