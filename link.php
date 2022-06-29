@@ -149,7 +149,7 @@ if($_GET['pageid']==13)
     ?>
 <li class="nav-item">
 <a href="index.php?pageid=13" class="nav-link active">
-<i class="nav-icon fa fa-address-card"></i>
+<i class="nav-icon far fa-address-card"></i>
 <p>
 Vendors Addresses
 
@@ -161,7 +161,7 @@ Vendors Addresses
     ?>
     <li class="nav-item">
 <a href="index.php?pageid=13" class="nav-link">
-<i class="nav-icon fa fa-address-card"></i>
+<i class="nav-icon far fa-address-card"></i>
 <p>
 Vendors Addresses
 
