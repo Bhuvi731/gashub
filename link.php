@@ -172,6 +172,34 @@ Vendors Addresses
 }
 ?>
 <?php
+if($_GET['pageid']==12)
+{
+    ?>
+<li class="nav-item">
+<a href="index.php?pageid=12" class="nav-link active">
+<i class="nav-icon fas fa-gas-pump"></i>
+<p>
+Brands
+
+</p>
+</a>
+</li>
+    <?php
+}else{
+    ?>
+    <li class="nav-item">
+<a href="index.php?pageid=12" class="nav-link">
+<i class="nav-icon fas fa-gas-pump"></i>
+<p>
+Brands
+
+</p>
+</a>
+</li>
+    <?php
+}
+?>
+<?php
 if($_GET['pageid']==4)
 {
     ?>
