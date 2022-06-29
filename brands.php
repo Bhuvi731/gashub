@@ -325,24 +325,23 @@ $(document).ready(function(){
       $.ajax({
       url:"api/createbrands.php",
       method:"POST",
-      
+      datatype:"text",
       data: {
         "brandname":brandname,
         "status":status,
       },
       success:function(msg)
-      { 
+      {
         console.log(msg);
-        var message=msg['message'];
-        if(message=="Successfull")
+        var message=msg;
+        if(message=="success")
         {
-
            success();  
         }
         else{
           error();
         }
-       }
+      }
     })
     }
   }
@@ -350,24 +349,7 @@ $(document).ready(function(){
   
   //      $( "#content" ).load( "index.php?pageid=1 #content" );
   //  }
-  function success()
-  {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-        icon: 'success',
-        title: 'vendor Edit Successfully.'
-      })
-          setTimeout(function () {
-       
-        location.reload(true);
-      }, 1000);
-          
-  }
+
   function error()
    {
     var Toast = Swal.mixin({
@@ -382,6 +364,24 @@ $(document).ready(function(){
       });
           
    }
+   function success()
+  {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+        icon: 'success',
+        title: 'Brand Added Successfully.'
+      })
+          setTimeout(function () {
+       
+        location.reload(true);
+      }, 1000);
+          
+  }
   function editsave(id)
   {
     var id=id;
@@ -402,6 +402,7 @@ $(document).ready(function(){
       $.ajax({
       type:"GET",
       url:"api/updatebrands.php",
+      datatype:"text",
       data:
       {
         "id":id,
@@ -410,14 +411,14 @@ $(document).ready(function(){
       },
       success:function(msg)
       {
-
         console.log(msg);
-        var message=msg['message'];
-        if(message=="Successfull")
+        var message=msg;
+        if(message=="success")
         {
-          editsuccess();
-        }else{
-
+           success();  
+        }
+        else{
+          error();
         }
       }
     })
@@ -434,7 +435,7 @@ $(document).ready(function(){
     });
     Toast.fire({
             icon: 'success',
-            title: 'vendor Edit Successfully.'
+            title: 'Brands Edited Successfully.'
           })
           setTimeout(function () {
         
@@ -459,9 +460,9 @@ $(document).ready(function(){
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
+        var message=msg;
         
-        if(message=="Successfull")
+        if(message=="success")
         {
            
           deletesuccess();
@@ -473,9 +474,9 @@ $(document).ready(function(){
       }
     })
   }
-
   
-  function deletesuccess()
+  
+  function  deletesuccess()
   {
     var Toast = Swal.mixin({
       toast: true,
