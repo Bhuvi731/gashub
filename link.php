@@ -66,7 +66,7 @@ if($_GET['pageid']==1)
     ?>
 <li class="nav-item">
 <a href="index.php?pageid=1" class="nav-link active">
-<i class="nav-icon fa fa-registered"></i>
+<i class="nav-icon fa fa-users"></i>
 <p>
 Users
 </p>
@@ -77,7 +77,7 @@ Users
     ?>
     <li class="nav-item">
 <a href="index.php?pageid=1" class="nav-link">
-<i class="nav-icon fa fa-registered"></i>
+<i class="nav-icon fa fa-users"></i>
 <p>
 Users
 </p>
@@ -121,7 +121,7 @@ if($_GET['pageid']==3)
     ?>
 <li class="nav-item">
 <a href="index.php?pageid=3" class="nav-link active">
-<i class="nav-icon fa fa-registered"></i>
+<i class="nav-icon fa fa-user"></i>
 <p>
 Vendors
 
@@ -149,7 +149,7 @@ if($_GET['pageid']==13)
     ?>
 <li class="nav-item">
 <a href="index.php?pageid=13" class="nav-link active">
-<i class="nav-icon fa fa-registered"></i>
+<i class="nav-icon fa fa-address-card"></i>
 <p>
 Vendors Addresses
 
@@ -161,7 +161,7 @@ Vendors Addresses
     ?>
     <li class="nav-item">
 <a href="index.php?pageid=13" class="nav-link">
-<i class="nav-icon fa fa-user"></i>
+<i class="nav-icon fa fa-address-card"></i>
 <p>
 Vendors Addresses
 
@@ -177,7 +177,7 @@ if($_GET['pageid']==12)
     ?>
 <li class="nav-item">
 <a href="index.php?pageid=12" class="nav-link active">
-<i class="nav-icon fas fa-gas-pump"></i>
+<i class="nav-icon fas fa-brands"></i>
 <p>
 Brands
 
@@ -189,7 +189,7 @@ Brands
     ?>
     <li class="nav-item">
 <a href="index.php?pageid=12" class="nav-link">
-<i class="nav-icon fas fa-gas-pump"></i>
+<i class="nav-icon fas fa-brands"></i>
 <p>
 Brands
 
