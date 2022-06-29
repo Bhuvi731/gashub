@@ -12,19 +12,28 @@ $createdby="1";
 $createdat="1";
 if(!empty($businessname) && !empty($status))
 {
+    //  echo"INSERT INTO vendors(businessname,status,createdby,createdat)VALUES('$businessname','$status','$createdby','$createdat')";
         $sql="INSERT INTO vendors(businessname,status,createdby,createdat)VALUES('$businessname','$status','$createdby','$createdat')";
         $query=pg_query($db,$sql);
         if($query)
         {         
-            echo "success";
-        }else
-        {        
-            echo "error";
-        }
-      }
-     
-     else{    
-        echo "error please check";
-       }
-      ?>
-      
+            if($sql)
+    {
+       
+       echo"success";      
+    }else
+    {
+        echo"error";
+    }
+}
+   
+else
+{
+    echo"error";
+}
+}
+else
+{
+echo"Error Please Check.";
+}
+?>

@@ -332,18 +332,17 @@ $(document).ready(function(){
         "status":status,
       },
       success:function(msg)
-      { 
+      {
         console.log(msg);
         var message=msg;
         if(message=="success")
         {
-
            success();  
         }
         else{
           error();
         }
-       }
+      }
     })
     }
   }
@@ -351,6 +350,22 @@ $(document).ready(function(){
   
   //      $( "#content" ).load( "index.php?pageid=1 #content" );
   //  }
+  function error()
+   {
+    alert();
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+        icon: 'error',
+        title: 'Please Check.'
+      });
+          
+   }
+   
   function success()
   {
     var Toast = Swal.mixin({
@@ -369,20 +384,7 @@ $(document).ready(function(){
       }, 1000);
           
   }
-  function error()
-   {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-        icon: 'error',
-        title: 'Please Check.'
-      });
-          
-   }
+ 
   function editsave(id)
   {
     var id=id;
@@ -403,7 +405,7 @@ $(document).ready(function(){
       $.ajax({
       type:"GET",
       url:"api/updatevendors.php",
-      datatype:"json",
+      datatype:"text",
       data:
       {
         "id":id,
@@ -412,13 +414,14 @@ $(document).ready(function(){
       },
       success:function(msg)
       {
-
         console.log(msg);
-        if(msg=="success")
+        var message=msg;
+        if(message=="success")
         {
-          editsuccess();
-        }else{
-
+           success();  
+        }
+        else{
+          error();
         }
       }
     })
@@ -460,9 +463,9 @@ $(document).ready(function(){
       success:function(msg)
       {
         console.log(msg);
-        var message=msg['message'];
+        var message=msg;
         
-        if(message=="Successfull")
+        if(message=="success")
         {
            
           deletesuccess();
