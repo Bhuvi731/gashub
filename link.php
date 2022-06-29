@@ -177,7 +177,7 @@ if($_GET['pageid']==12)
     ?>
 <li class="nav-item">
 <a href="index.php?pageid=12" class="nav-link active">
-<i class="nav-icon fas fa-brands"></i>
+<i class="nav-icon fa fa-tags"></i>
 <p>
 Brands
 
@@ -189,7 +189,7 @@ Brands
     ?>
     <li class="nav-item">
 <a href="index.php?pageid=12" class="nav-link">
-<i class="nav-icon fas fa-brands"></i>
+<i class="nav-icon fa fa-tags"></i>
 <p>
 Brands
 
