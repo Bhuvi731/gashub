@@ -402,7 +402,7 @@ $(document).ready(function(){
       $.ajax({
       url:"api/createvendoraddress.php",
       method:"POST",
-      dataType: "text",
+      dataType:"text",
       data: {
         "vendorid":vendorid,
         "addressline1":addressline1,
