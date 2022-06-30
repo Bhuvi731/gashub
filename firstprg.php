@@ -35,6 +35,10 @@ else if($pageid==11)
 {
 	include("carosel.php");
 }
+else if($pageid==12)
+{
+	include("brands.php");
+}
 else if($pageid==13)
 {
 	include("vendoraddress.php");
