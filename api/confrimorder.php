@@ -11,7 +11,7 @@ include_once '../database/db.php';
 if(isset($_POST['confrimid']))
  { 
     $id = $_POST['confrimid'];
-
+echo $id;
     $sql=pg_query($db,"UPDATE ordermanagement SET status='2' WHERE id='$id'");
     if($sql){
         $sql2=pg_query($db,"SELECT id,userid from ordermanagement where id='$id'");
