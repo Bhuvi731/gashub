@@ -13,10 +13,17 @@ if(isset($_POST['userid']))
     $id = $_POST['userid'];
 
     $sql=pg_query($db,"SELECT * from orderstatus where userid='$id'");
-    if($sql1=pg_fetch_array($sql)){
-
-                                       http_response_code(201);        
-                                       echo json_encode($sql1);
+    $my=array();
+ if($sql){
+   //var_dump($sql); 
+    while($sql2=pg_fetch_assoc($sql)){
+ 
+             http_response_code(201);
+                 $my[]=$sql2;
+                 
+             }      
+                echo json_encode($my);
+                                       
                                      }else{
                                       http_response_code(400);        
                                       echo json_encode(array("message" => "error"));
