@@ -14,7 +14,6 @@ if(isset($_POST['confrimid']))
 
     $sql=pg_query($db,"UPDATE ordermanagement SET status='2' WHERE id='$id'");
     if($sql){
-
         $sql2=pg_query($db,"SELECT id,userid from ordermanagement where id='$id'");
 
           if($sql3=pg_fetch_array($sql2)){
@@ -30,11 +29,8 @@ if(isset($_POST['confrimid']))
                                     $odrstatus=pg_query($db,"INSERT INTO orderstatus(userid,orderid,orderstatus,status,createdby,createdat)VALUES('$userid','$orderid','$orderstatus','$status','$createdby','$createdat')RETURNING id");
                                          if($odrstatus){
 
-
                                              $insert_row = pg_fetch_row($odrstatus);
                                               $insert_id = $insert_row[0];
-
-                                        
 
                                                       $sql4=pg_query($db,"SELECT * from orderstatus where id='$insert_id'");
                                                       
