@@ -25,6 +25,8 @@ if(isset($_POST['confrimid']))
                                  $createdby='1';
                                  $createdat=date('y-m-d');
                                  if(isset($orderid) && isset($userid)){
+                                   echo"INSERT INTO orderstatus(userid,orderid,orderstatus,status,createdby,createdat)VALUES('$userid','$orderid','$orderstatus','$status','$createdby','$createdat')RETURNING id";
+                              
 
                                     $odrstatus=pg_query($db,"INSERT INTO orderstatus(userid,orderid,orderstatus,status,createdby,createdat)VALUES('$userid','$orderid','$orderstatus','$status','$createdby','$createdat')RETURNING id");
                                          if($odrstatus){
