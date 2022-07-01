@@ -240,7 +240,7 @@ if($row['createdby']==1)
 }?></td>
 <td><div><button type="button" class="btn btn-success" onclick = "confrimorder(<?php echo $row['id'];?>)" >CONFRIM</button></div><br>
 
- <div><button type="button" class="btn btn-danger" onclick = "cancelorder(<?php echo $row['id'];?>)" >CANCEL</button></div>
+ <div><button type="button" class="btn btn-danger" onclick = "cancelorder(<?php echo $row['id'];?>)">CANCEL</button></div>
  </td>
 <td><a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#viewmodal-default<?php echo $row['id'];?>"><i class="nav-icon fas fa-eye"></i></a>
 <a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#editmodal-default<?php echo $row['id'];?>"><i class="nav-icon fas fa-edit"></i></a> 
@@ -659,5 +659,36 @@ if($row['createdby']==1)
         location.reload(true);
       }, 1000);
           
+  }
+  function confrimorder(id){
+
+ var confrimid=id;
+    $.ajax({
+      type:"POST",
+      url:"api/confrimorder.php",
+      dataType: "json",
+      data:
+      {
+        
+        "confrimid":confrimid,
+       
+      },
+      success:function(msg)
+      {
+        console.log(msg);
+        var message=msg['message'];
+        
+        if(message=="Successfull")
+        {
+           
+          deletesuccess();
+          
+          
+        }else{
+          error();
+        }
+      }
+    })
+
   }
 </script>
