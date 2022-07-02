@@ -141,7 +141,7 @@ if($sql){
 </thead>
 <tbody id="myTable">
 <?php
-$sqlimage  = "SELECT * FROM banner_images where status='-1'";
+$sqlimage  = "SELECT * FROM banner_images where status='1'";
 $imageresult1 = pg_query($db,$sqlimage);
 $i=1;
 while($rows=pg_fetch_assoc($imageresult1))
