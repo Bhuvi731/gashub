@@ -5,10 +5,10 @@
 
 <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 <style>
-  #dashboard
-  {
-    display:none;
-  }
+	#dashboard
+	{
+		display:none;
+	}
  
   table {
    
@@ -53,7 +53,7 @@
 $vendor1=pg_query($db,"SELECT * FROM users WHERE status=1");
 while($row1=pg_fetch_assoc($vendor1))
 {
-  ?>
+	?>
 <option value="<?php echo $row1['id'];?>"><?php echo $row1[firstname]?></option>
 <?php
 }
@@ -129,14 +129,14 @@ while($row1=pg_fetch_assoc($vendor1))
 <tbody id="myTable">
 <?php
 
-$vendor=pg_query($db,"SELECT useraddresses.id,useraddresses.addressline1,useraddresses.pincode,useraddresses.createdby,useraddresses.createdat,useraddresses.updatedat,useraddresses.updatedby,users.firstname,useraddresses.status FROM useraddresses left join users on users.id=useraddresses.userid  WHERE useraddresses.status=1");
+$vendor=pg_query($db,"SELECT useraddresses.id,useraddresses.addressline1,useraddresses.pincode,useraddresses.latitude,useraddresses.longitude,useraddresses.createdby,useraddresses.createdat,useraddresses.updatedat,useraddresses.updatedby,users.firstname,useraddresses.status FROM useraddresses left join users on users.id=useraddresses.userid  WHERE useraddresses.status=1");
 $i=1;
 while($row=pg_fetch_assoc($vendor))
 {
-  ?>
+	?>
 <tr>
 <td><?php echo $i?></td>
- <td><?php echo $row['firstname']?></td>
+ <td><?php echo $row['name']?></td>
 <td><?php echo $row['addressline1'] ?></td>
 <td><?php echo $row['pincode'] ?></td>
 
@@ -198,16 +198,14 @@ if($row['createdby']==1)
 <div class="col-sm-6">
 <div class="form-group">
 <label for="exampleSelectBorder">user name</label>
-<select class="custom-select" id="username<?php echo $row['id'];?>" name="username" value="<?php echo $row['id'];?>">
-<!-- <option value="">Select Your Username</option> -->
+<select class="custom-select" id="username" name="username">
+<option>Select Your Username</option>
 <?php
 $vendor1=pg_query($db,"SELECT * FROM users WHERE status=1");
 while($row1=pg_fetch_assoc($vendor1))
 {
-  ?>
-
-<!-- <option value="<?php echo $row1['id']; echo "Selected";?>"><?php echo $row1['firstname'];?></option> -->
-<option value="<?php echo $row1['id'];?>" <?php if($row1['id']==$row['userid']) echo "Selected"; ?>><?php echo $row['firstname'];?></option> 
+	?>
+<option value="<?php echo $row1['id'];?>"><?php echo $row1[firstname]?></option>
 <?php
 }
 ?>
@@ -302,7 +300,7 @@ while($row1=pg_fetch_assoc($vendor1))
 
 </div>
 </tr>
-  <?php
+	<?php
   $i++;
 }
 ?>
@@ -397,7 +395,7 @@ $(document).ready(function(){
     else if(addressline1 != "" &&  pincode != ""  && status !=""&& userid !="" )
     {
       $.ajax({
-      url:"api/createuseraddressadmin.php",
+      url:"api/createuseraddress.php",
       method:"POST",
       dataType: "text",
       data: {
@@ -412,11 +410,11 @@ $(document).ready(function(){
       {
         console.log(msg);
         var message=msg;
-        if(message=="success")
+        if(message=="Success")
         {
            success();  
         }
-        else if(message=="address_already_existed")
+        else if(message=="email_existed")
         {
           email_existed();  
         }
@@ -433,21 +431,6 @@ $(document).ready(function(){
   
   //      $( "#content" ).load( "index.php?pageid=1 #content" );
   //  }
-  function error()
-   {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 5000
-    });
-    Toast.fire({
-        icon: 'error',
-        title: 'Please Check.'
-      });
-             
-   }
-
   function success()
   {
     var Toast = Swal.mixin({
@@ -484,10 +467,23 @@ $(document).ready(function(){
       }, 1000);
           //window.location.reload();
   }
-  
+  function error()
+   {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+        icon: 'error',
+        title: 'Please Check.'
+      });
+             
+   }
+
   function editsave(id)
   {
-    var id=id;
     var addressline1=$("#addressline1"+id).val();
     var pincode=$("#pincode"+id).val();
     var status=$("#status"+id).val();
@@ -521,19 +517,22 @@ $(document).ready(function(){
       },
       
       success:function(msg)
-      {
+      {    
         console.log(msg);
-        var message=msg;
+        var message=msg['message'];
         if(message=="success")
         {
-           success();  
+           editsuccess();  
         }
+       
         else{
           error();
         }
       }
-    })
+     })
     }
+    
+    
   }
   function editsuccess()
   {
@@ -545,7 +544,7 @@ $(document).ready(function(){
     });
     Toast.fire({
             icon: 'success',
-            title: 'vendor Edit Successfully.'
+            title: 'Useraddress Edit Successfully.'
           })
           setTimeout(function () {
         
