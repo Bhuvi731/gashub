@@ -1,36 +1,31 @@
 <?php
+include_once '../database/db.php';
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: text/plain');
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-include_once '../database/db.php';
+if (isset($_POST['petroleumid'])) {
+    $petroleumid = $_POST['petroleumid'];
+    $weight = $_POST['weight'];
+    $status = "1";
+    $createdby = "1";
+    $createdat = "1";
+    if (!empty($petroleumid)  && !empty($status)) {
+        $sql = "INSERT INTO cylinder(petroleumid,weight,status,createdby,createdat)VALUES('$petroleumid','$weight','$status','$createdby','$createdat')";
+        $query = pg_query($db, $sql);
+        if ($query) {
+            if ($sql) {
 
-$weight=$_POST['weight'];
-$type=$_POST['type'];
-$status=$_POST['status'];
-$createdby="1";
-if(!empty($weight) && !empty($type) &&
-!empty($status)){ 
- 
-    $sql=pg_query($db,"INSERT INTO cylinderweight(weight,status,createdby)VALUES('$weight','$status','$createdby')");
-    if($sql)
-    {
-       $sql=pg_query($db,"INSERT INTO cylindertype(type,status,createdby)VALUES('$type','$status','$createdby')");
-        http_response_code(201);         
-        echo json_encode(array("message" => "Successfull"));
-      
-    }else
-    {
-        http_response_code(503);        
-        echo json_encode(array("message" => "Error"));
+                echo "success";
+            } else {
+                echo "error";
+            }
+        } else {
+            echo "error";
+        }
     }
+} else {
+    echo "Error Please Check.";
 }
-else
-{
-    http_response_code(400);    
-    echo json_encode(array("message" => "Error Please Check."));
-}
-
-?>
