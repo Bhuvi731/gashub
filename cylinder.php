@@ -110,7 +110,7 @@
               <thead>
                 <tr>
                   <th>SI.No</th>
-                  <th>brand</th>
+                  <th>Brand Name</th>
                   <th>Weight</th>
                   <th>status</th>
                   <th>createdby</th>
@@ -362,6 +362,8 @@
           var message = msg;
           if (message == "success") {
             success();
+          } else if (message == "weight_already_existed") {
+            email_existed();
           } else {
             error();
           }
@@ -409,6 +411,25 @@
     }, 1000);
 
   }
+
+  function email_existed() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 5000
+    });
+    Toast.fire({
+      icon: 'info',
+      title: 'weight already existed.',
+    })
+    setTimeout(function() {
+      //alert('Reloading Page');
+      location.reload(true);
+    }, 1000);
+    //window.location.reload();
+  }
+
 
   function editsave(id) {
     var id = id;
