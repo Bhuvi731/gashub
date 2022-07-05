@@ -26,7 +26,7 @@ if(!empty($user_id) &&!empty($status) &&!empty($addressline1) &&!empty($pincode)
                                 echo"address_already_existed";
                                           }
       }else{
-        $sql2=pg_query($db,"INSERT INTO useraddresses(userid,addressline1,pincode,latitude,longitude,status,createdby,createdat)VALUES('$user_id','$addressline1','$pincode','$latitude','$longitude','$status','$createdby','$createdat')");
+        $sql2=pg_query($db,"INSERT INTO useraddresses(userid,addressline1,pincode,status,createdby,createdat)VALUES('$user_id','$addressline1','$pincode','$status','$createdby','$createdat')");
                if($sql2){
 
                  echo "success";
