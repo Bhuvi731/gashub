@@ -44,7 +44,7 @@
                             $vendor1 = pg_query($db, "SELECT * FROM petroleum WHERE status=1");
                             while ($row1 = pg_fetch_assoc($vendor1)) {
                             ?>
-                              <option value="<?php echo $row1['id']; ?>"><?php echo $row1[petroleum_name] ?></option>
+                              <option value="<?php echo $row1['id']; ?>"><?php echo $row1['petroleum_name'] ?></option>
                             <?php
                             }
                             ?>
@@ -53,6 +53,29 @@
                         </div>
                       </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="exampleSelectBorder">vendor name</label>
+                          <select class="custom-select" id="businessname" name="businessname">
+                            <option>Select Your vendor Name</option>
+                            <?php
+                            $vendor1 = pg_query($db, "SELECT * FROM vendors WHERE status=1");
+                            while ($row1 = pg_fetch_assoc($vendor1)) {
+                            ?>
+                              <option value="<?php echo $row1['id']; ?>"><?php echo $row1['businessname'] ?></option>
+                            <?php
+                            }
+                            ?>
+                          </select>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
@@ -111,6 +134,7 @@
                 <tr>
                   <th>SI.No</th>
                   <th>Brand Name</th>
+                  <th>Vendor Name</th>
                   <th>Weight</th>
                   <th>status</th>
                   <th>createdby</th>
@@ -119,7 +143,7 @@
               </thead>
               <tbody id="myTable">
                 <?php
-                $vendor = pg_query($db, "SELECT  cylinder.petroleumid,cylinder.weight,petroleum.petroleum_name,cylinder.createdby,cylinder.status,petroleum.id ,cylinder.id from cylinder LEFT JOIN petroleum ON petroleum.id=cylinder.petroleumid WHERE cylinder.status=1");
+                $vendor = pg_query($db, "SELECT  cylinder.petroleumid,cylinder.vendorid,cylinder.weight,petroleum.petroleum_name,cylinder.createdby,cylinder.status,petroleum.id ,cylinder.id,vendors.businessname from cylinder LEFT JOIN petroleum ON petroleum.id=cylinder.petroleumid  LEFT JOIN  vendors ON vendors.id=cylinder.id WHERE cylinder.status=1");
                 // SELECT cylindertype.id,cylindertype.type,cylinderweight.weight,cylinderweight.id,cylindertype.status,cylindertype.createdby FROM cylinderweight LEFT JOIN cylindertype ON cylindertype.id = cylinderweight.id =cylindertype.id WHERE cylindertype.status=1");
                 $i = 1;
                 while ($row = pg_fetch_assoc($vendor)) {
@@ -127,6 +151,7 @@
                   <tr>
                     <td><?php echo $i ?></td>
                     <td><?php echo $row['petroleum_name'] ?></td>
+                    <td><?php echo $row['businessname'] ?></td>
                     <td><?php echo $row['weight'] ?></td>
                     <td>
                       <?php
@@ -335,6 +360,7 @@
 <script>
   function save() {
     var petroleumid = $("#petroleum_name").val();
+    var vendorid = $("#businessname").val();
     var weight = $("#weight").val();
     var status = $("#status").val();
     if (petroleumid == "") {
@@ -353,6 +379,7 @@
         method: "POST",
         dataType: "text",
         data: {
+          "vendorid": vendorid,
           "petroleumid": petroleumid,
           "weight": weight,
           "status": status,
@@ -462,7 +489,7 @@
           console.log(msg);
           var message = msg;
           if (message == "success") {
-            success();
+            editsuccess();
           } else {
             error();
           }
