@@ -228,14 +228,14 @@ Cylinder
 }
 ?>
 <?php
-if($_GET['pageid']==6)
+if($_GET['pageid']==14)
 {
     ?>
 <li class="nav-item">
-<a href="index.php?pageid=6" class="nav-link active">
+<a href="index.php?pageid=14" class="nav-link active">
 <i class="nav-icon fa fa-list-alt"></i>
 <p>
-Products
+Accessories
 
 </p>
 </a>
@@ -244,10 +244,10 @@ Products
 }else{
     ?>
     <li class="nav-item">
-<a href="index.php?pageid=6" class="nav-link">
+<a href="index.php?pageid=14" class="nav-link">
 <i class="nav-icon fa fa-list-alt"></i>
 <p>
-Products
+Accessories
 
 </p>
 </a>

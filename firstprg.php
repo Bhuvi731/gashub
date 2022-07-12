@@ -42,6 +42,9 @@ else if($pageid==12)
 else if($pageid==13)
 {
 	include("vendoraddress.php");
+}else if($pageid==14)
+{
+	include("accessories.php");
 }
 else if($pageid==50)
 {
