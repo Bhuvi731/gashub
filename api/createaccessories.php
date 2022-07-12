@@ -6,25 +6,22 @@
 // header("Access-Control-Max-Age: 3600");
 // header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $accessoriesname = $_POST['accessoriesname'];
-    $status = "1";
-    $createdby = "1";
-    $createdat = "1";
-    if (!empty($accessoriesname) && !empty($status)) {
-        $sql = "INSERT INTO accessories(id,accessoriesname,status,createdby,createdat)VALUES('$id','$accessoriesname','$status','$createdby','$createdat')";
-        $query = pg_query($db, $sql);
-        if ($query) {
-            if ($sql) {
+$accessoriesname = $_POST['accessoriesname'];
+$status = "1";
+$createdby = "1";
+$createdat = "1";
+if (!empty($accessoriesname) && !empty($status)) {
+    $sql = "INSERT INTO accessories(accessoriesname,status,createdby,createdat)VALUES('$accessoriesname','$status','$createdby','$createdat')";
+    $query = pg_query($db, $sql);
+    if ($query) {
+        if ($sql) {
 
-                echo "success";
-            } else {
-                echo "error";
-            }
+            echo "success";
         } else {
             echo "error";
         }
+    } else {
+        echo "error";
     }
 } else {
     echo "Error Please Check.";
