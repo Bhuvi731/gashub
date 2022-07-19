@@ -17,6 +17,7 @@ $sql=pg_query($db,"SELECT * FROM vendoraddresses where vendoraddresses.status=1"
 $my=array();
 $my1=array();
 $my2=array();
+$my3=array();
  if($sql){
    //var_dump($sql); 
     while(($sql2=pg_fetch_assoc($sql))){
@@ -26,15 +27,15 @@ $my2=array();
     $longlen=count($my);
     foreach($my as $i => $i_value) {
 
-    	$latitudeTo=$i_value['latitude'];
-    	$longitudeTo=$i_value['longitude'];
+      $latitudeTo=$i_value['latitude'];
+      $longitudeTo=$i_value['longitude'];
 
 
 if($latitudeTo!=null && $longitudeTo!=null)
 {
 
 
-    	$theta = $longitudeFrom - $longitudeTo;
+      $theta = $longitudeFrom - $longitudeTo;
 $dist = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
 $dist = acos($dist);
  $dist = rad2deg($dist);
@@ -73,11 +74,17 @@ $secondaddid=$i_value['id'];
 }
 }
 }
-echo json_encode($my1);
-echo json_encode($my2);
+// $my3[].array_push({"aa":$my1});
+// $my3[]=$my2;
+array_push($my3, (object)[
+        'frist3' => $my1,
+        'upto5' => $my2,
+    
+]);
 
+echo json_encode($my3);
 }else{
-	echo"error";
+  echo"error";
 }
 
 ?>
