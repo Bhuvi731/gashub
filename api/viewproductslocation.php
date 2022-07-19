@@ -77,8 +77,8 @@ $secondaddid=$i_value['id'];
 // $my3[].array_push({"aa":$my1});
 // $my3[]=$my2;
 array_push($my3, (object)[
-        'frist3' => $my1,
-        'upto5' => $my2,
+        'frist3km' => $my1,
+        'upto5km' => $my2,
     
 ]);
 
