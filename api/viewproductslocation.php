@@ -35,7 +35,7 @@ if($latitudeTo!=null && $longitudeTo!=null)
 {
 
 
-      $theta = $longitudeFrom - $longitudeTo;
+$theta = $longitudeFrom - $longitudeTo;
 $dist = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
 $dist = acos($dist);
  $dist = rad2deg($dist);
