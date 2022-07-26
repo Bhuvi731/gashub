@@ -10,8 +10,8 @@ if(isset($_POST['longitude']) && ($_POST['latitude']))
 {
 
 
- $latitudeFrom =$_POST['longitude'];
- $longitudeFrom =$_POST['latitude'];
+ $latitudeFrom =$_POST['latitude'];
+ $longitudeFrom =$_POST['longitude'];
 $sql=pg_query($db,"SELECT * FROM vendoraddresses where vendoraddresses.status=1");
 
 $my=array();
@@ -74,11 +74,9 @@ $secondaddid=$i_value['id'];
 }
 }
 }
-// $my3[].array_push({"aa":$my1});
-// $my3[]=$my2;
 array_push($my3, (object)[
-        'frist3km' => $my1,
-        'upto5km' => $my2,
+        'frist3' => $my1,
+        'upto5' => $my2,
     
 ]);
 
