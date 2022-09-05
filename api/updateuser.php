@@ -9,7 +9,6 @@ include_once '../database/db.php';
 
 if(isset($_GET['id']))
 {
-
 $id = $_GET['id'];
 $firstname=$_GET['firstname'];
 $lastname=$_GET['lastname'];

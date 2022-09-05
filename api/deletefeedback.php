@@ -6,25 +6,17 @@
 // header("Access-Control-Max-Age: 3600");
 // header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
+if (isset($_GET[' deleteid'])) {
+    $id = $_GET[' deleteid'];
+    $sql = pg_query($db, "UPDATE feedbacks SET status='-1' WHERE id= $id");
 
+    if ($sql) {
 
-if(isset($_REQUEST['deleteid']))
- { 
-    $id=$_REQUEST['deleteid'];
-      echo $id;
-      echo"UPDATE feedbacks SET status='-1' WHERE id=$id";
-	$sql=pg_query($db,"UPDATE feedbacks SET status='-1' WHERE id=$id");
-    
-	if($sql)
-	{    
-        echo "Successfull";
-	}else
-    {
-        
+        echo "success";
+    } else {
+
         echo "Error";
     }
- }
- else{
- 	    echo "error";
-     }
-?>
+} else {
+    echo "Error please check";
+}

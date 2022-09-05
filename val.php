@@ -1,10 +1,8 @@
+<!-- <?php
+        // $db = pg_connect("host=localhost port=5432 dbname=gashub user=postgres password=postgres");
+        ?> -->
 <?php
-session_start();
-$session_value = '';
-if (isset($_SESSION['id'])) {
-    $session_value .= $_SESSION['id'];
-}
-// echo  $session_value;
+require('database/db.php');
 ?>
 <link rel="stylesheet" href="assets/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -18,12 +16,10 @@ if (isset($_SESSION['id'])) {
     }
 
     table {
-
-
+        display: block;
         width: 100%;
         overflow-x: scroll;
         white-space: nowrap;
-
     }
 </style>
 
@@ -34,7 +30,7 @@ if (isset($_SESSION['id'])) {
             </div>
             <div class="col-4">
                 <div class="card-footer clearfix" style="background-color:rgb(244 246 249) !important">
-                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Add Accessories</button>
+                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Add Users</button>
                 </div>
             </div>
 
@@ -42,82 +38,73 @@ if (isset($_SESSION['id'])) {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Add Accessories</h4>
+                            <h4 class="modal-title">New Registration</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <form>
-                                <div class="card-body">
-                                    <div class="row">
+                                <div class="container-fluid">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="exampleSelectBorder">Accessories Name</label>
-                                                    <input type="text" class="form-control" id="accessoriesname" placeholder="Enter Accessories Name" name="accessoriesname">
+                                                    <label for="exampleSelectBorder">First Name</label>
+                                                    <input type="text" class="form-control" id="firstname" placeholder="Enter First Name" name="firstname">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="exampleSelectBorder">Brands</label>
-                                                    <select class="form-control" id="products" name="products">
-                                                        <option>Select Your Brands</option>
-                                                        <?php
-                                                        $vendor0 = pg_query($db, "SELECT * FROM petroleum WHERE status=1");
-                                                        while ($row0 = pg_fetch_assoc($vendor0)) {
-                                                        ?>
-
-                                                            <option value="<?php echo $row0['id']; ?>"><?php echo $row0['petroleum_name'] ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
+                                                    <label for="exampleInput">Last Name</label>
+                                                    <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" name="lastname">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInput">Phone</label>
+                                                    <input type="number" class="form-control" id="phone" placeholder="Enter Phone Number" name="phone" pattern="[1-9]{1}[0-9]{9}" maxlength="10">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInput">Email</label>
+                                                    <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInput">password</label>
+                                                    <input type="text" class="form-control" id="password" placeholder="Enter Password" name="password">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="exampleSelectBorder">Gender</label>
+                                                    <select class="custom-select" id="gender" name="gender">
+                                                        <option>Gender</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="exampleSelectBorder">Vendor</label>
-
-                                                    <select class="form-control" id="vendorname" name="vendorname">
-                                                        <option value="">Select vendor Name</option>
-                                                        <?php
-                                                        $vendor0 = pg_query($db, "SELECT * FROM vendors WHERE status=1");
-                                                        while ($row0 = pg_fetch_assoc($vendor0)) {
-                                                        ?>
-
-                                                            <option value="<?php echo $row0['id']; ?>"><?php echo $row0['businessname'] ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-
+                                                    <label for="exampleInputEmail1">DateofBirth</label>
+                                                    <input type="date" class="form-control" id="dateofbirth" placeholder="Enter Date of Birth" name="dob">
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="exampleSelectBorder">Price</label>
-                                                    <input type="text" class="form-control" id="price" placeholder="Enter Price" name="price">
+                                                    <label for="exampleSelectBorder">Status</label>
+                                                    <select class="custom-select" id="status<?php echo $row['id']; ?>" name="status">
+                                                        <option value="">Status</option>
+                                                        <option value="1" <?php if ($row['status'] == "1") echo "Selected" ?>>Active</option>
+                                                        <option value="-1" <?php if ($row['status'] == "-1") echo "Selected" ?>>InActive</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                    </div>
-
-                                    <input type="hidden" id="loginid" name="loginid" value=<?php echo  $session_value; ?>>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="exampleSelectBorder">Status</label>
-                                            <select class="custom-select" id="status" name="status">
-                                                <option>Status</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">InActive</option>
-                                            </select>
-                                        </div>
-                                    </div>
                             </form>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -125,55 +112,63 @@ if (isset($_SESSION['id'])) {
                             <button type="button" class="btn btn-primary" name="submit" onclick="save()">Save changes</button>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
 
+    </div>
+
 </section>
-
-
-
 <section class="content" id="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Accessories Details </h3>
+                        <h3 class="card-title">User Details</h3>
                     </div>
 
-                    <div class="card-body ">
+                    <div class="card-body">
                         <section>
-                            <div style="margin:auto;">
+                            <div style="margin-left:auto;">
                                 <label style="color: #0054A8;" for="">SEARCH :</label>
                                 <input id="myInput" type="text" placeholder="Search..">
                             </div>
                         </section>
-                        <table id="example2" class="table table-bordered ">
+                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>SI.No</th>
-                                    <th>Accessories Name</th>
-                                    <th>Brands</th>
-                                    <th>Vendor Name</th>
-                                    <th>price</th>
+                                    <th>firstname</th>
+                                    <th>lastname</th>
+                                    <th>phone</th>
+                                    <th>email</th>
+                                    <th>password</th>
+                                    <th>gender</th>
+                                    <th>dateofbirth</th>
                                     <th>status</th>
-                                    <th>created by</th>
+                                    <th>createdby</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
                                 <?php
-                                $vendor = pg_query($db, "SELECT accessories.id,accessories.accessoriesname,petroleum.petroleum_name,accessories.petroleumid,accessories.vendorid,vendors.businessname,accessories.price,accessories.status,accessories.createdby from  accessories left join petroleum on petroleum.id=accessories.petroleumid  left join vendors on vendors.id=accessories.vendorid  WHERE  accessories.status=1");
+
+                                $user = pg_query($db, "SELECT id,firstname,lastname,phone,email,gender,dateofbirth,status,createdby,createdat,updatedat,updatedby,password FROM users WHERE status=1");
                                 $i = 1;
-                                while ($row = pg_fetch_assoc($vendor)) {
+                                while ($row = pg_fetch_assoc($user)) {
                                 ?>
                                     <tr>
                                         <td><?php echo $i ?></td>
-                                        <td><?php echo $row['accessoriesname'] ?></td>
-                                        <td><?php echo $row['petroleum_name'] ?></td>
-                                        <td><?php echo $row['businessname'] ?></td>
-                                        <td><?php echo $row['price'] ?></td>
+                                        <td><?php echo $row['firstname'] ?></td>
+                                        <td><?php echo $row['lastname'] ?></td>
+                                        <td><?php echo $row['phone'] ?></td>
+                                        <td><?php echo $row['email'] ?></td>
+                                        <td><?php echo $row['password']; ?></td>
+                                        <td><?php echo $row['gender'] ?></td>
+                                        <td><?php echo $row['dateofbirth']; ?></td>
                                         <td>
                                             <?php
                                             if ($row['status'] == 1) {
@@ -196,7 +191,7 @@ if (isset($_SESSION['id'])) {
                                             <div class="modal-dialog modal-sm">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Delete Accessories</h4>
+                                                        <h4 class="modal-title">Delete Users</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -213,12 +208,12 @@ if (isset($_SESSION['id'])) {
                                             </div>
 
                                         </div>
-                                        <!-- edit start -->
+                                        <!-- Edit start -->
                                         <div class="modal fade" id="editmodal-default<?php echo $row['id']; ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit Accessories</h4>
+                                                        <h4 class="modal-title">Edit User</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -228,56 +223,50 @@ if (isset($_SESSION['id'])) {
                                                             <div class="card-body">
 
                                                                 <div class="form-group">
-                                                                    <label for="exampleSelectBorder">Brand name</label>
-                                                                    <select class="custom-select" id="petroleum_name<?php echo $row['id']; ?>" name="petroleum_name">
-                                                                        <!-- <option>Select Your petroleum Name</option> -->
-                                                                        <?php
-                                                                        $vendor1 = pg_query($db, "SELECT * FROM petroleum WHERE status=1");
-                                                                        while ($row1 = pg_fetch_assoc($vendor1)) {
-                                                                        ?>
-                                                                            <option value="<?php echo $row1['id']; ?>" <?php if ($row1['id'] == $row['petroleumid']) echo "Selected"; ?>><?php echo $row1['petroleum_name']; ?></option>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
+                                                                    <label for="exampleInputEmail1">First Name</label>
+                                                                    <input type="text" class="form-control" id="firstname<?php echo $row['id']; ?>" placeholder="Enter First Name" name="firstname" value="<?php echo $row['firstname']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Last Name</label>
+                                                                    <input type="text" class="form-control" id="lastname<?php echo $row['id']; ?>" placeholder="Enter Last Name" name="lastname" value="<?php echo $row['lastname']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Gender</label>
+                                                                    <select class="custom-select" id="gender<?php echo $row['id']; ?>" name="gender">
+                                                                        <option>Gender</option>
+                                                                        <option value="Male" <?php if ($row['gender'] == "Male") echo "Selected" ?>>Male</option>
+                                                                        <option value="Female" <?php if ($row['gender'] == "Female") echo "Selected" ?>>Female</option>
                                                                     </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Date of Birth</label>
+                                                                    <input type="text" class="form-control" id="dateofbirth<?php echo $row['id']; ?>" placeholder="Enter Date of Birth" name="nationality" value="<?php echo $row['dateofbirth']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">Phone</label>
+                                                                    <input type="number" class="form-control" id="phone<?php echo $row['id']; ?>" placeholder="Enter Phone" name="phone" value="<?php echo $row['phone']; ?>">
 
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="exampleSelectBorder">Vendor Name</label>
-                                                                    <select class="custom-select" id="vendorname<?php echo $row['id']; ?>" name="vendorname">
-                                                                        <!-- <option>Select Your petroleum Name</option> -->
-                                                                        <?php
-                                                                        $vendor1 = pg_query($db, "SELECT * FROM vendors WHERE status=1");
-                                                                        while ($row1 = pg_fetch_assoc($vendor1)) {
-                                                                        ?>
-                                                                            <option value="<?php echo $row1['id']; ?>" <?php if ($row1['id'] == $row['vendorid']) echo "Selected"; ?>><?php echo $row1['businessname']; ?></option>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </select>
+                                                                    <label for="exampleInputEmail1">Email</label>
+                                                                    <input type="email" class="form-control" id="email<?php echo $row['id']; ?>" placeholder="Enter Email" name="email" value="<?php echo $row['email']; ?>">
 
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="exampleInputEmail1">Price</label>
-                                                                    <input type="text" class="form-control" id="price<?php echo $row['id']; ?>" placeholder="Enter Price" name="price" value="<?php echo $row['price']; ?>">
+                                                                    <label for="exampleInputEmail1">Password</label>
+                                                                    <input type="email" class="form-control" id="password<?php echo $row['id']; ?>" placeholder="Enter Password" name="password" value="<?php echo $row['password']; ?>">
+
                                                                 </div>
 
-                                                                <div class="col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleSelectBorder">Accessories Name</label>
-                                                                        <input type="text" class="form-control" id="accessoriesname<?php echo $row['id']; ?>" placeholder="Enter Accessories Name" name="accessoriesname" value="<?php echo $row['accessoriesname']; ?>">
-                                                                    </div>
+                                                                <div class="form-group">
+                                                                    <label for="exampleSelectBorder">Status</label>
+                                                                    <select class="custom-select" id="status<?php echo $row['id']; ?>" name="status">
+                                                                        <option>Status</option>
+                                                                        <option value="1" <?php if ($row['status'] == "1") echo "Selected" ?>>Active</option>
+                                                                        <option value="2" <?php if ($row['status'] == "2") echo "Selected" ?>>InActive</option>
+                                                                    </select>
                                                                 </div>
-                                                                <div class="col-sm-12">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleSelectBorder">Status</label>
-                                                                        <select class="custom-select" id="status<?php echo $row['id']; ?>" name="status">
-                                                                            <option>Status</option>
-                                                                            <option value="1" <?php if ($row['status'] == "1") echo "Selected" ?>>Active</option>
-                                                                            <option value="2" <?php if ($row['status'] == "2") echo "Selected" ?>>InActive</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+
                                                             </div>
 
                                                         </form>
@@ -296,7 +285,7 @@ if (isset($_SESSION['id'])) {
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">AccessoriesDetails</h4>
+                                                        <h4 class="modal-title">Details</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -306,51 +295,84 @@ if (isset($_SESSION['id'])) {
                                                             <div class="container-fluid">
                                                                 <div class="card-body">
                                                                     <div class="row">
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputEmail1">Accessories Name</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-8">
-                                                                            <div class="form-group">
-                                                                                <p class="text-sm"><?php echo $row['accessoriesname']; ?>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputEmail1">Brands</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-8">
-                                                                            <div class="form-group">
-                                                                                <p class="text-sm"><?php echo $row['petroleum_name']; ?>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputEmail1">Vendor Name</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-8">
-                                                                            <div class="form-group">
-                                                                                <p class="text-sm"><?php echo $row['businessname']; ?>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label for="exampleInputEmail1">price</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-8">
-                                                                            <div class="form-group">
-                                                                                <p class="text-sm"><?php echo $row['price']; ?>
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
 
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">First Name</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['firstname']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Last Name</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['lastname']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Phone</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['phone']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">email</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['email']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">password</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['password']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Gender</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['gender']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Date Of Birth</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <p class="text-sm"><?php echo $row['dateofbirth']; ?>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
                                                                         <div class="col-sm-4">
                                                                             <div class="form-group">
                                                                                 <label for="exampleInputEmail1">Status</label>
@@ -405,7 +427,9 @@ if (isset($_SESSION['id'])) {
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+
 <script src="plugins/toastr/toastr.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -426,111 +450,155 @@ if (isset($_SESSION['id'])) {
             "searching": false,
             "ordering": true,
             "info": true,
-            "autoWidth": true,
-            //"responsive": true,
+            "autoWidth": false,
+            // "responsive": true,
             "scroolX": true,
         });
     });
 </script>
-
-<script>
-    $(document).ready(function() {
-        $('#vendorname').on('change', function() {
-            var vendorname = this.value;
-            $.ajax({
-                url: "get_vendoradd_drop.php",
-                type: "POST",
-                data: {
-                    vendorname: vendorname
-                },
-                cache: false,
-                success: function(result) {
-
-                    $("#vendorbranch").html(result);
-                }
-            });
-        });
-        $('#vendorname' + id).on('change', function() {
-            var vendorname = this.value;
-            $.ajax({
-                url: "get_vendoradd_drop_edit.php",
-                type: "POST",
-                data: {
-                    vendorname: vendorname
-                },
-                cache: false,
-                success: function(result) {
-
-                    $("#vendorbranch" + id).html(result);
-                }
-            });
-        });
-
-    });
-</script>
 <script>
     function save() {
-        var accessoriesname = $("#accessoriesname").val();
-        var petroleumid = $("#products").val();
-        var vendorid = $("#vendorname").val();
-        var loginid = $("#loginid").val();
-        var price = $("#price").val();
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var gender = $("#gender").val();
+        var dateofbirth = $("#dateofbirth").val();
         var status = $("#status").val();
-        if (accessoriesname == "") {
-            alert("accessoriesname must be filled out");
+
+
+        if (firstname == "") {
+            alert("Name must be filled out");
             return false;
         }
-        if (petroleumid == "") {
-            alert("Brands must be filled out");
+        if (!/^[A-Za-z\s]+$/.test(firstname)) {
+            alert("Name must contains only alphabets");
             return false;
         }
-        if (vendorid == "") {
-            alert("Vendor Name must be filled out");
+        if (lastname == "") {
+            alert("LastName must be filled out");
             return false;
         }
-        if (price == "") {
-            alert("price  must be filled out");
+        if (!/^[A-Za-z\s]+$/.test(lastname)) {
+            alert("Name must contains only alphabets");
             return false;
         }
-        if (status == "") {
-            alert("status must be filled out");
+        if (phone == "") {
+            alert("Phone Number must be filled out");
             return false;
-        } else if (accessoriesname !== "" && petroleumid !== "" && vendorid !== "" && price !== "" && status !== "") {
+        }
+        if (phone.length > 10 || phone.length < 10) {
+            alert("Phone number must have 10 numbers");
+            return false;
+        }
+        if (email == "") {
+            alert("Email must be filled out");
+            return false;
+        }
+        if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(email)) {
+            alert("Invalid email");
+            return false;
+        }
+        if (password == "") {
+            alert("password must be filled out");
+            return false;
+        }
+        if (password.length < 8 || password.length > 15) {
+            alert("Password must contain min 8 and max 15 charcters");
+            return false;
+        }
+        if (!/^[A-Za-z]\w{7,14}$/.test(password)) {
+            alert("password between 7 to 16 characters which contain only characters, numeric digits, underscore and first character must be a letter");
+            return false;
+        }
+        if (gender == "Gender") {
+            alert("Gender must be filled out");
+            return false;
+        }
+        if (dateofbirth == "") {
+            alert("DOB be filled out");
+            return false;
+        } else if (status == "") {
+            alert("Status must be filled out");
+            return false;
+
+        } else if (firstname != "" && status != "" && phone !== "" && email !== "" && password !== "" && gender !== "" && dateofbirth !== "") {
+
             $.ajax({
-                url: "api/createaccessories.php",
+                url: "api/createuser.php",
                 method: "POST",
-                datatype: "text",
+                dataType: "text",
                 data: {
-                    "accessoriesname": accessoriesname,
-                    "petroleumid": petroleumid,
-                    "vendorid": vendorid,
-                    "loginid": loginid,
-                    "price": price,
+
+                    "firstname": firstname,
+                    "lastname": lastname,
+                    "phone": phone,
+                    "email": email,
+                    "password": password,
+                    "gender": gender,
+                    "dateofbirth": dateofbirth,
                     "status": status,
                 },
                 success: function(msg) {
                     console.log(msg);
                     var message = msg;
-                    if (message == "success") {
+                    if (message == "Success") {
+
                         success();
-                    } else if (message == "accessoriesname_already_existed") {
+                    } else if (message == "email_existed") {
 
-                        accessories_existed()
-
-
+                        email_existed();
                     } else {
                         error();
                     }
                 }
             })
         }
+
+
     }
-
-
     // function RefreshTable() {
 
     //      $( "#content" ).load( "index.php?pageid=1 #content" );
     //  }
+
+
+    function success() {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+        Toast.fire({
+            icon: 'success',
+            title: 'Registration Successfully.'
+        })
+        setTimeout(function() {
+
+            location.reload(true);
+        }, 1000);
+
+    }
+
+    function email_existed() {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+        Toast.fire({
+            icon: 'info',
+            title: 'Email already existed.'
+        })
+        setTimeout(function() {
+            //alert('Reloading Page');
+            location.reload(true);
+        }, 1000);
+        //window.location.reload();
+    }
 
     function error() {
         var Toast = Swal.mixin({
@@ -546,84 +614,55 @@ if (isset($_SESSION['id'])) {
 
     }
 
-    function success() {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000
-        });
-        Toast.fire({
-            icon: 'success',
-            title: 'Accessories Added Successfully.'
-        })
-        setTimeout(function() {
-
-            location.reload(true);
-        }, 1000);
-
-    }
-
-    function accessories_existed() {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 5000
-        });
-        Toast.fire({
-            icon: 'info',
-            title: 'Accessories already existed.'
-        })
-        setTimeout(function() {
-            //alert('Reloading Page');
-            location.reload(true);
-        }, 1000);
-        //window.location.reload();
-    }
-
     function editsave(id) {
-        var id = id;
-        var petroleumid = $("#petroleum_name" + id).val();
-        var vendorid = $("#vendorname" + id).val();
-        var accessoriesname = $("#accessoriesname" + id).val();
-        var price = $("#price" + id).val();
+        var firstname = $("#firstname" + id).val();
+        var lastname = $("#lastname" + id).val();
+        var phone = $("#phone" + id).val();
+        var email = $("#email" + id).val();
+        var gender = $("#gender" + id).val();
+        var dateofbirth = $("#dateofbirth" + id).val();
+        var password = $("#password" + id).val();
         var status = $("#status" + id).val();
-        if (accessoriesname == "") {
-            alert("accessoriesname must be filled out");
+        if (firstname == "") {
+            alert("Name must be filled out");
             return false;
         }
-        if (petroleumid == "") {
-            alert("Brands must be filled out");
+        if (phone == "") {
+            alert("Phone Number must be filled out");
             return false;
         }
-        if (vendorid == "") {
-            alert("Vendor Name must be filled out");
+        if (email == "") {
+            alert("Email must be filled out");
             return false;
         }
-        if (price == "") {
-            alert("price must be filled out");
+        if (gender == "Gender") {
+            alert("Gender must be filled out");
             return false;
         }
-        if (status == "") {
-            alert("status must be filled out");
+        if (dateofbirth == "") {
+            alert("DOB be filled out");
             return false;
-        } else if (accessoriesname !== "" && petroleumid !== "" && vendorid !== "" && price !== "" && status !== "") {
+        } else if (status == "Status") {
+            alert("Status must be filled out");
+            return false;
+        } else if (firstname != "" && status != "" && phone !== "" && email !== "" && gender !== "" && dateofbirth !== "") {
             $.ajax({
                 type: "GET",
-                url: "api/updateaccessoriesstock.php",
-                datatype: "text",
+                url: "api/updateuser.php",
                 data: {
                     "id": id,
-                    "petroleumid": petroleumid,
-                    "vendorid": vendorid,
-                    " price": price,
-                    "accessoriesname": accessoriesname,
+                    "firstname": firstname,
+                    "lastname": lastname,
+                    "phone": phone,
+                    "email": email,
+                    "gender": gender,
+                    "dateofbirth": dateofbirth,
                     "status": status,
+                    "password": password
                 },
                 success: function(msg) {
                     console.log(msg);
-                    var message = msg;
+                    var message = msg['message'];
                     if (message == "success") {
                         editsuccess();
                     } else {
@@ -632,6 +671,8 @@ if (isset($_SESSION['id'])) {
                 }
             })
         }
+
+
     }
 
     function editsuccess() {
@@ -643,7 +684,7 @@ if (isset($_SESSION['id'])) {
         });
         Toast.fire({
             icon: 'success',
-            title: 'Accessories Edited Successfully.'
+            title: 'User Edit Successfully.'
         })
         setTimeout(function() {
 
@@ -657,7 +698,7 @@ if (isset($_SESSION['id'])) {
         var deleteid = id;
         $.ajax({
             type: "POST",
-            url: "api/deleteaccessoriesstock.php",
+            url: "api/deleteuser.php",
             data: {
 
                 "deleteid": deleteid,
@@ -665,9 +706,9 @@ if (isset($_SESSION['id'])) {
             },
             success: function(msg) {
                 console.log(msg);
-                var message = msg;
+                var message = msg['message'];
 
-                if (message == "success") {
+                if (message == "Successfull") {
 
                     deletesuccess();
 
@@ -678,7 +719,6 @@ if (isset($_SESSION['id'])) {
             }
         })
     }
-
 
     function deletesuccess() {
         var Toast = Swal.mixin({

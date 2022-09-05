@@ -1,24 +1,22 @@
 <?php
+// header("Access-Control-Allow-Origin: *");
+// header('Content-Type: text/plain');
+// header("Content-Type: application/json; charset=UTF-8");
+// header("Access-Control-Allow-Methods: POST");
+// header("Access-Control-Max-Age: 3600");
+// header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
+if (isset($_POST['deleteid'])) {
+    $id = $_POST['deleteid'];
+    $sql = pg_query($db, "UPDATE ordermanagement SET status='-1' WHERE id=$id");
 
+    if ($sql) {
 
-if(isset($_REQUEST['deleteid']))
- { 
-    $id=$_REQUEST['deleteid'];
-      echo $id;
-      echo"UPDATE products SET status='-1' WHERE id=$id";
-	$sql=pg_query($db,"UPDATE products SET status='-1' WHERE id=$id");
-    
-	if($sql)
-	{    
-        echo "Successfull";
-	}else
-    {
-        
+        echo "success";
+    } else {
+
         echo "Error";
     }
- }
- else{
- 	    echo "error";
-     }
-?>
+} else {
+    echo "Error please check";
+}

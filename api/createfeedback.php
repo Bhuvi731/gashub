@@ -6,22 +6,27 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if(isset($_POST['userid']) && isset($_POST['orderid'])&& isset($_POST['vendorid']) && isset($_POST['petroleum_id'])){
 
-$userid=$_POST['userid'];
-$orderid=$_POST['orderid'];
-$vendorid=$_POST['vendorid'];
-$petroleum_id=$_POST['petroleum_id'];
 $vendorbranch=$_POST['vendorbranch'];
 $rating=$_POST['rating'];
-$title=$_POST['title'];
 $review=$_POST['review'];
-$status="1";
+$status=$_POST['status'];
 $createdby="1";
-if(!empty($userid) && !empty($orderid) && !empty($vendorid) && !empty($petroleum_id)&& !empty($vendorbranch) && !empty($rating) && !empty($review) &&
+if(!empty($vendorbranch) && !empty($rating) && !empty($review) &&
 !empty($status)){ 
- 
-    $sql=pg_query($db,"INSERT INTO feedbacks(userid,orderid,vendorid,petroleum_id,vendorbranch,rating,title,review,status,createdby)VALUES( '$userid','$orderid', '$vendorid','$petroleum_id','$vendorbranch','$rating','$title','$review','$status','$createdby')");
+
+    $vendorrow= pg_query($db,"select * from ordermanagement order by id desc");
+    $vendorarray=pg_fetch_array($vendorrow);
+    $orderid=$vendorarray['id'];
+
+    $cylindertyrow= pg_query($db,"select * from users order by id desc");
+    $cylindertyarray=pg_fetch_array($cylindertyrow);
+    $userid=$cylindertyarray['id'];
+
+    $weightrow= pg_query($db,"select * from vendors order by id desc");
+    $weightarray=pg_fetch_array($weightrow);
+    $vendorid=$weightarray['id'];
+    $sql=pg_query($db,"INSERT INTO feedbacks(orderid,userid,vendorid,vendorbranch,rating,review,status,createdby)VALUES( '$orderid', '$userid','$vendorid','$vendorbranch','$rating','$review','$status','$createdby')");
     if($sql)
     {
        
@@ -33,11 +38,10 @@ if(!empty($userid) && !empty($orderid) && !empty($vendorid) && !empty($petroleum
         http_response_code(503);        
         echo json_encode(array("message" => "Error"));
     }
-}}
+}
 else
 {
     http_response_code(400);    
     echo json_encode(array("message" => "Error Please Check."));
 }
-
 ?>

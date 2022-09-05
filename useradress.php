@@ -260,16 +260,38 @@
 
                                       <div class="col-sm-4">
                                         <div class="form-group">
-                                          <label for="exampleInputEmail1">Available Stock</label>
+                                          <label for="exampleInputEmail1">User Name</label>
                                         </div>
                                       </div>
                                       <div class="col-sm-8">
                                         <div class="form-group">
-                                          <p class="text-sm"><?php echo $row['availablestock']; ?>
+                                          <p class="text-sm"><?php echo $row['firstname']; ?>
                                           </p>
                                         </div>
                                       </div>
 
+                                      <div class="col-sm-4">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Address</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                        <div class="form-group">
+                                          <p class="text-sm"><?php echo $row['addressline1']; ?>
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-4">
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Pincode</label>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                        <div class="form-group">
+                                          <p class="text-sm"><?php echo $row['pincode']; ?>
+                                          </p>
+                                        </div>
+                                      </div>
                                       <div class="col-sm-4">
                                         <div class="form-group">
                                           <label for="exampleInputEmail1">Status</label>
@@ -454,7 +476,7 @@
     });
     Toast.fire({
       icon: 'info',
-      title: 'Email already existed.'
+      title: 'Useraddress already existed.'
     })
     setTimeout(function() {
       //alert('Reloading Page');

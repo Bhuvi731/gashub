@@ -6,12 +6,9 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-
-
 if(isset($_POST['cancelid']))
  { 
     $id = $_POST['cancelid'];
-
     $sql=pg_query($db,"UPDATE ordermanagement SET status='0' WHERE id='$id'");
     if($sql){
         $sql2=pg_query($db,"SELECT id,userid from ordermanagement where id='$id'");
@@ -51,4 +48,3 @@ if(isset($_POST['cancelid']))
                                        echo json_encode(array("message" => "Error"));
 
                                              }
-?>

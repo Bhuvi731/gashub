@@ -10,12 +10,14 @@ include_once '../database/db.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $petroleumid = $_GET['petroleumid'];
+    $vendorid = $_GET['vendorid'];
     $weight = $_GET['weight'];
+    $price = $_GET['price'];
     $status = $_GET['status'];
     $updatedby = "1";
-    $updatedat = "1";
-    if (isset($id) && isset($petroleumid) && isset($status)) {
-        $sql = "UPDATE cylinder SET petroleumid='$petroleumid',weight='$weight', status='$status',updatedby='$updatedby',updatedat='$updatedat' WHERE id='$id'";
+    $updatedat = date("d-m-Y");
+    if (isset($id) && isset($petroleumid) && isset($vendorid)  && isset($weight) && isset($price) && isset($status)) {
+        $sql = "UPDATE cylinder SET petroleumid='$petroleumid',vendorid='$vendorid',weight='$weight', price='$price',status='$status',updatedby='$updatedby',updatedat='$updatedat' WHERE id='$id'";
         $query = pg_query($db, $sql);
         if ($query) {
 

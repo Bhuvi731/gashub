@@ -10,11 +10,12 @@ if(isset($_GET['id']))
 {
 $id=$_GET['id'];
 $businessname=$_GET['businessname'];
+$password=$_GET['password'];
 $status="1";    
 $updatedby="1";
 $updatedat=date("d-m-y");                                                                                                                                                                                    
  if(isset($id) && isset($businessname) && isset($status)){
-    $sql = "UPDATE vendors SET businessname='$businessname',status='$status' WHERE id='$id'";
+    $sql = "UPDATE vendors SET businessname='$businessname',password='$password',status='$status' WHERE id='$id'";
     $query=pg_query($db,$sql);
     if($query)
     {
@@ -31,5 +32,3 @@ else
   echo "Error Please Check";
  }
 }
-
-?>

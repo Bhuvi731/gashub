@@ -6,24 +6,23 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-
-
 if(isset($_POST['deleteid']))
-{
-     $id = $_POST['deleteid'];
-	
-	$sql=pg_query($db,"UPDATE users SET status='-1' WHERE id='$id'");
+ { 
+    $id=$_POST['deleteid'];
+	$sql=pg_query($db,"UPDATE users SET status='-1' WHERE id=$id");
+    
 	if($sql)
-	{
-		http_response_code(201);         
-        echo json_encode(array("message" => "Successfull"));
+	{    
+        http_response_code(201);
+        echo json_encode(array("message"=>"Successfull"));
 	}else
     {
-        http_response_code(503);        
-        echo json_encode(array("message" => "Error"));
+        http_response_code(503);
+        echo json_encode(array("message"=>"Error"));
     }
-}
-else{
-	echo json_encode(array("message" => "error"));
-}
+ }
+ else{
+    http_response_code(503);
+    echo json_encode(array("message"=>"Error please check"));
+     }
 ?>

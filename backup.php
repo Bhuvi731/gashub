@@ -32,16 +32,14 @@ if (isset($_SESSION['id'])) {
     <?php
     include_once 'database/db.php';
     if (isset($_POST['submit'])) {
-        $id = $_GET['id'];
         $fileName = $_FILES['file']['name'];
         $tmpName = $_FILES['file']['tmp_name'];
+        $UploadDir = 'uploads/cylinderimage/';
         $filePath = $UploadDir . $fileName;
         $status = '1';
         $result = move_uploaded_file($tmpName, $filePath);
         if ($result) {
-            //$sql = "INSERT INTO cylinderstock(cylinderimg,status) VALUES('$fileName','$status')";//
-            $sql = "UPDATE cylinderstock SET cylinderimg='$fileName' WHERE id='$id'";
-            echo "UPDATE cylinderstock SET cylinderimg='$fileName' WHERE id='$id'";
+            $sql = "INSERT INTO cylinderstock(cylinderimg,status) VALUES('$fileName','$status')";
             $query = pg_query($db, $sql);
             if ($query) {
                 $err = "Uploaded Successfully";
@@ -76,7 +74,7 @@ if (isset($_SESSION['id'])) {
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form method="POST" action="" name="imgfrm" enctype="multipart/form-data">
                                     <div class="container-fluid">
                                         <div class="card-body">
                                             <div class="row">
@@ -120,6 +118,9 @@ if (isset($_SESSION['id'])) {
                                                 </div>
 
                                             </div>
+
+
+
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
@@ -196,7 +197,6 @@ if (isset($_SESSION['id'])) {
                                         <th>Price</th>
                                         <th>Availablestock</th>
                                         <th>Cylinder Image</th>
-                                        <!-- <th>Images</th> -->
                                         <th>status</th>
                                         <th>createdby</th>
                                         <th>Action</th>
@@ -204,7 +204,7 @@ if (isset($_SESSION['id'])) {
                                 </thead>
                                 <tbody id="myTable">
                                     <?php
-                                    $vendor = pg_query($db, "SELECT cylinderstock.id,petroleum.petroleum_name,cylinderstock.petroleumid,cylinderstock.vendorid,vendors.businessname,cylinderstock.weight,cylinderstock.price,cylinderstock.quantity,cylinderstock.status,cylinderstock.createdby,cylinderimg FROM cylinderstock left join petroleum on petroleum.id=cylinderstock.petroleumid left join vendors on vendors.id=cylinderstock.vendorid  WHERE cylinderstock.status=1");
+                                    $vendor = pg_query($db, "SELECT cylinderstock.id,petroleum.petroleum_name,cylinderstock.petroleumid,cylinderstock.vendorid,vendors.businessname,cylinderstock.weight,cylinderstock.price,cylinderstock.quantity,cylinderstock.status,cylinderstock.createdby FROM cylinderstock left join petroleum on petroleum.id=cylinderstock.petroleumid left join vendors on vendors.id=cylinderstock.vendorid  WHERE cylinderstock.status=1");
                                     $i = 1;
                                     while ($row = pg_fetch_assoc($vendor)) {
                                     ?>
@@ -215,28 +215,15 @@ if (isset($_SESSION['id'])) {
                                             <td><?php echo $row['weight'] ?></td>
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['quantity'] ?></td>
+                                            <td><?php echo $row['cylinderimg'] ?></td>
                                             <td>
                                                 <?php
-                                                if ($row['cylinderimg'] == "") {
-                                                ?>
-
-                                                    <div id="content">
-                                                        <form method="POST" action="" name="imgfrm" enctype="multipart/form-data">
-                                                            <input type="file" name="file" value="" />
-                                                            <div>
-                                                                <button type="submit" name="submit" onClick="return onSubmitForm()">UPLOAD</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                <?php
+                                                if ($row['cylinderimg'] == 0) {
+                                                    echo "Active";
                                                 } else {
-                                                ?>
-                                                    <?php echo $row['cylinderimg'] ?>
-                                                <?php
+                                                    echo "InActive";
                                                 }
-                                                ?>
-                                            </td>
-                                            <!-- <td><?php echo '<a href="uploads/cylinderimage/' . $image . '"><img src="uploads/cylinderimage/' . $image . '"/></a>'; ?></td> -->
+                                                ?></td>
                                             <td>
                                                 <?php
                                                 if ($row['status'] == 1) {
@@ -249,7 +236,24 @@ if (isset($_SESSION['id'])) {
                                                 if ($row['createdby'] == 1) {
                                                     echo "Admin";
                                                 } ?></td>
-
+                                            <td>
+                                                <?php
+                                                if ($row['cylinderimg'] == 0) {
+                                                ?>
+                                                    <div><input type="file" name="file" value="" /> </div><br>
+                                                    <div>
+                                                        <button type="submit" name="submit">UPLOAD</button>
+                                                    </div>
+                                                    <!-- <div><button type="button" class="btn btn-danger" onclick="cancelorder(<?php echo $row['id']; ?>)">CANCEL</button></div> -->
+                                                <?php
+                                                } else if ($row['cylinderimg'] == 1) {
+                                                ?>
+                                                    <b>confirmed</b>
+                                                
+                                                <?php
+                                                }
+                                                ?>
+                                            </td>
                                             <td><a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#viewmodal-default<?php echo $row['id']; ?>"><i class="nav-icon fas fa-eye"></i></a>
                                                 <a style="margin-right: 10px;cursor:pointer" data-toggle="modal" data-target="#editmodal-default<?php echo $row['id']; ?>"><i class="nav-icon fas fa-edit"></i></a>
                                                 <a style="cursor:pointer" data-toggle="modal" data-target="#deletemodal-sm<?php echo $row['id']; ?>"><i class="nav-icon fas fa-trash"></i></a>
@@ -460,7 +464,6 @@ if (isset($_SESSION['id'])) {
                     <?php
                                         $i++;
                                     }
-
                     ?>
 
 

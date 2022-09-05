@@ -33,5 +33,3 @@ else
   echo "Error Please Check";
  }
 }
-
-?>

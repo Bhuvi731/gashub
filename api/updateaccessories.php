@@ -6,30 +6,28 @@
 // header("Access-Control-Max-Age: 3600");
 // header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
-if(isset($_GET['id']))
-{
-$id=$_GET['id'];
-$accessoriesname=$_GET['accessoriesname'];
-$status="1";    
-$updatedby="1";
-$updatedat=date("d-m-y");                                                                                                                                                                                    
- if(isset($id) && isset($accessoriesname) && isset($status)){
-    $sql = "UPDATE accessories SET accessoriesname='$accessoriesname',status='$status',updatedby='$updatedby',updatedat='$updatedat' WHERE id='$id'";
-    $query=pg_query($db,$sql);
-    if($query)
-    {
-      
-                 
-        echo  "success";
-    }else
-    {
-              
-        echo "Error";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $petroleumid = $_GET['petroleumid'];
+    $vendorid = $_GET['vendorid'];
+    $accessoriesname = $_GET['accessoriesname'];
+    $price = $_GET['price'];
+    $status = "1";
+    $updatedby = "1";
+    $updatedat = date("d-m-y");
+    if (isset($id) && isset($petroleumid) && isset($vendorid) && isset($status)) {
+        $sql = "UPDATE accessories SET accessoriesname='$accessoriesname',petroleumid='$petroleumid',vendorid='$vendorid',status='$status',price='$price',updatedby='$updatedby',updatedat='$updatedat' WHERE id='$id'";
+        $query = pg_query($db, $sql);
+        if ($query) {
+
+
+            echo  "success";
+        } else {
+
+            echo "Error";
+        }
     }
-}
-}
-else
-{
-      
+} else {
+
     echo "Error Please Check";
 }

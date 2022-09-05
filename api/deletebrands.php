@@ -24,4 +24,3 @@ if(isset($_POST['deleteid']))
  else{
    echo "Error please check";
      }
-?>

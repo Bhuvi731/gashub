@@ -227,18 +227,19 @@ require('database/db.php');
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form onkeyup="return validation()">
+                            <form>
                               <span id="myspan" style="color:red;"></span>
                               <div class="card-body">
 
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">First Name</label>
-                                  <input type="text" class="form-control" id="firstname<?php echo $row['id']; ?>" placeholder="Enter First Name" name="firstname" value="<?php echo $row['firstname']; ?>">
-
+                                  <input type="text" class="form-control" id="firstname<?php echo $row['id']; ?>" placeholder="Enter First Name" name="firstname" value="<?php echo $row['firstname']; ?>"onchange="validate()">
+                                  <div id="div1"></div> <br>
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Last Name</label>
-                                  <input type="text" class="form-control" id="lastname<?php echo $row['id']; ?>" placeholder="Enter Last Name" name="lastname" value="<?php echo $row['lastname']; ?>">
+                                  <input type="text" class="form-control" id="lastname<?php echo $row['id']; ?>" placeholder="Enter Last Name" name="lastname" value="<?php echo $row['lastname']; ?>"onchange="validate()">
+                                  <div id="div1"></div> <br>
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Gender</label>
@@ -254,18 +255,18 @@ require('database/db.php');
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Phone</label>
-                                  <input type="number" class="form-control" id="phone<?php echo $row['id']; ?>" placeholder="Enter Phone" name="phone" value="<?php echo $row['phone']; ?>">
-
+                                  <input type="number" class="form-control" id="phone<?php echo $row['id']; ?>" placeholder="Enter Phone" name="phone" value="<?php echo $row['phone']; ?>"pattern="[1-9]{1}[0-9]{9}" maxlength="10" onchange="validate()">
+                                  <div id="div3"></div> <br>
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Email</label>
-                                  <input type="email" class="form-control" id="email<?php echo $row['id']; ?>" placeholder="Enter Email" name="email" value="<?php echo $row['email']; ?>">
-
+                                  <input type="email" class="form-control" id="email<?php echo $row['id']; ?>" placeholder="Enter Email" name="email" value="<?php echo $row['email']; ?>"onchange="validate()">
+                                  <div id="div4"></div> <br>
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleInputEmail1">Password</label>
-                                  <input type="email" class="form-control" id="password<?php echo $row['id']; ?>" placeholder="Enter Password" name="password" value="<?php echo $row['password']; ?>">
-
+                                  <input type="email" class="form-control" id="password<?php echo $row['id']; ?>" placeholder="Enter Password" name="password" value="<?php echo $row['password']; ?>"onchange="validate()">
+                                  <div id="div5"></div> <br>
                                 </div>
 
                                 <div class="form-group">

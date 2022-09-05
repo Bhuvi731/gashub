@@ -11,7 +11,8 @@ if(isset($_POST['id']))
   $userid=$_POST['id'];
   $deliveryaddressid=$_POST['deliveryaddressid'];
   $vendorid=$_POST['vendorid'];
-  $productid=$_POST['productid'];
+  $accessoriesid=$_POST['accessoriesid'];
+  $cylinderid=$_POST['cylinderid'];
   $deliverydate=$_POST['deldate'];
   $refiltype=$_POST['refiltype'];
   $addresstype=$_POST['addresstype'];
@@ -23,11 +24,11 @@ if(isset($_POST['id']))
   $createdat = date("y-m-d");
   $status=$_POST['status'];
 
-if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) &&!empty($vendorid) && !empty($refiltype) && !empty($quantity) &&  
+if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($accessoriesid)&&!empty($cylinderid) &&!empty($vendorid) && !empty($refiltype) && !empty($quantity) &&  
   !empty($addresstype)){
 
   if($addresstype==1){
-     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype,businessimg,expdate)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype','$businessimg','$expdate')");
+     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,accessoriesid,cylinderid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype,businessimg,expdate)VALUES('$userid','$deliveryaddressid','$vendorid','$accessoriesid','$cylinderid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype','$businessimg','$expdate')");
      if($sql){
        
         http_response_code(201);         
@@ -39,7 +40,7 @@ if(!empty($userid) &&!empty($deliveryaddressid) &&!empty($productid) &&!empty($v
 
   }else{
 
-     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,productid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype)VALUES('$userid','$deliveryaddressid','$vendorid','$productid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype')");
+     $sql=pg_query($db,"INSERT INTO ordermanagement(userid,deliveryaddressid,vendorid,accessoriesid,cylinderid,deldate,quantity,status,cylinderimg,createdby,createdat,refiltype,addresstype)VALUES('$userid','$deliveryaddressid','$vendorid','$accessoriesid','$cylinderid','$deliverydate','$quantity','$status','$cylinderimg','$createdby','$createdat','$refiltype','$addresstype')");
 
     if($sql){
        
