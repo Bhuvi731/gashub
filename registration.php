@@ -165,7 +165,6 @@ require('database/db.php');
                 <?php
 
                 $user = pg_query($db, "SELECT id,firstname,lastname,phone,email,gender,dateofbirth,status,createdby,createdat,updatedat,updatedby,password FROM users WHERE status=1");
-                echo "SELECT id,firstname,lastname,phone,email,gender,dateofbirth,status,createdby,createdat,updatedat,updatedby,password FROM users WHERE status=1";
                 $i = 1;
                 while ($row = pg_fetch_assoc($user)) {
                 ?>

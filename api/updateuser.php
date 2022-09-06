@@ -43,4 +43,3 @@ else
     echo json_encode(array("message" => "Error Please Check."));
 }
 }
-?>
