@@ -512,7 +512,7 @@ require('database/db.php');
     } else if (firstname != "" && status != "" && phone !== "" && email !== "" && password !== "" && gender !== "" && dateofbirth !== "") {
 
       $.ajax({
-        url: "api/createuser.php",
+        url: "api/createuser1.php",
         method: "POST",
         dataType: "text",
         data: {
