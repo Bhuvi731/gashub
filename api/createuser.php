@@ -7,13 +7,12 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 include_once '../database/db.php';
 $firstname = $_POST['firstname'];
-echo $firstname;
-echo $lastname = $_POST['lastname'];
-echo $phone = $_POST['phone'];
-echo $email = $_POST['email'];
-echo $password = $_POST['password'];
-echo $gender = $_POST['gender'];
-echo $dateofbirth = $_POST['dateofbirth'];
+$lastname = $_POST['lastname'];
+$phone = $_POST['phone'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$gender = $_POST['gender'];
+$dateofbirth = $_POST['dateofbirth'];
 $status = "1";
 $createdby = "1";
 if (
@@ -28,6 +27,7 @@ if (
     echo "email_existed";
   } else {
     $sql = "INSERT INTO users(firstname,lastname,phone,email,gender,dateofbirth,status,createdby,password)VALUES('$firstname','$lastname','$phone','$email','$gender','$dateofbirth','$status','$createdby','$password')RETURNING id";
+    echo $sql;
     $query = pg_query($db, $sql);
     if ($query) {
       http_response_code(201);
