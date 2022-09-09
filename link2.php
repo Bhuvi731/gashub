@@ -57,7 +57,7 @@
         }
         ?>
         <?php
-        if ($_GET['pageid'] == 15 || $_GET['pageid'] == 16) {
+        if ($_GET['pageid'] == 22 || $_GET['pageid'] == 23) {
         ?>
             <li class="nav-item menu-open">
                 <a href="#" class="nav-link active">
@@ -69,13 +69,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <?php
-                    if ($_GET['pageid'] == 15) {
+                    if ($_GET['pageid'] == 22) {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=15" class="nav-link active">
+                            <a href="index.php?pageid=22" class="nav-link active">
                                 <i class="nav-icon fas fa-coins"></i>
                                 <p>
-                                    Cylinder Stock
+                                    cylinderstock
                                 </p>
                             </a>
                         </li>
@@ -83,22 +83,22 @@
                     } else {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=15" class="nav-link">
+                            <a href="index.php?pageid=22" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Cylinder Stock
+                                    cylinderstock
                                 </p>
                             </a>
                         </li>
                     <?php
                     }
-                    if ($_GET['pageid'] == 16) {
+                    if ($_GET['pageid'] == 23) {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=16" class="nav-link active">
+                            <a href="index.php?pageid=23" class="nav-link active">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Accessories Stock
+                                    accessoriesstock
                                 </p>
                             </a>
                         </li>
@@ -106,10 +106,10 @@
                     } else {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=16" class="nav-link">
+                            <a href="index.php?pageid=23" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Accessories Stock
+                                    accessoriesstock
                                 </p>
                             </a>
                         </li>
@@ -131,13 +131,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <?php
-                    if ($_GET['pageid'] == 15) {
+                    if ($_GET['pageid'] == 22) {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=15" class="nav-link active">
+                            <a href="index.php?pageid=22" class="nav-link active">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Cylinder Stock
+                                    cylinderstock
                                 </p>
                             </a>
                         </li>
@@ -145,22 +145,22 @@
                     } else {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=15" class="nav-link">
+                            <a href="index.php?pageid=22" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Cylinder Stock
+                                    cylinderstock
                                 </p>
                             </a>
                         </li>
                     <?php
                     }
-                    if ($_GET['pageid'] == 16) {
+                    if ($_GET['pageid'] == 23) {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=16" class="nav-link active">
+                            <a href="index.php?pageid=23" class="nav-link active">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Accessories Stock
+                                    accessoriesstock
                                 </p>
                             </a>
                         </li>
@@ -168,21 +168,19 @@
                     } else {
                     ?>
                         <li class="nav-item">
-                            <a href="index.php?pageid=16" class="nav-link">
+                            <a href="index.php?pageid=23" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Accessories Stock
+                                    accessoriesstock
                                 </p>
                             </a>
                         </li>
                     <?php
                     }
                     ?>
+
                 </ul>
             </li>
-        <?php
-        }
-        ?>
             <?php
             if ($_GET['pageid'] == 26) {
             ?>
