@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" href="assets/datatables-bs4/css/dataTables.bootstrap4.min.css">
