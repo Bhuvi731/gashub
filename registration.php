@@ -623,18 +623,14 @@ require('database/db.php');
       alert("Phone Number must be filled out");
       return false;
     }
-
     if (email == "") {
       alert("Email must be filled out");
       return false;
     }
-
     if (password == "") {
       alert("password must be filled out");
       return false;
     }
-
-
     if (gender == "Gender") {
       alert("Gender must be filled out");
       return false;
