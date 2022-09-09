@@ -181,11 +181,6 @@
 
                 </ul>
             </li>
-            </ul>
-            </li>
-        <?php
-        }
-        ?>
             <?php
             if ($_GET['pageid'] == 26) {
             ?>
