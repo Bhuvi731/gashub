@@ -57,6 +57,7 @@
     $result = move_uploaded_file($tmpName, $filePath);
     if ($result) {
       $sql = "INSERT INTO banner_images(images,status) VALUES('$fileName','$status')";
+      echo "INSERT INTO banner_images(images,status) VALUES('$fileName','$status')";
       $query = pg_query($db, $sql);
       if ($query) {
         $err = "Uploaded Successfully";
