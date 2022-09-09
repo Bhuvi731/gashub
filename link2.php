@@ -166,21 +166,23 @@
                         </li>
                     <?php
                     } else {
-                    ?>
-                        <li class="nav-item">
-                            <a href="index.php?pageid=23" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    accessoriesstock
-                                </p>
-                            </a>
-                        </li>
-                    <?php
-                    }
-                    ?>
-
-                </ul>
-            </li>
+                        ?>
+                            <li class="nav-item">
+                                <a href="index.php?pageid=16" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        Accessories Stock
+                                    </p>
+                                </a>
+                            </li>
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                </li>
+            <?php
+            }
+            ?>
             <?php
             if ($_GET['pageid'] == 26) {
             ?>
